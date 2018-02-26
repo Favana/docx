@@ -48,38 +48,45 @@ var docx = (function () {
         this.globalP;
     }; // Method createP
     docx.prototype.addContentP = function (text, style) {
-        var styleDefault = {
+        var defaultStyle = {
             fontFamily: 'B Nazanin',
             fontSize: 20,
-            colorFont: 'White',
+            fontColor: 'White',
             bold: 'true',
             direction: 'rtl',
             align: 'right',
             backgroundFont: 'black'
         };
-        var arrStyle = [];
-        arrStyle.push(styleDefault);
-        var checkStyle = _.find(arrStyle, 'bold');
-        var valueBold = checkStyle.bold;
-        var valueAlign = checkStyle.align;
-        valueAlign;
+        var valueBold = defaultStyle.bold;
+        var valueAlign = defaultStyle.align;
+        if (style != null) {
+            var keysDefualtStyle = Object.keys(defaultStyle);
+            for (var i = 0; i < keysDefualtStyle.length; i++) {
+                if (style[keysDefualtStyle[i]] != undefined) {
+                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+                }
+            }
+        }
+        else {
+            defaultStyle;
+        }
         var objP = this.globalP;
         var last = _.lastIndexOf(this.globalP['w:body']);
         var counterP = last - 1;
         var xmlStyle = {
             'w:r': [
                 { 'w:rPr': [
-                        { 'w:rFonts': '', attr: { 'w:cs': styleDefault.fontFamily, 'w:hint': 'cs' } },
-                        { 'w:color': '', attr: { 'w:val': styleDefault.colorFont } },
-                        { 'w:szCs': '', attr: { 'w:val': 2 * (styleDefault.fontSize) } },
+                        { 'w:rFonts': '', attr: { 'w:cs': defaultStyle.fontFamily, 'w:hint': 'cs' } },
+                        { 'w:color': '', attr: { 'w:val': defaultStyle.fontColor } },
+                        { 'w:szCs': '', attr: { 'w:val': 2 * (defaultStyle.fontSize) } },
                         { 'w:b': '' },
-                        { 'w:highlight': '', attr: { 'w:val': styleDefault.backgroundFont } }
+                        { 'w:highlight': '', attr: { 'w:val': defaultStyle.backgroundFont } }
                     ] },
                 { 'w:t': text }
             ]
         };
         /*****  add direction  *****/
-        var valueDir = checkStyle.direction;
+        var valueDir = defaultStyle.direction;
         var direction = {};
         direction['w:' + valueDir] = '';
         xmlStyle['w:r'][0]['w:rPr'].push(direction);
@@ -159,9 +166,23 @@ var docx = (function () {
 }()); // class docx
 var objDocx = new docx('test.docx', 'outpotProject/');
 objDocx.createP();
-objDocx.addContentP('میلاد');
+objDocx.addContentP('میلاد', { fontFamily: 'B Elham' });
+//objDocx.addContentP('میلاد');
 objDocx.createP();
 objDocx.addContentP('فلاح');
 var out = objDocx.generate();
 console.log(out);
+/****
+@ObjectStyleDefault
+
+{
+    fontFamily : 'B Nazanin',
+    fontSize : 20,
+    colorFont : 'White',
+    bold: 'true',
+    direction :'rtl',
+    align : 'right',
+    backgroundFont: 'black'
+}
+ *****/ 
 //# sourceMappingURL=Docx.js.map

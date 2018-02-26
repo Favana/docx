@@ -59,21 +59,32 @@ class docx {
 
 
     addContentP( text?:any, style?:any){
-        let styleDefault = {
+
+        let defaultStyle = {
             fontFamily : 'B Nazanin',
             fontSize : 20,
-            colorFont : 'White',
+            fontColor : 'White',
             bold: 'true',
             direction :'rtl',
             align : 'right',
             backgroundFont: 'black'
         };
-        let arrStyle = [];
-        arrStyle.push(styleDefault);
-        let checkStyle = _.find(arrStyle, 'bold');
-        let valueBold = checkStyle.bold;
-        let valueAlign = checkStyle.align;
-        valueAlign;
+        let valueBold = defaultStyle.bold;
+        let valueAlign = defaultStyle.align;
+
+        if(style != null){
+            let keysDefualtStyle = Object.keys(defaultStyle);
+            for(let i=0; i<keysDefualtStyle.length; i++){
+                if(style[keysDefualtStyle[i]] != undefined){
+                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+
+                }
+
+            }
+        }else{
+            defaultStyle;
+        }
+
 
         let objP = this.globalP;
         let last = _.lastIndexOf(this.globalP['w:body']);
@@ -82,18 +93,18 @@ class docx {
          let xmlStyle = {
              'w:r':[
                  { 'w:rPr':[
-                     {'w:rFonts':'', attr:{'w:cs':styleDefault.fontFamily,'w:hint':'cs'}},
-                     {'w:color':'', attr:{'w:val':styleDefault.colorFont}},
-                     {'w:szCs':'', attr:{'w:val':2*(styleDefault.fontSize)}},
+                     {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
+                     {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
+                     {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
                      {'w:b':''},
-                     {'w:highlight':'', attr:{'w:val':styleDefault.backgroundFont}}
+                     {'w:highlight':'', attr:{'w:val':defaultStyle.backgroundFont}}
                  ]},
                  {'w:t':text}
              ]
          };
 
          /*****  add direction  *****/
-         let valueDir = checkStyle.direction;
+         let valueDir = defaultStyle.direction;
          let direction = {};
          direction['w:'+valueDir] = '';
          xmlStyle['w:r'][0]['w:rPr'].push(direction);
@@ -185,8 +196,23 @@ class docx {
 
 let objDocx = new docx('test.docx','outpotProject/');
 objDocx.createP();
-objDocx.addContentP('میلاد');
+objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
+//objDocx.addContentP('میلاد');
 objDocx.createP();
 objDocx.addContentP('فلاح');
 let out  = objDocx.generate();
 console.log(out);
+
+/****
+@ObjectStyleDefault
+
+{
+    fontFamily : 'B Nazanin',
+    fontSize : 20,
+    colorFont : 'White',
+    bold: 'true',
+    direction :'rtl',
+    align : 'right',
+    backgroundFont: 'black'
+}
+ *****/
