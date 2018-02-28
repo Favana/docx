@@ -1,30 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var _ = require('lodash');
-describe('testAll', function () {
-    it('objectTest', function (done) {
-        var styleOrginal = {
-            fontFamily: 'B Nazanin',
-            fontSize: '11',
-            color: 'red',
-            bold: false,
-            direction: 'rtl',
-            align: 'right',
-            background: 'blue'
-        };
-        var user = {
-            fontFamily: 'B Elham',
-            fontColor: 'red'
-        };
-        var arrKeyStyle = Object.keys(styleOrginal);
-        for (var i = 0; i < arrKeyStyle.length; i++) {
-            if (user[arrKeyStyle[i]] != undefined) {
-                styleOrginal[arrKeyStyle[i]] = user[arrKeyStyle[i]];
-                styleOrginal;
-            }
-        }
-        console.log(styleOrginal);
-        done();
-    }); // it
-}); //  describe
+var fs_1 = require("fs");
+var officegen = require('officegen');
+describe('testOfficegen', function () {
+    var fileName = 'test.docx';
+    var filePath = 'outpotProject/';
+    it('docx', function (done) {
+        var docx = officegen('docx');
+        // let objP =  docx.createP();
+        // objP.addText()
+        docx.addText('milad');
+        var out = fs_1.createWriteStream(fileName + fileName);
+        docx.generate(out);
+    });
+});
 //# sourceMappingURL=testObject.js.map

@@ -5,7 +5,8 @@ var fs_1 = require("fs");
 var _ = require('lodash');
 var json2xml = require('json2xml');
 var docx = (function () {
-    function docx(fileName, dirFile) {
+    //
+    function docx(fileName, filePath) {
         this.sourceData = [
             { name: '_rels\\.rels',
                 data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>' },
@@ -35,17 +36,16 @@ var docx = (function () {
         this.stringData = " ";
         this.infoFile = " ";
         this.globalP = { 'w:body': [] };
-        this.infoFile = dirFile + fileName;
+        this.infoFile = filePath + fileName;
         return this.infoFile;
-    } // constructor
+    }
     docx.prototype.createP = function () {
-        this.globalP;
-        this.globalP['w:body'].push({ 'w:p': [
+        var globalP = this.globalP;
+        globalP['w:body'].push({ 'w:p': [
                 { 'w:pPr': [
                         { 'w:bidi': '' },
                     ] }
             ] });
-        this.globalP;
     }; // Method createP
     docx.prototype.addContentP = function (text, style) {
         var defaultStyle = {
@@ -167,7 +167,6 @@ var docx = (function () {
 var objDocx = new docx('test.docx', 'outpotProject/');
 objDocx.createP();
 objDocx.addContentP('میلاد', { fontFamily: 'B Elham' });
-//objDocx.addContentP('میلاد');
 objDocx.createP();
 objDocx.addContentP('فلاح');
 var out = objDocx.generate();

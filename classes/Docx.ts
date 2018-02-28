@@ -6,9 +6,9 @@ let json2xml = require('json2xml');
 
 
 
-class docx {
+ class  docx{
 
-    private sourceData:any  = [
+     sourceData:any  = [
         { name: '_rels\\.rels',
             data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>' },
         { name: 'docProps\\core.xml',
@@ -34,31 +34,31 @@ class docx {
         { name: 'word\\_rels\\document.xml.rels',
             data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/webSettings" Target="webSettings.xml"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/><Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/><Relationship Id="rId6" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/></Relationships>' }
     ];
-
-    private stringData:any = " ";
+    private  stringData:any = " ";
     private infoFile:any = " ";
     private  globalP :any = {'w:body':[]};
 
-
-    constructor(fileName:any,dirFile:any){
-        this.infoFile = dirFile+fileName;
+//
+    constructor(fileName:any, filePath:any){
+        this.infoFile = filePath+fileName;
         return this.infoFile;
-    }// constructor
+    }
 
 
     createP(){
-        this.globalP;
-        this.globalP['w:body'].push({'w:p':[
+       let globalP = this.globalP;
+        globalP['w:body'].push({'w:p':[
             {'w:pPr':[
                 {'w:bidi':''},
             ]}
         ]});
-        this.globalP;
 
     }// Method createP
 
 
-    addContentP( text?:any, style?:any){
+
+
+     addContentP(text?:any, style?:any ){
 
         let defaultStyle = {
             fontFamily : 'B Nazanin',
@@ -150,13 +150,16 @@ class docx {
     }// Method addContentP
 
 
+
+
+
     createTable(){
         let table = {'w:tbl':[{}]}
         return table;
     }// Method createTable
 
 
-    addSourceData(){
+     addSourceData(){
         let sourceData = this.sourceData;
         let content  = this.addContentP();
         this.stringData +=content;
@@ -195,12 +198,11 @@ class docx {
 
 
 let objDocx = new docx('test.docx','outpotProject/');
-objDocx.createP();
+ objDocx.createP();
 objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
-//objDocx.addContentP('میلاد');
 objDocx.createP();
 objDocx.addContentP('فلاح');
-let out  = objDocx.generate();
+let out = objDocx.generate();
 console.log(out);
 
 /****

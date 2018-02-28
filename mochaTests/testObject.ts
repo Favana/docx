@@ -1,43 +1,19 @@
 import {} from 'mocha';
-import {isUndefined} from "util";
-let _ = require('lodash');
-
-describe('testAll', function(){
-
-    it('objectTest', function(done){
-        let  styleOrginal= {
-            fontFamily:'B Nazanin',
-            fontSize : '11',
-            color:'red',
-            bold: false,
-            direction: 'rtl',
-            align : 'right',
-            background: 'blue'
-        };
-
-     let user = {
-        fontFamily : 'B Elham',
-         fontColor: 'red'
-     };
-
-     let arrKeyStyle = Object.keys(styleOrginal);
+import {createWriteStream} from 'fs'
+let officegen = require('officegen');
 
 
-       for(let i=0; i<arrKeyStyle.length; i++){
-           if(user[arrKeyStyle[i]] != undefined){
-               styleOrginal[arrKeyStyle[i]] = user[arrKeyStyle[i]];
-               styleOrginal;
-           }
+describe('testOfficegen', function(){
+    let fileName = 'test.docx';
+    let filePath = 'outpotProject/'
+    it('docx', function(done){
+        let docx = officegen('docx');
+        // let objP =  docx.createP();
+        // objP.addText()
+        docx.addText('milad');
+        let out = createWriteStream(fileName+fileName);
+        docx.generate(out)
+    });
 
-       }
 
-
-
-    console.log(styleOrginal);
-
-
-
-     done()
-    });// it
-
-});//  describe
+});
