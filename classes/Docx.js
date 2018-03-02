@@ -36,6 +36,8 @@ var docx = (function () {
         this.stringData = " ";
         this.infoFile = " ";
         this.globalP = { 'w:body': [] };
+        this.counterAdd = 0;
+        this.counterP = ' ';
         this.infoFile = filePath + fileName;
         return this.infoFile;
     }
@@ -46,87 +48,96 @@ var docx = (function () {
                         { 'w:bidi': '' },
                     ] }
             ] });
+        var newLenghtP = this.globalP['w:body'].length;
+        this.counterP = newLenghtP;
     }; // Method createP
     docx.prototype.addContentP = function (text, style) {
-        var defaultStyle = {
-            fontFamily: 'B Nazanin',
-            fontSize: 20,
-            fontColor: 'White',
-            bold: 'true',
-            direction: 'rtl',
-            align: 'right',
-            backgroundFont: 'black'
-        };
-        var valueBold = defaultStyle.bold;
-        var valueAlign = defaultStyle.align;
-        if (style != null) {
-            var keysDefualtStyle = Object.keys(defaultStyle);
-            for (var i = 0; i < keysDefualtStyle.length; i++) {
-                if (style[keysDefualtStyle[i]] != undefined) {
-                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+        this.counterAdd += 1;
+        if (this.counterP == this.counterAdd) {
+            var defaultStyle = {
+                fontFamily: 'B Nazanin',
+                fontSize: 20,
+                fontColor: 'White',
+                bold: 'true',
+                direction: 'rtl',
+                align: 'right',
+                backgroundFont: 'black'
+            };
+            var valueBold = defaultStyle.bold;
+            var valueAlign = defaultStyle.align;
+            if (style != null) {
+                var keysDefualtStyle = Object.keys(defaultStyle);
+                for (var i = 0; i < keysDefualtStyle.length; i++) {
+                    if (style[keysDefualtStyle[i]] != undefined) {
+                        defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+                    }
                 }
             }
+            else {
+                defaultStyle;
+            }
+            var objP = this.globalP;
+            var last = _.lastIndexOf(this.globalP['w:body']);
+            var counterP = last - 1;
+            var xmlStyle = {
+                'w:r': [
+                    { 'w:rPr': [
+                            { 'w:rFonts': '', attr: { 'w:cs': defaultStyle.fontFamily, 'w:hint': 'cs' } },
+                            { 'w:color': '', attr: { 'w:val': defaultStyle.fontColor } },
+                            { 'w:szCs': '', attr: { 'w:val': 2 * (defaultStyle.fontSize) } },
+                            { 'w:b': '' },
+                            { 'w:highlight': '', attr: { 'w:val': defaultStyle.backgroundFont } }
+                        ] },
+                    { 'w:t': text }
+                ]
+            };
+            /*****  add direction  *****/
+            var valueDir = defaultStyle.direction;
+            var direction = {};
+            direction['w:' + valueDir] = '';
+            xmlStyle['w:r'][0]['w:rPr'].push(direction);
+            /*****  add direction  *****/
+            /***** check for add bold  *****/
+            if (valueBold == 'true') {
+                xmlStyle['w:r'][0]['w:rPr'].push({ 'w:bCs': '' });
+                xmlStyle;
+                for (var i = counterP; i < last; i++) {
+                    objP['w:body'][i]['w:p'].push(xmlStyle);
+                } // for
+            }
+            else {
+                for (var i = counterP; i < last; i++) {
+                    objP['w:body'][i]['w:p'].push(xmlStyle);
+                } // for
+            }
+            /***** ********************  *****/
+            /***** check  for add  align  *****/
+            if (valueAlign == 'left') {
+                for (var i = counterP; i < last; i++) {
+                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'right' } });
+                }
+            }
+            else if (valueAlign == 'center') {
+                for (var i = counterP; i < last; i++) {
+                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'center' } });
+                }
+            }
+            else if (valueAlign == 'right') {
+                objP;
+            }
+            /***** *********************  *****/
+            this.globalP = Object.assign(objP, this.globalP);
+            var content = json2xml(objP, { attributes_key: 'attr' });
+            var firstSplit = content.split('<w:body>');
+            var secsplit = firstSplit[1].split('</w:body>');
+            var stringPdata = secsplit[0];
+            stringPdata;
+            this.stringData += stringPdata;
+            return this.stringData;
         }
         else {
-            defaultStyle;
+            throw 'no';
         }
-        var objP = this.globalP;
-        var last = _.lastIndexOf(this.globalP['w:body']);
-        var counterP = last - 1;
-        var xmlStyle = {
-            'w:r': [
-                { 'w:rPr': [
-                        { 'w:rFonts': '', attr: { 'w:cs': defaultStyle.fontFamily, 'w:hint': 'cs' } },
-                        { 'w:color': '', attr: { 'w:val': defaultStyle.fontColor } },
-                        { 'w:szCs': '', attr: { 'w:val': 2 * (defaultStyle.fontSize) } },
-                        { 'w:b': '' },
-                        { 'w:highlight': '', attr: { 'w:val': defaultStyle.backgroundFont } }
-                    ] },
-                { 'w:t': text }
-            ]
-        };
-        /*****  add direction  *****/
-        var valueDir = defaultStyle.direction;
-        var direction = {};
-        direction['w:' + valueDir] = '';
-        xmlStyle['w:r'][0]['w:rPr'].push(direction);
-        /*****  add direction  *****/
-        /***** check for add bold  *****/
-        if (valueBold == 'true') {
-            xmlStyle['w:r'][0]['w:rPr'].push({ 'w:bCs': '' });
-            xmlStyle;
-            for (var i = counterP; i < last; i++) {
-                objP['w:body'][i]['w:p'].push(xmlStyle);
-            } // for
-        }
-        else {
-            for (var i = counterP; i < last; i++) {
-                objP['w:body'][i]['w:p'].push(xmlStyle);
-            } // for
-        }
-        /***** ********************  *****/
-        /***** check  for add  align  *****/
-        if (valueAlign == 'left') {
-            for (var i = counterP; i < last; i++) {
-                objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'right' } });
-            }
-        }
-        else if (valueAlign == 'center') {
-            for (var i = counterP; i < last; i++) {
-                objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'center' } });
-            }
-        }
-        else if (valueAlign == 'right') {
-            objP;
-        }
-        /***** *********************  *****/
-        this.globalP = Object.assign(objP, this.globalP);
-        var content = json2xml(objP, { attributes_key: 'attr' });
-        var firstSplit = content.split('<w:body>');
-        var secsplit = firstSplit[1].split('</w:body>');
-        var stringPdata = secsplit[0];
-        stringPdata;
-        return stringPdata;
     }; // Method addContentP
     docx.prototype.createTable = function () {
         var table = { 'w:tbl': [{}] };
@@ -134,8 +145,7 @@ var docx = (function () {
     }; // Method createTable
     docx.prototype.addSourceData = function () {
         var sourceData = this.sourceData;
-        var content = this.addContentP();
-        this.stringData += content;
+        this.stringData;
         var wordData = _.find(sourceData, { name: 'word\\document.xml' });
         var data = wordData.data;
         var splitsourceData = data.split('{');
@@ -167,7 +177,7 @@ var docx = (function () {
 var objDocx = new docx('test.docx', 'outpotProject/');
 objDocx.createP();
 objDocx.addContentP('میلاد', { fontFamily: 'B Elham' });
-objDocx.createP();
+//objDocx.createP();
 objDocx.addContentP('فلاح');
 var out = objDocx.generate();
 console.log(out);

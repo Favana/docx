@@ -37,6 +37,8 @@ let json2xml = require('json2xml');
     private  stringData:any = " ";
     private infoFile:any = " ";
     private  globalP :any = {'w:body':[]};
+    private   counterAdd:any = 0;
+    private  counterP:any = ' ';
 
 //
     constructor(fileName:any, filePath:any){
@@ -46,12 +48,15 @@ let json2xml = require('json2xml');
 
 
     createP(){
+
        let globalP = this.globalP;
         globalP['w:body'].push({'w:p':[
             {'w:pPr':[
                 {'w:bidi':''},
             ]}
         ]});
+        let newLenghtP = this.globalP['w:body'].length;
+        this.counterP = newLenghtP;
 
     }// Method createP
 
@@ -60,93 +65,103 @@ let json2xml = require('json2xml');
 
      addContentP(text?:any, style?:any ){
 
-        let defaultStyle = {
-            fontFamily : 'B Nazanin',
-            fontSize : 20,
-            fontColor : 'White',
-            bold: 'true',
-            direction :'rtl',
-            align : 'right',
-            backgroundFont: 'black'
-        };
-        let valueBold = defaultStyle.bold;
-        let valueAlign = defaultStyle.align;
+        this.counterAdd +=1;
 
-        if(style != null){
-            let keysDefualtStyle = Object.keys(defaultStyle);
-            for(let i=0; i<keysDefualtStyle.length; i++){
-                if(style[keysDefualtStyle[i]] != undefined){
-                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+        if(this.counterP  == this.counterAdd){
+            let defaultStyle = {
+                fontFamily : 'B Nazanin',
+                fontSize : 20,
+                fontColor : 'White',
+                bold: 'true',
+                direction :'rtl',
+                align : 'right',
+                backgroundFont: 'black'
+            };
+            let valueBold = defaultStyle.bold;
+            let valueAlign = defaultStyle.align;
+
+            if(style != null){
+                let keysDefualtStyle = Object.keys(defaultStyle);
+                for(let i=0; i<keysDefualtStyle.length; i++){
+                    if(style[keysDefualtStyle[i]] != undefined){
+                        defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+
+                    }
 
                 }
-
+            }else{
+                defaultStyle;
             }
+
+
+            let objP = this.globalP;
+            let last = _.lastIndexOf(this.globalP['w:body']);
+            let counterP = last-1;
+
+            let xmlStyle = {
+                'w:r':[
+                    { 'w:rPr':[
+                        {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
+                        {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
+                        {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
+                        {'w:b':''},
+                        {'w:highlight':'', attr:{'w:val':defaultStyle.backgroundFont}}
+                    ]},
+                    {'w:t':text}
+                ]
+            };
+
+            /*****  add direction  *****/
+            let valueDir = defaultStyle.direction;
+            let direction = {};
+            direction['w:'+valueDir] = '';
+            xmlStyle['w:r'][0]['w:rPr'].push(direction);
+            /*****  add direction  *****/
+
+
+            /***** check for add bold  *****/
+            if(valueBold == 'true'){
+                xmlStyle['w:r'][0]['w:rPr'].push({'w:bCs':''});
+                xmlStyle;
+                for(let i=counterP; i<last; i++){
+                    objP['w:body'][i]['w:p'].push(xmlStyle);
+                }// for
+            }else{
+                for(let i=counterP; i<last; i++){
+                    objP['w:body'][i]['w:p'].push(xmlStyle);
+                }// for
+            }
+            /***** ********************  *****/
+
+            /***** check  for add  align  *****/
+            if(valueAlign  == 'left'){
+                for(let i=counterP; i<last; i++) {
+                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'right'}});
+                }
+            }else if(valueAlign == 'center'){
+                for(let i=counterP; i<last; i++) {
+                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'center'}});
+                }
+            }else if(valueAlign == 'right'){
+                objP;
+            }
+            /***** *********************  *****/
+
+
+            this.globalP = (<any>Object).assign(objP, this.globalP);
+            let content = json2xml(objP, { attributes_key:'attr' });
+            let firstSplit  = content.split('<w:body>');
+            let secsplit = firstSplit[1].split('</w:body>');
+            let stringPdata = secsplit[0];
+            stringPdata;
+            this.stringData +=stringPdata;
+            return this.stringData;
+
         }else{
-            defaultStyle;
+            throw 'no';
         }
 
 
-        let objP = this.globalP;
-        let last = _.lastIndexOf(this.globalP['w:body']);
-        let counterP = last-1;
-
-         let xmlStyle = {
-             'w:r':[
-                 { 'w:rPr':[
-                     {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
-                     {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
-                     {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
-                     {'w:b':''},
-                     {'w:highlight':'', attr:{'w:val':defaultStyle.backgroundFont}}
-                 ]},
-                 {'w:t':text}
-             ]
-         };
-
-         /*****  add direction  *****/
-         let valueDir = defaultStyle.direction;
-         let direction = {};
-         direction['w:'+valueDir] = '';
-         xmlStyle['w:r'][0]['w:rPr'].push(direction);
-        /*****  add direction  *****/
-
-
-    /***** check for add bold  *****/
-        if(valueBold == 'true'){
-            xmlStyle['w:r'][0]['w:rPr'].push({'w:bCs':''});
-            xmlStyle;
-            for(let i=counterP; i<last; i++){
-                objP['w:body'][i]['w:p'].push(xmlStyle);
-            }// for
-        }else{
-            for(let i=counterP; i<last; i++){
-                objP['w:body'][i]['w:p'].push(xmlStyle);
-            }// for
-        }
-    /***** ********************  *****/
-
-    /***** check  for add  align  *****/
-        if(valueAlign  == 'left'){
-            for(let i=counterP; i<last; i++) {
-                objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'right'}});
-            }
-        }else if(valueAlign == 'center'){
-            for(let i=counterP; i<last; i++) {
-                objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'center'}});
-            }
-        }else if(valueAlign == 'right'){
-            objP;
-        }
-    /***** *********************  *****/
-
-
-         this.globalP = (<any>Object).assign(objP, this.globalP);
-         let content = json2xml(objP, { attributes_key:'attr' });
-         let firstSplit  = content.split('<w:body>');
-         let secsplit = firstSplit[1].split('</w:body>');
-         let stringPdata = secsplit[0];
-         stringPdata;
-         return stringPdata;
     }// Method addContentP
 
 
@@ -161,8 +176,8 @@ let json2xml = require('json2xml');
 
      addSourceData(){
         let sourceData = this.sourceData;
-        let content  = this.addContentP();
-        this.stringData +=content;
+        this.stringData
+
         let wordData = _.find(sourceData,{name:'word\\document.xml'});
         let data = wordData.data;
         let splitsourceData = data.split('{');
@@ -200,7 +215,7 @@ let json2xml = require('json2xml');
 let objDocx = new docx('test.docx','outpotProject/');
  objDocx.createP();
 objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
-objDocx.createP();
+//objDocx.createP();
 objDocx.addContentP('فلاح');
 let out = objDocx.generate();
 console.log(out);
