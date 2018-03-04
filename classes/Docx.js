@@ -53,7 +53,7 @@ var docx = /** @class */ (function () {
     }; // Method createP
     docx.prototype.addContentP = function (text, style) {
         this.counterAdd += 1;
-        if (this.counterP == this.counterAdd) {
+        if (this.counterP >= 1) {
             var defaultStyle = {
                 fontFamily: 'B Nazanin',
                 fontSize: 20,
@@ -127,13 +127,16 @@ var docx = /** @class */ (function () {
             }
             /***** *********************  *****/
             this.globalP = Object.assign(objP, this.globalP);
-            var content = json2xml(objP, { attributes_key: 'attr' });
-            var firstSplit = content.split('<w:body>');
-            var secsplit = firstSplit[1].split('</w:body>');
-            var stringPdata = secsplit[0];
-            stringPdata;
-            this.stringData += stringPdata;
-            return this.stringData;
+            //let content = json2xml(objP, { attributes_key:'attr' });
+            //let firstSplit  = content.split('<w:body>');
+            // let secsplit = firstSplit[1].split('</w:body>');
+            //  let stringPdata = secsplit[0];
+            //  stringPdata;
+            //  // this.stringData;
+            //   this.stringData +=stringPdata;
+            //   this.stringData;
+            return this.globalP;
+            // return stringPdata;
         }
         else {
             throw 'no';
@@ -143,19 +146,26 @@ var docx = /** @class */ (function () {
         var table = { 'w:tbl': [{}] };
         return table;
     }; // Method createTable
-    docx.prototype.addSourceData = function () {
+    //
+    //  addSourceData(stringP?:any){
+    //
+    //      sourceData;
+    //     return sourceData;
+    //
+    // }// Method addSourceData
+    docx.prototype.generate = function () {
+        this.globalP;
+        var content = json2xml(this.globalP, { attributes_key: 'attr' });
+        var firstSplit = content.split('<w:body>');
+        var secsplit = firstSplit[1].split('</w:body>');
+        var stringPdata = secsplit[0];
         var sourceData = this.sourceData;
-        this.stringData;
         var wordData = _.find(sourceData, { name: 'word\\document.xml' });
         var data = wordData.data;
         var splitsourceData = data.split('{');
-        var newWordData = splitsourceData[0] + this.stringData + splitsourceData[1];
+        var newWordData = splitsourceData[0] + stringPdata + splitsourceData[1];
         var index = _.findIndex(sourceData, { name: 'word\\document.xml' });
         sourceData.splice(index, 1, { name: 'word\\document.xml', data: newWordData });
-        return sourceData;
-    }; // Method addSourceData
-    docx.prototype.generate = function () {
-        var sourceData = this.addSourceData();
         var archive = Archive.create('zip');
         var out = fs_1.createWriteStream(this.infoFile);
         archive.pipe(out);
@@ -175,10 +185,11 @@ var docx = /** @class */ (function () {
     return docx;
 }()); // class docx
 var objDocx = new docx('test.docx', 'outpotProject/');
-objDocx.createP();
-objDocx.addContentP('میلاد', { fontFamily: 'B Elham' });
+//objDocx.createP();
+//objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
 objDocx.createP();
 objDocx.addContentP('فلاح');
+objDocx.addContentP('علی');
 var out = objDocx.generate();
 console.log(out);
 /****

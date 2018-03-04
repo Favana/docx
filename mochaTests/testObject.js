@@ -7,11 +7,12 @@ describe('testOfficegen', function () {
     var filePath = 'outpotProject/';
     it('docx', function (done) {
         var docx = officegen('docx');
-        // let objP =  docx.createP();
-        // objP.addText()
-        docx.addText('milad');
-        var out = fs_1.createWriteStream(fileName + fileName);
+        var objP = docx.createP();
+        objP.addText('علی خانه است');
+        objP.addText('رضا بیرون نرفت');
+        var out = fs_1.createWriteStream(filePath + fileName);
         docx.generate(out);
+        done();
     });
 });
 //# sourceMappingURL=testObject.js.map

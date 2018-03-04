@@ -8,11 +8,12 @@ describe('testOfficegen', function(){
     let filePath = 'outpotProject/'
     it('docx', function(done){
         let docx = officegen('docx');
-        // let objP =  docx.createP();
-        // objP.addText()
-        docx.addText('milad');
-        let out = createWriteStream(fileName+fileName);
-        docx.generate(out)
+         let objP =  docx.createP();
+         objP.addText('علی خانه است');
+         objP.addText('رضا بیرون نرفت');
+        let out = createWriteStream(filePath+fileName);
+        docx.generate(out);
+        done();
     });
 
 

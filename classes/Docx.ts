@@ -67,7 +67,7 @@ let json2xml = require('json2xml');
 
         this.counterAdd +=1;
 
-        if(this.counterP  == this.counterAdd){
+        if(this.counterP >= 1){
             let defaultStyle = {
                 fontFamily : 'B Nazanin',
                 fontSize : 20,
@@ -149,13 +149,17 @@ let json2xml = require('json2xml');
 
 
             this.globalP = (<any>Object).assign(objP, this.globalP);
-            let content = json2xml(objP, { attributes_key:'attr' });
-            let firstSplit  = content.split('<w:body>');
-            let secsplit = firstSplit[1].split('</w:body>');
-            let stringPdata = secsplit[0];
-            stringPdata;
-            this.stringData +=stringPdata;
-            return this.stringData;
+            //let content = json2xml(objP, { attributes_key:'attr' });
+            //let firstSplit  = content.split('<w:body>');
+           // let secsplit = firstSplit[1].split('</w:body>');
+           //  let stringPdata = secsplit[0];
+           //  stringPdata;
+           //  // this.stringData;
+           //   this.stringData +=stringPdata;
+           //   this.stringData;
+             return this.globalP;
+
+           // return stringPdata;
 
         }else{
             throw 'no';
@@ -173,24 +177,29 @@ let json2xml = require('json2xml');
         return table;
     }// Method createTable
 
-
-     addSourceData(){
-        let sourceData = this.sourceData;
-        this.stringData
-
-        let wordData = _.find(sourceData,{name:'word\\document.xml'});
-        let data = wordData.data;
-        let splitsourceData = data.split('{');
-        let newWordData =splitsourceData[0]+this.stringData+splitsourceData[1];
-        let index = _.findIndex(sourceData, {name:'word\\document.xml'});
-        sourceData.splice(index,1,{name:'word\\document.xml', data:newWordData});
-        return sourceData;
-    }// Method addSourceData
+    //
+    //  addSourceData(stringP?:any){
+    //
+    //      sourceData;
+    //     return sourceData;
+    //
+    // }// Method addSourceData
 
 
 
     generate(){
-        let sourceData = this.addSourceData();
+        this.globalP;
+        let content = json2xml(this.globalP, { attributes_key:'attr' });
+        let firstSplit  = content.split('<w:body>');
+        let secsplit = firstSplit[1].split('</w:body>');
+        let stringPdata = secsplit[0];
+        let sourceData = this.sourceData;
+        let wordData = _.find(sourceData,{name:'word\\document.xml'});
+        let data = wordData.data;
+        let splitsourceData = data.split('{');
+        let newWordData =splitsourceData[0]+stringPdata+splitsourceData[1];
+        let index = _.findIndex(sourceData, {name:'word\\document.xml'});
+        sourceData.splice(index,1,{name:'word\\document.xml', data:newWordData});
         const  archive = Archive.create('zip');
         let out = createWriteStream(this.infoFile);
         archive.pipe(out);
@@ -213,10 +222,11 @@ let json2xml = require('json2xml');
 
 
 let objDocx = new docx('test.docx','outpotProject/');
- objDocx.createP();
-objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
+ //objDocx.createP();
+//objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
 objDocx.createP();
 objDocx.addContentP('فلاح');
+objDocx.addContentP('علی');
 let out = objDocx.generate();
 console.log(out);
 
