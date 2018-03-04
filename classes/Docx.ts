@@ -215,7 +215,7 @@ let json2xml = require('json2xml');
 let objDocx = new docx('test.docx','outpotProject/');
  objDocx.createP();
 objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
-//objDocx.createP();
+objDocx.createP();
 objDocx.addContentP('فلاح');
 let out = objDocx.generate();
 console.log(out);

@@ -4,7 +4,7 @@ var Archive = require("archiver");
 var fs_1 = require("fs");
 var _ = require('lodash');
 var json2xml = require('json2xml');
-var docx = (function () {
+var docx = /** @class */ (function () {
     //
     function docx(fileName, filePath) {
         this.sourceData = [
@@ -177,7 +177,7 @@ var docx = (function () {
 var objDocx = new docx('test.docx', 'outpotProject/');
 objDocx.createP();
 objDocx.addContentP('میلاد', { fontFamily: 'B Elham' });
-//objDocx.createP();
+objDocx.createP();
 objDocx.addContentP('فلاح');
 var out = objDocx.generate();
 console.log(out);
