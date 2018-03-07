@@ -3,8 +3,7 @@ import {createWriteStream} from 'fs';
 import {isNull} from "util";
 let _ = require('lodash');
 let json2xml = require('json2xml');
-
-
+import {table}  from './createTable';
 
  class  docx{
 
@@ -35,10 +34,13 @@ let json2xml = require('json2xml');
             data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/webSettings" Target="webSettings.xml"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/><Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/><Relationship Id="rId6" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/></Relationships>' }
     ];
     private  stringData:any = " ";
-    private infoFile:any = " ";
+    private  infoFile:any = " ";
     private  globalP :any = {'w:body':[]};
-    private   counterAdd:any = 0;
+    private  globalTbl:any  = {'w:tbl':[{'w:tblPr':[{'w:tblStyle':'', attr:{'w:val':"TableGrid"}}, {'w:bidiVisual':''}]}]};
+    private  counterAdd:any = 0;
     private  counterP:any = ' ';
+    private  stringPdata = '';
+    private  stringTbldata = '';
 
 //
     constructor(fileName:any, filePath:any){
@@ -71,11 +73,11 @@ let json2xml = require('json2xml');
             let defaultStyle = {
                 fontFamily : 'B Nazanin',
                 fontSize : 20,
-                fontColor : 'black',
+                fontColor : 'white',
                 bold: 'false',
                 direction :'rtl',
                 align : 'right',
-                backgroundFont: 'white'
+                backgroundFont: 'black'
             };
             let valueBold = defaultStyle.bold;
             let valueAlign = defaultStyle.align;
@@ -159,23 +161,47 @@ let json2xml = require('json2xml');
 
 
 
-    createTable(){
-        let table = {'w:tbl':[{}]}
-        return table;
+    createTable(data){
+        this.globalTbl ;
+        let objTable = new table();
+        let resultTable = objTable.callingMethod(this.globalTbl, data);
+        this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
+        return this.globalTbl;
+        //return table;
     }// Method createTable
 
 
 
 
     generate(){
-        //////////////////  Process For CreateP ////////////////////////
-        let content = json2xml(this.globalP, { attributes_key:'attr' });
-        let firstSplit  = content.split('<w:body>');
-        let secsplit = firstSplit[1].split('</w:body>');
-        let stringPdata = secsplit[0];
-        /////////////////////////////////////////////////////////////////
 
-        this.stringData = stringPdata;
+        //////////////////  Process For CreateP ////////////////////////
+        let contentP = json2xml(this.globalP, { attributes_key:'attr' });
+        if(contentP != "<w:body/>"){
+            let firstSplit  = contentP.split('<w:body>');
+            let secsplit = firstSplit[1].split('</w:body>');
+            let stringPdata = secsplit[0];
+            this.stringPdata +=  stringPdata;
+
+        }else{
+            this.stringPdata;
+        }
+        ///////////////////////////  END CreateP  //////////////////////
+
+        ////////////////// Process For Table ///////////////////////////
+        this.globalTbl;
+         let check  = this.globalTbl['w:tbl'].length;
+         if(check != 1  ){
+             let contentTbl = json2xml(this.globalTbl, {attributes_key:'attr'});
+             this.stringTbldata += contentTbl;
+         }else{
+            this.stringTbldata;
+         }
+        ////////////////////////////// END CreateTbl //////////////////////
+
+
+        this.stringData = this.stringPdata+this.stringTbldata;
+        this.stringData;
         let sourceData = this.sourceData;
         let wordData = _.find(sourceData,{name:'word\\document.xml'});
         let data = wordData.data;
@@ -205,10 +231,40 @@ let json2xml = require('json2xml');
 
 
 let objDocx = new docx('test.docx','outpotProject/');
- //objDocx.createP();
-//objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
-objDocx.createP();
-objDocx.addContentP(  'علی ابراهیم پور'  ,{fontFamily: 'B Nazanin'});
+  objDocx.createP();
+  objDocx.addContentP('میلاد',{fontFamily : 'B Nazanin'});
+// objDocx.createP();
+  //objDocx.addContentP(  'علی ابراهیم پور'  ,{fontFamily: 'B Nazanin'});
+
+let data = [
+    {x: 1, y: 0, value: '',mergeRow:'', mergeCol:''},       //mergeRow:(x) ,,,, mergeCol:(y)
+    {x: 1, y: 1, value: 'سال 1390', mergeRow:'', mergeCol:''},
+    {x: 1, y: 2, value: 'سال1391',mergeRow:'', mergeCol:''},
+    {x: 1, y: 3, value: 'سال 1395',mergeRow:'', mergeCol:''},
+
+
+    {x: 2, y: 0, value: 'کل',mergeRow:'', mergeCol:''},
+    {x: 2, y: 1, value: '21545288', mergeRow:'', mergeCol:''},
+    {x: 2, y: 2, value: '85487525',mergeRow:'', mergeCol:''},
+    {x: 2, y: 3, value: '2215659',mergeRow:'', mergeCol:''},
+
+
+    {x: 3, y: 0, value: 'البرز',mergeRow:'', mergeCol:''},
+    {x: 3, y: 1, value: '2521',mergeRow:'', mergeCol:''},
+    {x: 3, y: 2, value: '5485',mergeRow:'', mergeCol:''},
+    {x: 3, y: 3, value: '514',mergeRow:'', mergeCol:''},
+
+
+    {x: 4, y: 0, value: 'بندرعباس',mergeRow:'', mergeCol:''},
+    {x: 4, y: 1, value: '145214',mergeRow:'', mergeCol:''},
+    {x: 4, y: 2, value: '2255',mergeRow:'', mergeCol:''},
+    {x: 4, y: 3, value: '225552',mergeRow:'', mergeCol:''},
+
+
+
+];// data
+
+objDocx.createTable(data);
 let out = objDocx.generate();
 console.log(out);
 

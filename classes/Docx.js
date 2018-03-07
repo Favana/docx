@@ -4,6 +4,7 @@ var Archive = require("archiver");
 var fs_1 = require("fs");
 var _ = require('lodash');
 var json2xml = require('json2xml');
+var createTable_1 = require("./createTable");
 var docx = /** @class */ (function () {
     //
     function docx(fileName, filePath) {
@@ -36,8 +37,11 @@ var docx = /** @class */ (function () {
         this.stringData = " ";
         this.infoFile = " ";
         this.globalP = { 'w:body': [] };
+        this.globalTbl = { 'w:tbl': [{ 'w:tblPr': [{ 'w:tblStyle': '', attr: { 'w:val': "TableGrid" } }, { 'w:bidiVisual': '' }] }] };
         this.counterAdd = 0;
         this.counterP = ' ';
+        this.stringPdata = '';
+        this.stringTbldata = '';
         this.infoFile = filePath + fileName;
         return this.infoFile;
     }
@@ -57,11 +61,11 @@ var docx = /** @class */ (function () {
             var defaultStyle = {
                 fontFamily: 'B Nazanin',
                 fontSize: 20,
-                fontColor: 'black',
+                fontColor: 'white',
                 bold: 'false',
                 direction: 'rtl',
                 align: 'right',
-                backgroundFont: 'white'
+                backgroundFont: 'black'
             };
             var valueBold = defaultStyle.bold;
             var valueAlign = defaultStyle.align;
@@ -133,18 +137,40 @@ var docx = /** @class */ (function () {
             throw 'no';
         }
     }; // Method addContentP
-    docx.prototype.createTable = function () {
-        var table = { 'w:tbl': [{}] };
-        return table;
+    docx.prototype.createTable = function (data) {
+        this.globalTbl;
+        var objTable = new createTable_1.table();
+        var resultTable = objTable.callingMethod(this.globalTbl, data);
+        this.globalTbl = Object.assign(resultTable, this.globalTbl);
+        return this.globalTbl;
+        //return table;
     }; // Method createTable
     docx.prototype.generate = function () {
         //////////////////  Process For CreateP ////////////////////////
-        var content = json2xml(this.globalP, { attributes_key: 'attr' });
-        var firstSplit = content.split('<w:body>');
-        var secsplit = firstSplit[1].split('</w:body>');
-        var stringPdata = secsplit[0];
-        /////////////////////////////////////////////////////////////////
-        this.stringData = stringPdata;
+        var contentP = json2xml(this.globalP, { attributes_key: 'attr' });
+        if (contentP != "<w:body/>") {
+            var firstSplit = contentP.split('<w:body>');
+            var secsplit = firstSplit[1].split('</w:body>');
+            var stringPdata = secsplit[0];
+            this.stringPdata += stringPdata;
+        }
+        else {
+            this.stringPdata;
+        }
+        ///////////////////////////  END CreateP  //////////////////////
+        ////////////////// Process For Table ///////////////////////////
+        this.globalTbl;
+        var check = this.globalTbl['w:tbl'].length;
+        if (check != 1) {
+            var contentTbl = json2xml(this.globalTbl, { attributes_key: 'attr' });
+            this.stringTbldata += contentTbl;
+        }
+        else {
+            this.stringTbldata;
+        }
+        ////////////////////////////// END CreateTbl //////////////////////
+        this.stringData = this.stringPdata + this.stringTbldata;
+        this.stringData;
         var sourceData = this.sourceData;
         var wordData = _.find(sourceData, { name: 'word\\document.xml' });
         var data = wordData.data;
@@ -171,10 +197,29 @@ var docx = /** @class */ (function () {
     return docx;
 }()); // class docx
 var objDocx = new docx('test.docx', 'outpotProject/');
-//objDocx.createP();
-//objDocx.addContentP('میلاد',{fontFamily : 'B Elham'});
 objDocx.createP();
-objDocx.addContentP('علی ابراهیم پور', { fontFamily: 'B Nazanin' });
+objDocx.addContentP('میلاد', { fontFamily: 'B Nazanin' });
+// objDocx.createP();
+//objDocx.addContentP(  'علی ابراهیم پور'  ,{fontFamily: 'B Nazanin'});
+var data = [
+    { x: 1, y: 0, value: '', mergeRow: '', mergeCol: '' },
+    { x: 1, y: 1, value: 'سال 1390', mergeRow: '', mergeCol: '' },
+    { x: 1, y: 2, value: 'سال1391', mergeRow: '', mergeCol: '' },
+    { x: 1, y: 3, value: 'سال 1395', mergeRow: '', mergeCol: '' },
+    { x: 2, y: 0, value: 'کل', mergeRow: '', mergeCol: '' },
+    { x: 2, y: 1, value: '21545288', mergeRow: '', mergeCol: '' },
+    { x: 2, y: 2, value: '85487525', mergeRow: '', mergeCol: '' },
+    { x: 2, y: 3, value: '2215659', mergeRow: '', mergeCol: '' },
+    { x: 3, y: 0, value: 'البرز', mergeRow: '', mergeCol: '' },
+    { x: 3, y: 1, value: '2521', mergeRow: '', mergeCol: '' },
+    { x: 3, y: 2, value: '5485', mergeRow: '', mergeCol: '' },
+    { x: 3, y: 3, value: '514', mergeRow: '', mergeCol: '' },
+    { x: 4, y: 0, value: 'بندرعباس', mergeRow: '', mergeCol: '' },
+    { x: 4, y: 1, value: '145214', mergeRow: '', mergeCol: '' },
+    { x: 4, y: 2, value: '2255', mergeRow: '', mergeCol: '' },
+    { x: 4, y: 3, value: '225552', mergeRow: '', mergeCol: '' },
+]; // data
+objDocx.createTable(data);
 var out = objDocx.generate();
 console.log(out);
 /****
