@@ -8,13 +8,6 @@ var table = /** @class */ (function () {
     table.prototype.createTr = function (_body, data) {
         var counterRow = _.uniqBy(data, 'x');
         var row = counterRow.length;
-        // let _body = {'w:tbl':[
-        //     {'w:tblPr':[ //<w:tblBorders>
-        //             {'w:tblBorders':[ //<w:top w:val="single" w:sz="12" w:space="0" w:color="95B3D7" w:themeColor="accent1" w:themeTint="99"/>
-        //                     {'w:top':'', attr:{'w:val':"single",  'w:sz':"12",'w:color':'95B3D7', 'w:themeColor':'accent1', 'w:themeTint':'99'}}
-        //              ]}
-        //     ]}
-        //     ]};
         for (var i = 0; i < row; i++) {
             _body['w:tbl'].push({ 'w:tr': [] });
         }
@@ -33,15 +26,6 @@ var table = /** @class */ (function () {
         return _body;
     }; //createTc
     table.prototype.createPtable = function (_body, data) {
-        var defaultStyle = {
-            fontFamily: 'B Nazanin',
-            fontSize: 20,
-            fontColor: 'black',
-            bold: 'false',
-            direction: 'rtl',
-            align: 'right',
-            backgroundFont: 'black'
-        };
         var counterCol = _.uniqBy(data, 'y');
         var counterRow = _.uniqBy(data, 'x');
         var row = counterRow.length;
@@ -55,16 +39,7 @@ var table = /** @class */ (function () {
                 }
                 else {
                     _body['w:tbl'][i]['w:tr'][j]['w:tc'].push({ 'w:p': [
-                            { 'w:pPr': [
-                                    { 'w:jc': '', attr: { 'w:val': 'center' } }
-                                ] },
                             { 'w:r': [
-                                    { 'w:rPr': [
-                                            { 'w:rtl': [] },
-                                            { 'w:rFonts': '', attr: { 'w:cs': defaultStyle.fontFamily, 'w:hint': 'cs' } },
-                                            { 'w:szCs': '', attr: { 'w:val': 2 * (defaultStyle.fontSize) } },
-                                            { 'w:color': '', attr: { 'w:val': defaultStyle.fontColor } },
-                                        ] },
                                     { 'w:t': value }
                                 ] }
                         ] });
@@ -148,11 +123,45 @@ var table = /** @class */ (function () {
         } // for row
         return _body;
     }; //createMerge
-    table.prototype.callingMethod = function (body, data) {
+    table.prototype.tableStyle = function (_body, style, data) {
+        var defaultStyle = {
+            fontFamily: 'B Nazanin',
+            fontSize: 20,
+            fontColor: 'black',
+            bold: 'false',
+            direction: 'rtl',
+            align: 'right'
+        };
+        _body;
+        if (style != null) {
+            var keysDefualtStyle = Object.keys(defaultStyle);
+            for (var i = 0; i < keysDefualtStyle.length; i++) {
+                if (style[keysDefualtStyle[i]] != undefined) {
+                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+                    defaultStyle;
+                }
+            }
+        }
+        else {
+            defaultStyle;
+        }
+        _body;
+        // {'w:rPr':[
+        //     {'w:rtl':[]},
+        //     {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
+        //     {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
+        //     {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
+        // ]},
+        // _body['w:tbl'][0]['w:tblPr'].push({'w:tblBorders':[ //<w:top w:val="single" w:sz="12" w:space="0" w:color="95B3D7" w:themeColor="accent1" w:themeTint="99"/>
+        //         {'w:top':'', attr:{'w:val':"single",  'w:sz':"12",'w:color':'95B3D7', 'w:themeColor':'accent1', 'w:themeTint':'99'}}
+        //     ]});
+    };
+    table.prototype.callingMethod = function (body, data, style) {
         var objTr = this.createTr(body, data);
         var objTc = this.createTc(objTr, data);
         var objP = this.createPtable(objTc, data);
         var objMerge = this.createMerge(objP, data);
+        var objStyle = this.tableStyle(objMerge, style, data);
         return objMerge;
         // next(json2xml(objMerge,{ attributes_key:'attr' } ));
     };

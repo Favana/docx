@@ -161,10 +161,10 @@ import {table}  from './createTable';
 
 
 
-    createTable(data){
+    createTable(data, style?){
         this.globalTbl ;
         let objTable = new table();
-        let resultTable = objTable.callingMethod(this.globalTbl, data);
+        let resultTable = objTable.callingMethod(this.globalTbl, data, style);
         this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
         return this.globalTbl;
         //return table;
@@ -264,7 +264,7 @@ let data = [
 
 ];// data
 
-objDocx.createTable(data);
+objDocx.createTable(data,{fontFamily:'B Elham'});
 let out = objDocx.generate();
 console.log(out);
 

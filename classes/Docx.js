@@ -137,10 +137,10 @@ var docx = /** @class */ (function () {
             throw 'no';
         }
     }; // Method addContentP
-    docx.prototype.createTable = function (data) {
+    docx.prototype.createTable = function (data, style) {
         this.globalTbl;
         var objTable = new createTable_1.table();
-        var resultTable = objTable.callingMethod(this.globalTbl, data);
+        var resultTable = objTable.callingMethod(this.globalTbl, data, style);
         this.globalTbl = Object.assign(resultTable, this.globalTbl);
         return this.globalTbl;
         //return table;
@@ -219,7 +219,7 @@ var data = [
     { x: 4, y: 2, value: '2255', mergeRow: '', mergeCol: '' },
     { x: 4, y: 3, value: '225552', mergeRow: '', mergeCol: '' },
 ]; // data
-objDocx.createTable(data);
+objDocx.createTable(data, { fontFamily: 'B Elham' });
 var out = objDocx.generate();
 console.log(out);
 /****

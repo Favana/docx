@@ -8,13 +8,6 @@ export class table{
 
         let counterRow =_.uniqBy(data, 'x');
         let row = counterRow.length;
-        // let _body = {'w:tbl':[
-        //     {'w:tblPr':[ //<w:tblBorders>
-        //             {'w:tblBorders':[ //<w:top w:val="single" w:sz="12" w:space="0" w:color="95B3D7" w:themeColor="accent1" w:themeTint="99"/>
-        //                     {'w:top':'', attr:{'w:val':"single",  'w:sz':"12",'w:color':'95B3D7', 'w:themeColor':'accent1', 'w:themeTint':'99'}}
-        //              ]}
-        //     ]}
-        //     ]};
 
         for(let i=0; i<row; i++ ){
             _body['w:tbl'].push({'w:tr':[]});
@@ -40,15 +33,7 @@ export class table{
     }//createTc
 
     createPtable(_body:any, data:any){
-        let defaultStyle = {
-            fontFamily : 'B Nazanin',
-            fontSize : 20,
-            fontColor : 'black',
-            bold: 'false',
-            direction :'rtl',
-            align : 'right',
-            backgroundFont: 'black'
-        };
+
 
         let counterCol = _.uniqBy(data, 'y');
         let counterRow =_.uniqBy(data, 'x');
@@ -63,16 +48,8 @@ export class table{
                     _body['w:tbl'][i]['w:tr'][j]['w:tc'].push({'w:p':[]});
                 }else{
                     _body['w:tbl'][i]['w:tr'][j]['w:tc'].push({'w:p':[
-                        {'w:pPr':[
-                                {'w:jc': '', attr: {'w:val': 'center'}}
-                            ]},
+
                         {'w:r':[
-                                {'w:rPr':[
-                                    {'w:rtl':[]},
-                                    {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
-                                     {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
-                                     {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
-                                ]},
                                 {'w:t':value}
                             ]}]});
                 }
@@ -176,11 +153,55 @@ export class table{
     }//createMerge
 
 
-    callingMethod(body:any, data:any){
+    tableStyle(_body:any, style?:any, data?:any){
+        let defaultStyle = {
+            fontFamily : 'B Nazanin',
+            fontSize : 20,
+            fontColor : 'black',
+            bold: 'false',
+            direction :'rtl',
+            align : 'right'
+        };
+        _body;
+
+        if(style != null){
+            let keysDefualtStyle = Object.keys(defaultStyle);
+            for(let i=0; i<keysDefualtStyle.length; i++){
+                if(style[keysDefualtStyle[i]] != undefined){
+                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+                    defaultStyle;
+                }
+            }
+        }else{
+            defaultStyle;
+        }
+
+       _body;
+
+
+
+
+        // {'w:rPr':[
+        //     {'w:rtl':[]},
+        //     {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
+        //     {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
+        //     {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
+        // ]},
+
+
+        // _body['w:tbl'][0]['w:tblPr'].push({'w:tblBorders':[ //<w:top w:val="single" w:sz="12" w:space="0" w:color="95B3D7" w:themeColor="accent1" w:themeTint="99"/>
+        //         {'w:top':'', attr:{'w:val':"single",  'w:sz':"12",'w:color':'95B3D7', 'w:themeColor':'accent1', 'w:themeTint':'99'}}
+        //     ]});
+
+    }
+
+
+    callingMethod(body:any, data:any, style?:any){
         let objTr = this.createTr(body, data);
         let objTc = this.createTc(objTr, data);
         let objP = this.createPtable(objTc, data);
         let objMerge = this.createMerge(objP, data);
+        let objStyle = this.tableStyle(objMerge, style, data);
         return objMerge;
        // next(json2xml(objMerge,{ attributes_key:'attr' } ));
     }
