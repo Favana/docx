@@ -48,7 +48,7 @@ import {type} from "os";
     constructor(fileName:any, filePath:any){
         let checkFilename = filePath.search('/');
         if(filePath == '' || fileName == '' || checkFilename == -1){
-            throw  "Don't Null inputs docx function";
+            throw  "Don't Null inputs docx function Or Don't send parameters for docx function";
         }else{
             this.infoFile = filePath+fileName;
             return this.infoFile;
@@ -81,11 +81,11 @@ import {type} from "os";
             let defaultStyle = {
                 fontFamily : 'B Nazanin',
                 fontSize : 20,
-                fontColor : 'white',
+                fontColor : 'black',
                 bold: 'false',
                 direction :'rtl',
                 align : 'right',
-                backgroundFont: 'black'
+                backgroundFont: 'white'
             };
             let valueBold = defaultStyle.bold;
             let valueAlign = defaultStyle.align;
@@ -159,7 +159,7 @@ import {type} from "os";
             this.globalP = (<any>Object).assign(objP, this.globalP);
              return this.globalP;
         }else{
-            throw 'no';
+            throw 'createP function is undefined';
         }
 
 

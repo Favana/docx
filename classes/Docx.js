@@ -44,7 +44,7 @@ var docx = /** @class */ (function () {
         this.stringTbldata = '';
         var checkFilename = filePath.search('/');
         if (filePath == '' || fileName == '' || checkFilename == -1) {
-            throw "Don't Null inputs docx function";
+            throw "Don't Null inputs docx function Or Don't send parameters for docx function";
         }
         else {
             this.infoFile = filePath + fileName;
@@ -67,11 +67,11 @@ var docx = /** @class */ (function () {
             var defaultStyle = {
                 fontFamily: 'B Nazanin',
                 fontSize: 20,
-                fontColor: 'white',
+                fontColor: 'black',
                 bold: 'false',
                 direction: 'rtl',
                 align: 'right',
-                backgroundFont: 'black'
+                backgroundFont: 'white'
             };
             var valueBold = defaultStyle.bold;
             var valueAlign = defaultStyle.align;
@@ -140,7 +140,7 @@ var docx = /** @class */ (function () {
             return this.globalP;
         }
         else {
-            throw 'no';
+            throw 'createP function is undefined';
         }
     }; // Method addContentP
     docx.prototype.createTable = function (data, style) {
