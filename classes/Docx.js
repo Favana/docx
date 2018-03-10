@@ -44,7 +44,7 @@ var docx = /** @class */ (function () {
         this.stringTbldata = '';
         var checkFilename = filePath.search('/');
         if (filePath == '' || fileName == '' || checkFilename == -1) {
-            throw "Don't Null inputs docx function Or Don't send parameters for docx function";
+            throw "Don't Null inputs docx function OR Don't send parameters for docx function";
         }
         else {
             this.infoFile = filePath + fileName;

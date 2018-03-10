@@ -48,7 +48,7 @@ import {type} from "os";
     constructor(fileName:any, filePath:any){
         let checkFilename = filePath.search('/');
         if(filePath == '' || fileName == '' || checkFilename == -1){
-            throw  "Don't Null inputs docx function Or Don't send parameters for docx function";
+            throw  "Don't Null inputs docx function OR Don't send parameters for docx function";
         }else{
             this.infoFile = filePath+fileName;
             return this.infoFile;
