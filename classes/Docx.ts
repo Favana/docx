@@ -88,7 +88,7 @@ import {type} from "os";
                     align : 'right',
                     backgroundFont: 'white'
                 };
-                let valueBold = defaultStyle.bold;
+
 
 
                 if(style != null){
@@ -131,7 +131,7 @@ import {type} from "os";
 
 
                 /***** check for add bold  *****/
-                if(valueBold == 'true'){
+                if(defaultStyle.bold == 'true'){
                     xmlStyle['w:r'][0]['w:rPr'].push({'w:bCs':''});
                     xmlStyle;
                     for(let i=counterP; i<last; i++){

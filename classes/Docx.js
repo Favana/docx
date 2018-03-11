@@ -74,7 +74,6 @@ var Docx = /** @class */ (function () {
                     align: 'right',
                     backgroundFont: 'white'
                 };
-                var valueBold = defaultStyle.bold;
                 if (style != null) {
                     var keysDefualtStyle = Object.keys(defaultStyle);
                     for (var i = 0; i < keysDefualtStyle.length; i++) {
@@ -108,7 +107,7 @@ var Docx = /** @class */ (function () {
                 xmlStyle['w:r'][0]['w:rPr'].push(direction);
                 /*****  add direction  *****/
                 /***** check for add bold  *****/
-                if (valueBold == 'true') {
+                if (defaultStyle.bold == 'true') {
                     xmlStyle['w:r'][0]['w:rPr'].push({ 'w:bCs': '' });
                     xmlStyle;
                     for (var i = counterP; i < last; i++) {
