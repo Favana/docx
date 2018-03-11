@@ -89,7 +89,7 @@ import {type} from "os";
                     backgroundFont: 'white'
                 };
                 let valueBold = defaultStyle.bold;
-                let valueAlign = defaultStyle.align;
+
 
                 if(style != null){
                     let keysDefualtStyle = Object.keys(defaultStyle);
@@ -145,15 +145,15 @@ import {type} from "os";
                 /***** ********************  *****/
 
                 /***** check  for add  align  *****/
-                if(valueAlign  == 'left'){
+                if(defaultStyle.align  == 'left'){
                     for(let i=counterP; i<last; i++) {
                         objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'right'}});
                     }
-                }else if(valueAlign == 'center'){
+                }else if(defaultStyle.align == 'center'){
                     for(let i=counterP; i<last; i++) {
                         objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'center'}});
                     }
-                }else if(valueAlign == 'right'){
+                }else if(defaultStyle.align == 'right'){
                     objP;
                 }
                 /***** *********************  *****/

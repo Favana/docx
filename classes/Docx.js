@@ -75,7 +75,6 @@ var Docx = /** @class */ (function () {
                     backgroundFont: 'white'
                 };
                 var valueBold = defaultStyle.bold;
-                var valueAlign = defaultStyle.align;
                 if (style != null) {
                     var keysDefualtStyle = Object.keys(defaultStyle);
                     for (var i = 0; i < keysDefualtStyle.length; i++) {
@@ -123,17 +122,17 @@ var Docx = /** @class */ (function () {
                 }
                 /***** ********************  *****/
                 /***** check  for add  align  *****/
-                if (valueAlign == 'left') {
+                if (defaultStyle.align == 'left') {
                     for (var i = counterP; i < last; i++) {
                         objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'right' } });
                     }
                 }
-                else if (valueAlign == 'center') {
+                else if (defaultStyle.align == 'center') {
                     for (var i = counterP; i < last; i++) {
                         objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'center' } });
                     }
                 }
-                else if (valueAlign == 'right') {
+                else if (defaultStyle.align == 'right') {
                     objP;
                 }
                 /***** *********************  *****/
