@@ -1,13 +1,13 @@
 import {} from 'mocha';
-import {docx} from '../classes/Docx';
+import {Docx} from '../classes/Docx';
 import {fail} from 'assert';
 
 describe('docx', function(){
 
     it('generate Docx File', function(done){
         try{
-            let officegen = new docx('test_emptyFile.docx','outputUnitTest/');
-            let out =  officegen.generate();
+            let docx = new Docx('test_emptyFile.docx','outputUnitTest/');
+            let out =  docx.generate();
             if(out == false){
                 fail("Don't create File of docx");
 
@@ -25,8 +25,8 @@ describe('docx', function(){
 
     it('generate Docx File Error for null input', function(done){
         try{
-            let officegen = new docx('',''); //fileName is null OR filePath is null
-            let out = officegen.generate();
+            let docx = new Docx('',''); //fileName is null OR filePath is null
+            let out = docx.generate();
             if(out == false){
                 fail("Don't create File of docx");
             }else{
@@ -48,8 +48,8 @@ describe('docx', function(){
 
     it('generate Docx File Error for the mistake input', function(done){
         try{
-            let officegen = new docx('outputUnitTest/','test_emptyFile.docx');
-            let out = officegen.generate();
+            let docx = new Docx('outputUnitTest/','test_emptyFile.docx');
+            let out = docx.generate();
             if(out == false){
                 fail("Don't create File of docx");
 
@@ -69,8 +69,8 @@ describe('docx', function(){
 
     it('generate Docx File Error for the filePath is null input', function(done){
         try{
-            let officegen = new docx('test_emptyFile.docx','');
-            let out =  officegen.generate();
+            let docx = new Docx('test_emptyFile.docx','');
+            let out =  docx.generate();
             if(out == false){
                 fail("Don't create File of docx");
 
@@ -94,8 +94,8 @@ describe('docx', function(){
 
     it('generate Docx File Error for the fileName is null input', function(done){
         try{
-            let officegen = new docx('','outputUnitTest/');
-            let out =  officegen.generate();
+            let docx = new Docx('','outputUnitTest/');
+            let out =  docx.generate();
             if(out == false){
                 fail("Don't create File of docx");
 

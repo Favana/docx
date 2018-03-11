@@ -1,38 +1,48 @@
 import {} from 'mocha';
 import {fail} from 'assert';
-import {docx} from '../classes/Docx';
+import {Docx} from '../classes/Docx';
+import Doc = Mocha.reporters.Doc;
 
 
 describe('docx',  function(){
 
     it('fontSize_StyleP_User', function(done){
-        let officegen = new docx('test_fontSize_styleP_User.docx', 'outputUnitTest/' );
-        officegen.createP();
-        officegen.addContentP('میلاد'   , {fontSize:30});
-        let out = officegen.generate();
-        if(out == false){
-            fail("Don't create File of docx");
-        }else{
-            console.log("Create File of Docx");
+        try{
+            let docx = new Docx('test_fontSize_styleP_User.docx', 'outputUnitTest/' );
+            docx.createP();
+            docx.addContentP('میلاد'   , {fontSize:30});
+            let out = docx.generate();
+            if(out == false){
+                fail("Don't create File of docx");
+            }else{
+                console.log("Create File of Docx");
+                done();
+            }
+        }catch(e){
+            fail(e);
             done();
         }
-
     }); // it fontSize_StyleP_User
 
     it('fontSize_StyleP_default', function(done){
-        let officegen = new docx('test_fontSize_styleP_default.docx', 'outputUnitTest/' );
-        officegen.createP();
-        officegen.addContentP('میلاد');
-        let out = officegen.generate();
-        if(out == false){
-            fail("Don't create File of docx");
-        }else{
-            console.log("Create File of Docx");
+        try{
+            let docx= new Docx('test_fontSize_styleP_default.docx', 'outputUnitTest/' );
+            docx.createP();
+            docx.addContentP('میلاد');
+            let out = docx.generate();
+            if(out == false){
+                fail("Don't create File of docx");
+            }else{
+                console.log("Create File of Docx");
+                done();
+            }
+        }catch(e){
+            fail(e);
             done();
         }
 
-
     });
+
 
 
 

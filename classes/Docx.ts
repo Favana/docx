@@ -6,7 +6,7 @@ let json2xml = require('json2xml');
 import {table}  from './createTable';
 import {type} from "os";
 
- export class  docx{
+ export class  Docx{
 
      sourceData:any  = [
         { name: '_rels\\.rels',
@@ -78,86 +78,91 @@ import {type} from "os";
         this.counterAdd +=1;
 
         if(this.counterP >= 1){
-            let defaultStyle = {
-                fontFamily : 'B Nazanin',
-                fontSize : 20,
-                fontColor : 'black',
-                bold: 'false',
-                direction :'rtl',
-                align : 'right',
-                backgroundFont: 'white'
-            };
-            let valueBold = defaultStyle.bold;
-            let valueAlign = defaultStyle.align;
+            if(typeof style == 'object' ||  style == undefined && typeof  text == 'string'  ){
+                let defaultStyle = {
+                    fontFamily : 'B Nazanin',
+                    fontSize : 20,
+                    fontColor : 'black',
+                    bold: 'false',
+                    direction :'rtl',
+                    align : 'right',
+                    backgroundFont: 'white'
+                };
+                let valueBold = defaultStyle.bold;
+                let valueAlign = defaultStyle.align;
 
-            if(style != null){
-                let keysDefualtStyle = Object.keys(defaultStyle);
-                for(let i=0; i<keysDefualtStyle.length; i++){
-                    if(style[keysDefualtStyle[i]] != undefined){
-                        defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+                if(style != null){
+                    let keysDefualtStyle = Object.keys(defaultStyle);
+                    for(let i=0; i<keysDefualtStyle.length; i++){
+                        if(style[keysDefualtStyle[i]] != undefined){
+                            defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+
+                        }
 
                     }
-
+                }else{
+                    defaultStyle;
                 }
+
+
+                let objP = this.globalP;
+                let last = _.lastIndexOf(this.globalP['w:body']);
+                let counterP = last-1;
+
+                let xmlStyle = {
+                    'w:r':[
+                        { 'w:rPr':[
+                                {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
+                                {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
+                                {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
+                                {'w:b':''},
+                                {'w:highlight':'', attr:{'w:val':defaultStyle.backgroundFont}}
+                            ]},
+                        {'w:t':text}
+                    ]
+                };
+
+                /*****  add direction  *****/
+                let valueDir = defaultStyle.direction;
+                let direction = {};
+                direction['w:'+valueDir] = '';
+                xmlStyle['w:r'][0]['w:rPr'].push(direction);
+                /*****  add direction  *****/
+
+
+                /***** check for add bold  *****/
+                if(valueBold == 'true'){
+                    xmlStyle['w:r'][0]['w:rPr'].push({'w:bCs':''});
+                    xmlStyle;
+                    for(let i=counterP; i<last; i++){
+                        objP['w:body'][i]['w:p'].push(xmlStyle);
+                    }// for
+                }else{
+                    for(let i=counterP; i<last; i++){
+                        objP['w:body'][i]['w:p'].push(xmlStyle);
+                    }// for
+                }
+                /***** ********************  *****/
+
+                /***** check  for add  align  *****/
+                if(valueAlign  == 'left'){
+                    for(let i=counterP; i<last; i++) {
+                        objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'right'}});
+                    }
+                }else if(valueAlign == 'center'){
+                    for(let i=counterP; i<last; i++) {
+                        objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'center'}});
+                    }
+                }else if(valueAlign == 'right'){
+                    objP;
+                }
+                /***** *********************  *****/
+                this.globalP = (<any>Object).assign(objP, this.globalP);
+                return this.globalP;
             }else{
-                defaultStyle;
+                throw  'The sending parameter is incorrect'
             }
 
-
-            let objP = this.globalP;
-            let last = _.lastIndexOf(this.globalP['w:body']);
-            let counterP = last-1;
-
-            let xmlStyle = {
-                'w:r':[
-                    { 'w:rPr':[
-                        {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
-                        {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
-                        {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
-                        {'w:b':''},
-                        {'w:highlight':'', attr:{'w:val':defaultStyle.backgroundFont}}
-                    ]},
-                    {'w:t':text}
-                ]
-            };
-
-            /*****  add direction  *****/
-            let valueDir = defaultStyle.direction;
-            let direction = {};
-            direction['w:'+valueDir] = '';
-            xmlStyle['w:r'][0]['w:rPr'].push(direction);
-            /*****  add direction  *****/
-
-
-            /***** check for add bold  *****/
-            if(valueBold == 'true'){
-                xmlStyle['w:r'][0]['w:rPr'].push({'w:bCs':''});
-                xmlStyle;
-                for(let i=counterP; i<last; i++){
-                    objP['w:body'][i]['w:p'].push(xmlStyle);
-                }// for
-            }else{
-                for(let i=counterP; i<last; i++){
-                    objP['w:body'][i]['w:p'].push(xmlStyle);
-                }// for
-            }
-            /***** ********************  *****/
-
-            /***** check  for add  align  *****/
-            if(valueAlign  == 'left'){
-                for(let i=counterP; i<last; i++) {
-                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'right'}});
-                }
-            }else if(valueAlign == 'center'){
-                for(let i=counterP; i<last; i++) {
-                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'center'}});
-                }
-            }else if(valueAlign == 'right'){
-                objP;
-            }
-            /***** *********************  *****/
-            this.globalP = (<any>Object).assign(objP, this.globalP);
-             return this.globalP;
         }else{
             throw 'createP function is undefined';
         }

@@ -5,9 +5,9 @@ var fs_1 = require("fs");
 var _ = require('lodash');
 var json2xml = require('json2xml');
 var createTable_1 = require("./createTable");
-var docx = /** @class */ (function () {
+var Docx = /** @class */ (function () {
     //
-    function docx(fileName, filePath) {
+    function Docx(fileName, filePath) {
         this.sourceData = [
             { name: '_rels\\.rels',
                 data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>' },
@@ -51,7 +51,7 @@ var docx = /** @class */ (function () {
             return this.infoFile;
         }
     }
-    docx.prototype.createP = function () {
+    Docx.prototype.createP = function () {
         var globalP = this.globalP;
         globalP['w:body'].push({ 'w:p': [
                 { 'w:pPr': [
@@ -61,89 +61,94 @@ var docx = /** @class */ (function () {
         var newLenghtP = this.globalP['w:body'].length;
         this.counterP = newLenghtP;
     }; // Method createP
-    docx.prototype.addContentP = function (text, style) {
+    Docx.prototype.addContentP = function (text, style) {
         this.counterAdd += 1;
         if (this.counterP >= 1) {
-            var defaultStyle = {
-                fontFamily: 'B Nazanin',
-                fontSize: 20,
-                fontColor: 'black',
-                bold: 'false',
-                direction: 'rtl',
-                align: 'right',
-                backgroundFont: 'white'
-            };
-            var valueBold = defaultStyle.bold;
-            var valueAlign = defaultStyle.align;
-            if (style != null) {
-                var keysDefualtStyle = Object.keys(defaultStyle);
-                for (var i = 0; i < keysDefualtStyle.length; i++) {
-                    if (style[keysDefualtStyle[i]] != undefined) {
-                        defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+            if (typeof style == 'object' || style == undefined && typeof text == 'string') {
+                var defaultStyle = {
+                    fontFamily: 'B Nazanin',
+                    fontSize: 20,
+                    fontColor: 'black',
+                    bold: 'false',
+                    direction: 'rtl',
+                    align: 'right',
+                    backgroundFont: 'white'
+                };
+                var valueBold = defaultStyle.bold;
+                var valueAlign = defaultStyle.align;
+                if (style != null) {
+                    var keysDefualtStyle = Object.keys(defaultStyle);
+                    for (var i = 0; i < keysDefualtStyle.length; i++) {
+                        if (style[keysDefualtStyle[i]] != undefined) {
+                            defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+                        }
                     }
                 }
+                else {
+                    defaultStyle;
+                }
+                var objP = this.globalP;
+                var last = _.lastIndexOf(this.globalP['w:body']);
+                var counterP = last - 1;
+                var xmlStyle = {
+                    'w:r': [
+                        { 'w:rPr': [
+                                { 'w:rFonts': '', attr: { 'w:cs': defaultStyle.fontFamily, 'w:hint': 'cs' } },
+                                { 'w:color': '', attr: { 'w:val': defaultStyle.fontColor } },
+                                { 'w:szCs': '', attr: { 'w:val': 2 * (defaultStyle.fontSize) } },
+                                { 'w:b': '' },
+                                { 'w:highlight': '', attr: { 'w:val': defaultStyle.backgroundFont } }
+                            ] },
+                        { 'w:t': text }
+                    ]
+                };
+                /*****  add direction  *****/
+                var valueDir = defaultStyle.direction;
+                var direction = {};
+                direction['w:' + valueDir] = '';
+                xmlStyle['w:r'][0]['w:rPr'].push(direction);
+                /*****  add direction  *****/
+                /***** check for add bold  *****/
+                if (valueBold == 'true') {
+                    xmlStyle['w:r'][0]['w:rPr'].push({ 'w:bCs': '' });
+                    xmlStyle;
+                    for (var i = counterP; i < last; i++) {
+                        objP['w:body'][i]['w:p'].push(xmlStyle);
+                    } // for
+                }
+                else {
+                    for (var i = counterP; i < last; i++) {
+                        objP['w:body'][i]['w:p'].push(xmlStyle);
+                    } // for
+                }
+                /***** ********************  *****/
+                /***** check  for add  align  *****/
+                if (valueAlign == 'left') {
+                    for (var i = counterP; i < last; i++) {
+                        objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'right' } });
+                    }
+                }
+                else if (valueAlign == 'center') {
+                    for (var i = counterP; i < last; i++) {
+                        objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'center' } });
+                    }
+                }
+                else if (valueAlign == 'right') {
+                    objP;
+                }
+                /***** *********************  *****/
+                this.globalP = Object.assign(objP, this.globalP);
+                return this.globalP;
             }
             else {
-                defaultStyle;
+                throw 'The sending parameter is incorrect';
             }
-            var objP = this.globalP;
-            var last = _.lastIndexOf(this.globalP['w:body']);
-            var counterP = last - 1;
-            var xmlStyle = {
-                'w:r': [
-                    { 'w:rPr': [
-                            { 'w:rFonts': '', attr: { 'w:cs': defaultStyle.fontFamily, 'w:hint': 'cs' } },
-                            { 'w:color': '', attr: { 'w:val': defaultStyle.fontColor } },
-                            { 'w:szCs': '', attr: { 'w:val': 2 * (defaultStyle.fontSize) } },
-                            { 'w:b': '' },
-                            { 'w:highlight': '', attr: { 'w:val': defaultStyle.backgroundFont } }
-                        ] },
-                    { 'w:t': text }
-                ]
-            };
-            /*****  add direction  *****/
-            var valueDir = defaultStyle.direction;
-            var direction = {};
-            direction['w:' + valueDir] = '';
-            xmlStyle['w:r'][0]['w:rPr'].push(direction);
-            /*****  add direction  *****/
-            /***** check for add bold  *****/
-            if (valueBold == 'true') {
-                xmlStyle['w:r'][0]['w:rPr'].push({ 'w:bCs': '' });
-                xmlStyle;
-                for (var i = counterP; i < last; i++) {
-                    objP['w:body'][i]['w:p'].push(xmlStyle);
-                } // for
-            }
-            else {
-                for (var i = counterP; i < last; i++) {
-                    objP['w:body'][i]['w:p'].push(xmlStyle);
-                } // for
-            }
-            /***** ********************  *****/
-            /***** check  for add  align  *****/
-            if (valueAlign == 'left') {
-                for (var i = counterP; i < last; i++) {
-                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'right' } });
-                }
-            }
-            else if (valueAlign == 'center') {
-                for (var i = counterP; i < last; i++) {
-                    objP['w:body'][i]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': 'center' } });
-                }
-            }
-            else if (valueAlign == 'right') {
-                objP;
-            }
-            /***** *********************  *****/
-            this.globalP = Object.assign(objP, this.globalP);
-            return this.globalP;
         }
         else {
             throw 'createP function is undefined';
         }
     }; // Method addContentP
-    docx.prototype.createTable = function (data, style) {
+    Docx.prototype.createTable = function (data, style) {
         this.globalTbl;
         var objTable = new createTable_1.table();
         var resultTable = objTable.callingMethod(this.globalTbl, data, style);
@@ -151,7 +156,7 @@ var docx = /** @class */ (function () {
         return this.globalTbl;
         //return table;
     }; // Method createTable
-    docx.prototype.generate = function () {
+    Docx.prototype.generate = function () {
         //////////////////  Process For CreateP ////////////////////////
         var contentP = json2xml(this.globalP, { attributes_key: 'attr' });
         if (contentP != "<w:body/>") {
@@ -207,9 +212,9 @@ var docx = /** @class */ (function () {
             } // for
         } // else and if
     }; // Method generate
-    return docx;
+    return Docx;
 }()); // class docx
-exports.docx = docx;
+exports.Docx = Docx;
 //
 // let objDocx = new docx('test.docx','outpotProject/');
 //   objDocx.createP();

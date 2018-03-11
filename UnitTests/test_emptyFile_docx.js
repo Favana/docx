@@ -5,8 +5,8 @@ var assert_1 = require("assert");
 describe('docx', function () {
     it('generate Docx File', function (done) {
         try {
-            var officegen = new Docx_1.docx('test_emptyFile.docx', 'outputUnitTest/');
-            var out = officegen.generate();
+            var docx = new Docx_1.Docx('test_emptyFile.docx', 'outputUnitTest/');
+            var out = docx.generate();
             if (out == false) {
                 assert_1.fail("Don't create File of docx");
             }
@@ -22,8 +22,8 @@ describe('docx', function () {
     }); // it generate Docx File
     it('generate Docx File Error for null input', function (done) {
         try {
-            var officegen = new Docx_1.docx('', ''); //fileName is null OR filePath is null
-            var out = officegen.generate();
+            var docx = new Docx_1.Docx('', ''); //fileName is null OR filePath is null
+            var out = docx.generate();
             if (out == false) {
                 assert_1.fail("Don't create File of docx");
             }
@@ -44,8 +44,8 @@ describe('docx', function () {
     }); // it generate Docx File Error for null input
     it('generate Docx File Error for the mistake input', function (done) {
         try {
-            var officegen = new Docx_1.docx('outputUnitTest/', 'test_emptyFile.docx');
-            var out = officegen.generate();
+            var docx = new Docx_1.Docx('outputUnitTest/', 'test_emptyFile.docx');
+            var out = docx.generate();
             if (out == false) {
                 assert_1.fail("Don't create File of docx");
             }
@@ -66,8 +66,8 @@ describe('docx', function () {
     }); // it generate Docx File Error for the mistake input
     it('generate Docx File Error for the filePath is null input', function (done) {
         try {
-            var officegen = new Docx_1.docx('test_emptyFile.docx', '');
-            var out = officegen.generate();
+            var docx = new Docx_1.Docx('test_emptyFile.docx', '');
+            var out = docx.generate();
             if (out == false) {
                 assert_1.fail("Don't create File of docx");
             }
@@ -89,8 +89,8 @@ describe('docx', function () {
     }); // it generate Docx File Error for the filePath is null input
     it('generate Docx File Error for the fileName is null input', function (done) {
         try {
-            var officegen = new Docx_1.docx('', 'outputUnitTest/');
-            var out = officegen.generate();
+            var docx = new Docx_1.Docx('', 'outputUnitTest/');
+            var out = docx.generate();
             if (out == false) {
                 assert_1.fail("Don't create File of docx");
             }
