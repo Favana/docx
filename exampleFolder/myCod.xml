@@ -1,5 +1,10 @@
 <w:body>
-    <w:p w:rsidR="008F6296" w:rsidRDefault="005420BE" w:rsidP="003042D4">
+    <w:p w:rsidR="00DB39B7" w:rsidRDefault="00B1376F">
+        <w:pPr>
+            <w:bidi/>
+        </w:pPr>
+        <w:bookmarkStart w:id="0" w:name="_GoBack"/>
+        <w:bookmarkEnd w:id="0"/>
         <w:proofErr w:type="spellStart"/>
         <w:r>
             <w:rPr>
@@ -11,11 +16,9 @@
             </w:rPr>
             <w:t>milad</w:t>
         </w:r>
-        <w:bookmarkStart w:id="0" w:name="_GoBack"/>
-        <w:bookmarkEnd w:id="0"/>
         <w:proofErr w:type="spellEnd"/>
     </w:p>
-    <w:sectPr w:rsidR="008F6296">
+    <w:sectPr w:rsidR="00DB39B7">
         <w:pgSz w:w="12240" w:h="15840"/>
         <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
         <w:cols w:space="720"/>

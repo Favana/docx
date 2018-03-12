@@ -61,9 +61,9 @@ import {type} from "os";
 
        let globalP = this.globalP;
         globalP['w:body'].push({'w:p':[
-            {'w:pPr':[
-                {'w:bidi':''},
-            ]}
+            // {'w:pPr':[
+            //     {'w:bidi':''},
+            // ]}
         ]});
         let newLenghtP = this.globalP['w:body'].length;
         this.counterP = newLenghtP;
@@ -106,6 +106,7 @@ import {type} from "os";
 
 
                 let objP = this.globalP;
+                objP;
                 let last = _.lastIndexOf(this.globalP['w:body']);
                 let counterP = last-1;
 
@@ -124,9 +125,22 @@ import {type} from "os";
 
                 /*****  add direction  *****/
                 let valueDir = defaultStyle.direction;
-                let direction = {};
-                direction['w:'+valueDir] = '';
-                xmlStyle['w:r'][0]['w:rPr'].push(direction);
+                if(valueDir == 'rtl'){
+                    for(let i=counterP;i<last; i++){
+                        objP['w:body'][i]['w:p'].push({'w:pPr': [{'w:bidi':''}] }); //  <w:proofErr w:type="spellStart"/>
+                    }
+                    let direction = {};
+                    direction['w:'+valueDir] = '';
+                    xmlStyle['w:r'][0]['w:rPr'].push(direction);
+                    objP;
+                }else if(valueDir == 'ltr'){
+                    for(let i=counterP;i<last; i++){
+
+                        objP['w:body'][i]['w:p'].push({'w:proofErr': '' , attr:{'w:type':'spellStart'}}); //  <w:proofErr w:type="spellStart"/>
+                    }
+                    objP;
+                }
+
                 /*****  add direction  *****/
 
 
@@ -157,8 +171,15 @@ import {type} from "os";
                     objP;
                 }
                 /***** *********************  *****/
+                if(valueDir == 'ltr'){
+                    for(let i=counterP; i<last; i++){
+                        objP['w:body'][i]['w:p'].push({'w:proofErr':'', attr:{'w:type':'spellEnd'}}); //   <w:proofErr w:type="spellEnd"/>
+                    }// for
+                    objP;
+                }
                 this.globalP = (<any>Object).assign(objP, this.globalP);
-                return this.globalP;
+                //return this.globalP;
+                this.globalP;
             }else{
                 throw  'The sending parameter is incorrect'
             }
@@ -195,6 +216,7 @@ import {type} from "os";
             let secsplit = firstSplit[1].split('</w:body>');
             let stringPdata = secsplit[0];
             this.stringPdata +=  stringPdata;
+            this.stringPdata;
 
         }else{
             this.stringPdata;

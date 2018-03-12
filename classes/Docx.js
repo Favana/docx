@@ -53,11 +53,7 @@ var Docx = /** @class */ (function () {
     }
     Docx.prototype.createP = function () {
         var globalP = this.globalP;
-        globalP['w:body'].push({ 'w:p': [
-                { 'w:pPr': [
-                        { 'w:bidi': '' },
-                    ] }
-            ] });
+        globalP['w:body'].push({ 'w:p': [] });
         var newLenghtP = this.globalP['w:body'].length;
         this.counterP = newLenghtP;
     }; // Method createP
@@ -86,6 +82,7 @@ var Docx = /** @class */ (function () {
                     defaultStyle;
                 }
                 var objP = this.globalP;
+                objP;
                 var last = _.lastIndexOf(this.globalP['w:body']);
                 var counterP = last - 1;
                 var xmlStyle = {
@@ -102,9 +99,21 @@ var Docx = /** @class */ (function () {
                 };
                 /*****  add direction  *****/
                 var valueDir = defaultStyle.direction;
-                var direction = {};
-                direction['w:' + valueDir] = '';
-                xmlStyle['w:r'][0]['w:rPr'].push(direction);
+                if (valueDir == 'rtl') {
+                    for (var i = counterP; i < last; i++) {
+                        objP['w:body'][i]['w:p'].push({ 'w:pPr': [{ 'w:bidi': '' }] }); //  <w:proofErr w:type="spellStart"/>
+                    }
+                    var direction = {};
+                    direction['w:' + valueDir] = '';
+                    xmlStyle['w:r'][0]['w:rPr'].push(direction);
+                    objP;
+                }
+                else if (valueDir == 'ltr') {
+                    for (var i = counterP; i < last; i++) {
+                        objP['w:body'][i]['w:p'].push({ 'w:proofErr': '', attr: { 'w:type': 'spellStart' } }); //  <w:proofErr w:type="spellStart"/>
+                    }
+                    objP;
+                }
                 /*****  add direction  *****/
                 /***** check for add bold  *****/
                 if (defaultStyle.bold == 'true') {
@@ -135,8 +144,15 @@ var Docx = /** @class */ (function () {
                     objP;
                 }
                 /***** *********************  *****/
+                if (valueDir == 'ltr') {
+                    for (var i = counterP; i < last; i++) {
+                        objP['w:body'][i]['w:p'].push({ 'w:proofErr': '', attr: { 'w:type': 'spellEnd' } }); //   <w:proofErr w:type="spellEnd"/>
+                    } // for
+                    objP;
+                }
                 this.globalP = Object.assign(objP, this.globalP);
-                return this.globalP;
+                //return this.globalP;
+                this.globalP;
             }
             else {
                 throw 'The sending parameter is incorrect';
@@ -162,6 +178,7 @@ var Docx = /** @class */ (function () {
             var secsplit = firstSplit[1].split('</w:body>');
             var stringPdata = secsplit[0];
             this.stringPdata += stringPdata;
+            this.stringPdata;
         }
         else {
             this.stringPdata;
