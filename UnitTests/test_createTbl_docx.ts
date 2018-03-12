@@ -85,7 +85,7 @@ describe('docx', function(){
     it('createTbl_Error For  Empty send first parameter(data)', function(done){
         try{
             let docx = new Docx('test_createTbl.docx', 'outputUnitTest/');
-            docx.createTable();
+            docx.createTable('');
             let out = docx.generate();
             if(out == false){
                 fail("Don't create File of docx");
