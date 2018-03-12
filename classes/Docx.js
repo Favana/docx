@@ -164,10 +164,15 @@ var Docx = /** @class */ (function () {
     }; // Method addContentP
     Docx.prototype.createTable = function (data, style) {
         this.globalTbl;
-        var objTable = new createTable_1.table();
-        var resultTable = objTable.callingMethod(this.globalTbl, data, style);
-        this.globalTbl = Object.assign(resultTable, this.globalTbl);
-        return this.globalTbl;
+        if (typeof data != 'object' || data == 'undefined') {
+            throw 'The first parameter sent is wrong';
+        }
+        else {
+            var objTable = new createTable_1.table();
+            var resultTable = objTable.callingMethod(this.globalTbl, data, style);
+            this.globalTbl = Object.assign(resultTable, this.globalTbl);
+            return this.globalTbl;
+        }
         //return table;
     }; // Method createTable
     Docx.prototype.generate = function () {

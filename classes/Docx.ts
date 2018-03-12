@@ -197,10 +197,14 @@ import {type} from "os";
 
     createTable(data, style?){
         this.globalTbl ;
-        let objTable = new table();
-        let resultTable = objTable.callingMethod(this.globalTbl, data, style);
-        this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
-        return this.globalTbl;
+        if(typeof data != 'object' || data == 'undefined'){
+            throw  'The first parameter sent is wrong';
+        }else{
+            let objTable = new table();
+            let resultTable = objTable.callingMethod(this.globalTbl, data, style);
+            this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
+            return this.globalTbl;
+        }
         //return table;
     }// Method createTable
 
