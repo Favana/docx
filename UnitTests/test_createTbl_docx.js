@@ -37,6 +37,20 @@ describe('docx', function () {
     }); // it createTbl_docx
     it('createTbl_Error For  mistake send first parameter(data)', function (done) {
         try {
+            var data = [
+                { x: 1, y: 0, value: '', mergeRow: '', mergeCol: '' },
+                { x: 1, y: 1, value: 'سال 1390', mergeRow: '', mergeCol: '' },
+                { x: 1, y: 2, value: 'سال1391', mergeRow: '', mergeCol: '' },
+                { x: 2, y: 0, value: 'کل', mergeRow: '', mergeCol: '' },
+                { x: 2, y: 1, value: '21545288', mergeRow: '', mergeCol: '' },
+                { x: 2, y: 2, value: '85487525', mergeRow: '', mergeCol: '' },
+                { x: 3, y: 0, value: 'البرز', mergeRow: '', mergeCol: '' },
+                { x: 3, y: 1, value: '2521', mergeRow: '', mergeCol: '' },
+                { x: 3, y: 2, value: '5485', mergeRow: '', mergeCol: '' },
+                { x: 4, y: 0, value: 'بندرعباس', mergeRow: '', mergeCol: '' },
+                { x: 4, y: 1, value: '145214', mergeRow: '', mergeCol: '' },
+                { x: 4, y: 2, value: '2255', mergeRow: '', mergeCol: '' }
+            ]; // data
             var docx = new Docx_1.Docx('test_createTbl.docx', 'outputUnitTest/');
             docx.createTable('milad');
             var out = docx.generate();
