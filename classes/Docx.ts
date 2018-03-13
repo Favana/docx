@@ -204,6 +204,7 @@ import {type} from "os";
             let resultTable = objTable.callingMethod(this.globalTbl, data, style);
             this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
             return this.globalTbl;
+            //this.globalTbl;
         }
         //return table;
     }// Method createTable
