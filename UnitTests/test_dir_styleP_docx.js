@@ -7,7 +7,7 @@ describe('docx', function () {
         try {
             var docx = new Docx_1.Docx('test_dir_styleP_default.docx', 'outputUnitTest/');
             docx.createP();
-            docx.addContentP('میلاد');
+            docx.addContentP('میلاد', { fontSize: 30 });
             docx.addContentP('میلاد');
             var out = docx.generate();
             if (out == false) {
@@ -25,7 +25,7 @@ describe('docx', function () {
         try {
             var docx = new Docx_1.Docx('test_dir_styleP_user.docx', 'outputUnitTest/');
             docx.createP();
-            docx.addContentP('milad', { direction: 'ltr' });
+            docx.addContentP('milad', { direction: 'ltr', fontColor: 'red', fontSize: 30, fontFamily: 'Times New Roman' });
             docx.addContentP('milad', { direction: 'ltr' });
             var out = docx.generate();
             if (out == false) {

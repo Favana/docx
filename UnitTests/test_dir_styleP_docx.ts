@@ -8,7 +8,7 @@ describe('docx', function(){
         try{
             let docx = new Docx('test_dir_styleP_default.docx', 'outputUnitTest/');
             docx.createP();
-            docx.addContentP('میلاد');
+            docx.addContentP('میلاد' , { fontSize:30});
             docx.addContentP('میلاد');
 
             let out = docx.generate();
@@ -27,7 +27,7 @@ describe('docx', function(){
         try{
             let docx = new Docx('test_dir_styleP_user.docx', 'outputUnitTest/');
             docx.createP();
-            docx.addContentP( 'milad' , {direction:'ltr'});
+            docx.addContentP( 'milad' , {direction:'ltr', fontColor:'red', fontSize:30, fontFamily:'Times New Roman'});
             docx.addContentP( 'milad' , {direction:'ltr'});
             let out = docx.generate();
             if(out == false){

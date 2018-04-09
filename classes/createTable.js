@@ -6,6 +6,22 @@ var table = /** @class */ (function () {
     function table() {
     }
     table.prototype.createTr = function (_body, data) {
+        _body;
+        var check = _body['w:tbl'].length;
+        if (check == 1) {
+            _body;
+        }
+        else {
+            for (var i = 1; i < check; i++) {
+                _body['w:tbl'].pop();
+            }
+            //this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
+            // let p = {'w:p':[]};
+            // _body = (<any>Object).assign(p, _body);
+            _body;
+            //  return _body;
+        }
+        _body;
         var counterRow = _.uniqBy(data, 'x');
         var row = counterRow.length;
         for (var i = 0; i < row; i++) {

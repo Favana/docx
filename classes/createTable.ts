@@ -5,7 +5,21 @@ let _ = require('lodash');
 export class table{
 
     createTr(_body:any, data:any){
-
+        _body;
+        let check = _body['w:tbl'].length;
+        if(check == 1){
+             _body ;
+        }else{
+            for(let i=1; i<check; i++){
+                _body['w:tbl'].pop();
+            }
+            //this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
+            // let p = {'w:p':[]};
+            // _body = (<any>Object).assign(p, _body);
+            _body;
+          //  return _body;
+        }
+        _body;
         let counterRow =_.uniqBy(data, 'x');
         let row = counterRow.length;
 

@@ -39,9 +39,9 @@ var Docx = /** @class */ (function () {
         this.globalP = { 'w:body': [] };
         this.globalTbl = { 'w:tbl': [{ 'w:tblPr': [{ 'w:tblStyle': '', attr: { 'w:val': "TableGrid" } }, { 'w:bidiVisual': '' }] }] };
         this.counterAdd = 0;
-        this.counterP = ' ';
-        this.stringPdata = '';
-        this.stringTbldata = '';
+        this.counterP = " ";
+        this.stringPdata = " ";
+        this.stringTbldata = " ";
         var checkFilename = filePath.search('/');
         if (filePath == '' || fileName == '' || checkFilename == -1) {
             throw "Don't Null inputs docx function OR Don't send parameters for docx function";
@@ -52,14 +52,30 @@ var Docx = /** @class */ (function () {
         }
     }
     Docx.prototype.createP = function () {
+        var check = this.globalP['w:body'].length;
+        if (check == 0) {
+            this.globalP;
+        }
+        else {
+            this.globalP['w:body'].pop();
+        }
         var globalP = this.globalP;
-        globalP['w:body'].push({ 'w:p': [] });
+        this.globalP;
+        globalP['w:body'].push({ 'w:p': ['test'] });
         var newLenghtP = this.globalP['w:body'].length;
         this.counterP = newLenghtP;
+        this.stringData += "<w:p></w:p>";
     }; // Method createP
     Docx.prototype.addContentP = function (text, style) {
-        this.counterAdd += 1;
-        if (this.counterP >= 1) {
+        var checkStringP = this.stringData.slice(-6);
+        if (checkStringP == '</w:p>') {
+            var checkP = this.globalP['w:body'][0]['w:p'][0];
+            if (checkP == 'test') {
+                this.globalP['w:body'][0]['w:p'].pop();
+            }
+            else {
+                this.globalP;
+            }
             if (typeof style == 'object' || style == undefined && typeof text == 'string') {
                 var defaultStyle = {
                     fontFamily: 'B Nazanin',
@@ -82,7 +98,6 @@ var Docx = /** @class */ (function () {
                     defaultStyle;
                 }
                 var objP = this.globalP;
-                objP;
                 var last = _.lastIndexOf(this.globalP['w:body']);
                 var counterP = last - 1;
                 var xmlStyle = {
@@ -151,8 +166,34 @@ var Docx = /** @class */ (function () {
                     objP;
                 }
                 this.globalP = Object.assign(objP, this.globalP);
-                //return this.globalP;
-                this.globalP;
+                var checkP_1 = this.globalP['w:body'][0]['w:p'].length;
+                var lastIndex = checkP_1 - 1; // End loop
+                var llIndex = lastIndex - 1; // Start loop
+                var importCheck = this.stringData.slice(-11);
+                if (importCheck == "<w:p></w:p>") {
+                    this.stringPdata = " ";
+                    for (var i = llIndex; i <= lastIndex; i++) {
+                        var contentP = json2xml(this.globalP['w:body'][0]['w:p'][i], { attributes_key: 'attr' });
+                        this.stringPdata += contentP;
+                    }
+                    var newTbl = this.stringData.slice(0, -11);
+                    var newP = "<w:p>" + this.stringPdata + "</w:p>";
+                    var newData = newTbl + newP;
+                    this.stringData = " ";
+                    this.stringData += newData;
+                }
+                else {
+                    var checkData = this.stringData.slice(0, -6);
+                    this.stringPdata = " ";
+                    for (var i = llIndex; i <= lastIndex; i++) {
+                        var contentP = json2xml(this.globalP['w:body'][0]['w:p'][i], { attributes_key: 'attr' });
+                        this.stringPdata += contentP;
+                    }
+                    checkData += this.stringPdata + "</w:p>";
+                    this.stringData = " ";
+                    this.stringData += checkData;
+                }
+                return this.stringData;
             }
             else {
                 throw 'The sending parameter is incorrect';
@@ -163,45 +204,36 @@ var Docx = /** @class */ (function () {
         }
     }; // Method addContentP
     Docx.prototype.createTable = function (data, style) {
-        this.globalTbl;
+        this.stringData;
+        this.stringTbldata;
         if (typeof data != 'object' || data == 'undefined') {
             throw 'The first parameter sent is wrong';
         }
         else {
             var objTable = new createTable_1.table();
             var resultTable = objTable.callingMethod(this.globalTbl, data, style);
+            this.globalTbl;
             this.globalTbl = Object.assign(resultTable, this.globalTbl);
-            return this.globalTbl;
+            this.globalTbl;
+            //return this.globalTbl;
+            //this.globalTbl;
+            var check = this.globalTbl['w:tbl'].length;
+            if (check != 1) {
+                var contentTbl = json2xml(this.globalTbl, { attributes_key: 'attr' });
+                this.stringTbldata += contentTbl;
+                this.stringData += this.stringTbldata;
+                this.stringTbldata = " ";
+                this.stringTbldata;
+                this.stringData;
+                return this.stringData;
+            }
+            else {
+                this.stringTbldata;
+            }
         }
         //return table;
     }; // Method createTable
     Docx.prototype.generate = function () {
-        //////////////////  Process For CreateP ////////////////////////
-        var contentP = json2xml(this.globalP, { attributes_key: 'attr' });
-        if (contentP != "<w:body/>") {
-            var firstSplit = contentP.split('<w:body>');
-            var secsplit = firstSplit[1].split('</w:body>');
-            var stringPdata = secsplit[0];
-            this.stringPdata += stringPdata;
-            this.stringPdata;
-        }
-        else {
-            this.stringPdata;
-        }
-        ///////////////////////////  END CreateP  //////////////////////
-        ////////////////// Process For Table ///////////////////////////
-        this.globalTbl;
-        var check = this.globalTbl['w:tbl'].length;
-        if (check != 1) {
-            var contentTbl = json2xml(this.globalTbl, { attributes_key: 'attr' });
-            this.stringTbldata += contentTbl;
-        }
-        else {
-            this.stringTbldata;
-        }
-        ////////////////////////////// END CreateTbl //////////////////////
-        this.stringData = this.stringPdata + this.stringTbldata;
-        this.stringData;
         var sourceData = this.sourceData;
         var wordData = _.find(sourceData, { name: 'word\\document.xml' });
         var data = wordData.data;

@@ -1,10 +1,8 @@
 import * as Archive from 'archiver';
 import {createWriteStream} from 'fs';
-import {isNull} from "util";
 let _ = require('lodash');
 let json2xml = require('json2xml');
 import {table}  from './createTable';
-import {type} from "os";
 
  export class  Docx{
 
@@ -39,9 +37,9 @@ import {type} from "os";
     private  globalP :any = {'w:body':[]};
     private  globalTbl:any  = {'w:tbl':[{'w:tblPr':[{'w:tblStyle':'', attr:{'w:val':"TableGrid"}}, {'w:bidiVisual':''}]}]};
     private  counterAdd:any = 0;
-    private  counterP:any = ' ';
-    private  stringPdata = '';
-    private  stringTbldata = '';
+    private  counterP:any = " ";
+    private  stringPdata = " ";
+    private  stringTbldata = " ";
 
 
 //
@@ -58,16 +56,18 @@ import {type} from "os";
 
 
     createP(){
-
+       let check = this.globalP['w:body'].length;
+       if(check == 0){
+           this.globalP;
+       }else{
+            this.globalP['w:body'].pop();
+       }
        let globalP = this.globalP;
-        globalP['w:body'].push({'w:p':[
-            // {'w:pPr':[
-            //     {'w:bidi':''},
-            // ]}
-        ]});
-        let newLenghtP = this.globalP['w:body'].length;
-        this.counterP = newLenghtP;
-
+       this.globalP;
+       globalP['w:body'].push({'w:p':['test']});
+       let newLenghtP = this.globalP['w:body'].length;
+       this.counterP = newLenghtP;
+       this.stringData += "<w:p></w:p>";
     }// Method createP
 
 
@@ -75,114 +75,143 @@ import {type} from "os";
 
      addContentP(text?:any, style?:any ){
 
-        this.counterAdd +=1;
+        let checkStringP  = this.stringData.slice(-6);
+        if(checkStringP  ==   '</w:p>'){
+            let checkP = this.globalP['w:body'][0]['w:p'][0];
+            if(checkP == 'test'){
+                this.globalP['w:body'][0]['w:p'].pop();
+            }else{
+                this.globalP;
+            }
+                if(typeof style == 'object' ||  style == undefined && typeof  text == 'string'  ){
+                    let defaultStyle = {
+                        fontFamily : 'B Nazanin',
+                        fontSize : 20,
+                        fontColor : 'black',
+                        bold: 'false',
+                        direction :'rtl',
+                        align : 'right',
+                        backgroundFont: 'white'
+                    };
 
-        if(this.counterP >= 1){
-            if(typeof style == 'object' ||  style == undefined && typeof  text == 'string'  ){
-                let defaultStyle = {
-                    fontFamily : 'B Nazanin',
-                    fontSize : 20,
-                    fontColor : 'black',
-                    bold: 'false',
-                    direction :'rtl',
-                    align : 'right',
-                    backgroundFont: 'white'
-                };
+                    if(style != null){
+                        let keysDefualtStyle = Object.keys(defaultStyle);
+                        for(let i=0; i<keysDefualtStyle.length; i++){
+                            if(style[keysDefualtStyle[i]] != undefined){
+                                defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
 
-
-
-                if(style != null){
-                    let keysDefualtStyle = Object.keys(defaultStyle);
-                    for(let i=0; i<keysDefualtStyle.length; i++){
-                        if(style[keysDefualtStyle[i]] != undefined){
-                            defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
+                            }
 
                         }
-
+                    }else{
+                        defaultStyle;
                     }
+
+                    let objP = this.globalP;
+                    let last = _.lastIndexOf(this.globalP['w:body']);
+                    let counterP = last-1;
+
+                    let xmlStyle = {
+                        'w:r':[
+                            { 'w:rPr':[
+                                    {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
+                                    {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
+                                    {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
+                                    {'w:b':''},
+                                    {'w:highlight':'', attr:{'w:val':defaultStyle.backgroundFont}}
+                                ]},
+                            {'w:t':text}
+                        ]
+                    };
+
+                    /*****  add direction  *****/
+                    let valueDir = defaultStyle.direction;
+                    if(valueDir == 'rtl'){
+                        for(let i=counterP;i<last; i++){
+                            objP['w:body'][i]['w:p'].push({'w:pPr': [{'w:bidi':''}] }); //  <w:proofErr w:type="spellStart"/>
+                        }
+                        let direction = {};
+                        direction['w:'+valueDir] = '';
+                        xmlStyle['w:r'][0]['w:rPr'].push(direction);
+                        objP;
+                    }else if(valueDir == 'ltr'){
+                        for(let i=counterP;i<last; i++){
+
+                            objP['w:body'][i]['w:p'].push({'w:proofErr': '' , attr:{'w:type':'spellStart'}}); //  <w:proofErr w:type="spellStart"/>
+                        }
+                        objP;
+                    }
+                    /*****  add direction  *****/
+
+
+                    /***** check for add bold  *****/
+                    if(defaultStyle.bold == 'true'){
+                        xmlStyle['w:r'][0]['w:rPr'].push({'w:bCs':''});
+                        xmlStyle;
+                        for(let i=counterP; i<last; i++){
+                            objP['w:body'][i]['w:p'].push(xmlStyle);
+                        }// for
+                    }else{
+                        for(let i=counterP; i<last; i++){
+                            objP['w:body'][i]['w:p'].push(xmlStyle);
+                        }// for
+                    }
+                    /***** ********************  *****/
+
+                    /***** check  for add  align  *****/
+                    if(defaultStyle.align  == 'left'){
+                        for(let i=counterP; i<last; i++) {
+                            objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'right'}});
+                        }
+                    }else if(defaultStyle.align == 'center'){
+                        for(let i=counterP; i<last; i++) {
+                            objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'center'}});
+                        }
+                    }else if(defaultStyle.align == 'right'){
+                        objP;
+                    }
+                    /***** *********************  *****/
+                    if(valueDir == 'ltr'){
+                        for(let i=counterP; i<last; i++){
+                            objP['w:body'][i]['w:p'].push({'w:proofErr':'', attr:{'w:type':'spellEnd'}}); //   <w:proofErr w:type="spellEnd"/>
+                        }// for
+                        objP;
+                    }
+
+
+
+                    this.globalP = (<any>Object).assign(objP, this.globalP);
+                    let checkP = this.globalP['w:body'][0]['w:p'].length;
+                    let lastIndex = checkP - 1; // End loop
+                    let llIndex = lastIndex - 1;// Start loop
+                    let importCheck = this.stringData.slice(-11);
+                    if(importCheck == "<w:p></w:p>"){
+                        this.stringPdata = " ";
+                        for(let i = llIndex; i<=lastIndex; i++){
+                            let contentP =  json2xml(this.globalP['w:body'][0]['w:p'][i], { attributes_key:'attr' });
+                            this.stringPdata += contentP;
+                        }
+                        let newTbl = this.stringData.slice(0,-11);
+                        let newP ="<w:p>"+this.stringPdata+"</w:p>";
+                        let newData = newTbl+newP;
+                        this.stringData = " ";
+                        this.stringData +=newData;
+                    }else{ // Add contentP to old P
+                        let checkData = this.stringData.slice(0,-6);
+                        this.stringPdata = " ";
+                        for(let i = llIndex; i<=lastIndex; i++){
+                            let contentP =  json2xml(this.globalP['w:body'][0]['w:p'][i], { attributes_key:'attr' });
+                            this.stringPdata += contentP;
+                        }
+                        checkData +=this.stringPdata+"</w:p>";
+                        this.stringData = " ";
+                        this.stringData += checkData;
+                    }
+                   return this.stringData;
+
                 }else{
-                    defaultStyle;
+                    throw  'The sending parameter is incorrect'
                 }
-
-
-                let objP = this.globalP;
-                objP;
-                let last = _.lastIndexOf(this.globalP['w:body']);
-                let counterP = last-1;
-
-                let xmlStyle = {
-                    'w:r':[
-                        { 'w:rPr':[
-                                {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
-                                {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
-                                {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
-                                {'w:b':''},
-                                {'w:highlight':'', attr:{'w:val':defaultStyle.backgroundFont}}
-                            ]},
-                        {'w:t':text}
-                    ]
-                };
-
-                /*****  add direction  *****/
-                let valueDir = defaultStyle.direction;
-                if(valueDir == 'rtl'){
-                    for(let i=counterP;i<last; i++){
-                        objP['w:body'][i]['w:p'].push({'w:pPr': [{'w:bidi':''}] }); //  <w:proofErr w:type="spellStart"/>
-                    }
-                    let direction = {};
-                    direction['w:'+valueDir] = '';
-                    xmlStyle['w:r'][0]['w:rPr'].push(direction);
-                    objP;
-                }else if(valueDir == 'ltr'){
-                    for(let i=counterP;i<last; i++){
-
-                        objP['w:body'][i]['w:p'].push({'w:proofErr': '' , attr:{'w:type':'spellStart'}}); //  <w:proofErr w:type="spellStart"/>
-                    }
-                    objP;
-                }
-
-                /*****  add direction  *****/
-
-
-                /***** check for add bold  *****/
-                if(defaultStyle.bold == 'true'){
-                    xmlStyle['w:r'][0]['w:rPr'].push({'w:bCs':''});
-                    xmlStyle;
-                    for(let i=counterP; i<last; i++){
-                        objP['w:body'][i]['w:p'].push(xmlStyle);
-                    }// for
-                }else{
-                    for(let i=counterP; i<last; i++){
-                        objP['w:body'][i]['w:p'].push(xmlStyle);
-                    }// for
-                }
-                /***** ********************  *****/
-
-                /***** check  for add  align  *****/
-                if(defaultStyle.align  == 'left'){
-                    for(let i=counterP; i<last; i++) {
-                        objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'right'}});
-                    }
-                }else if(defaultStyle.align == 'center'){
-                    for(let i=counterP; i<last; i++) {
-                        objP['w:body'][i]['w:p'][0]['w:pPr'].push({'w:jc': '', attr: {'w:val': 'center'}});
-                    }
-                }else if(defaultStyle.align == 'right'){
-                    objP;
-                }
-                /***** *********************  *****/
-                if(valueDir == 'ltr'){
-                    for(let i=counterP; i<last; i++){
-                        objP['w:body'][i]['w:p'].push({'w:proofErr':'', attr:{'w:type':'spellEnd'}}); //   <w:proofErr w:type="spellEnd"/>
-                    }// for
-                    objP;
-                }
-                this.globalP = (<any>Object).assign(objP, this.globalP);
-                //return this.globalP;
-                this.globalP;
-            }else{
-                throw  'The sending parameter is incorrect'
-            }
 
         }else{
             throw 'createP function is undefined';
@@ -196,15 +225,32 @@ import {type} from "os";
 
 
     createTable(data, style?){
-        this.globalTbl ;
+
+        this.stringData;
+        this.stringTbldata;
         if(typeof data != 'object' || data == 'undefined'){
             throw  'The first parameter sent is wrong';
         }else{
             let objTable = new table();
             let resultTable = objTable.callingMethod(this.globalTbl, data, style);
+            this.globalTbl ;
             this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
-            return this.globalTbl;
+            this.globalTbl ;
+            //return this.globalTbl;
             //this.globalTbl;
+            let check  = this.globalTbl['w:tbl'].length;
+            if(check != 1  ){
+                let contentTbl = json2xml(this.globalTbl, {attributes_key:'attr'});
+                this.stringTbldata += contentTbl;
+                this.stringData += this.stringTbldata;
+                this.stringTbldata =" ";
+                this.stringTbldata;
+                this.stringData;
+                return this.stringData;
+
+            }else{
+                this.stringTbldata;
+            }
         }
         //return table;
     }// Method createTable
@@ -214,34 +260,6 @@ import {type} from "os";
 
     generate(){
 
-        //////////////////  Process For CreateP ////////////////////////
-        let contentP = json2xml(this.globalP, { attributes_key:'attr' });
-        if(contentP != "<w:body/>"){
-            let firstSplit  = contentP.split('<w:body>');
-            let secsplit = firstSplit[1].split('</w:body>');
-            let stringPdata = secsplit[0];
-            this.stringPdata +=  stringPdata;
-            this.stringPdata;
-
-        }else{
-            this.stringPdata;
-        }
-        ///////////////////////////  END CreateP  //////////////////////
-
-        ////////////////// Process For Table ///////////////////////////
-        this.globalTbl;
-         let check  = this.globalTbl['w:tbl'].length;
-         if(check != 1  ){
-             let contentTbl = json2xml(this.globalTbl, {attributes_key:'attr'});
-             this.stringTbldata += contentTbl;
-         }else{
-            this.stringTbldata;
-         }
-        ////////////////////////////// END CreateTbl //////////////////////
-
-
-        this.stringData = this.stringPdata+this.stringTbldata;
-        this.stringData;
         let sourceData = this.sourceData;
         let wordData = _.find(sourceData,{name:'word\\document.xml'});
         let data = wordData.data;
