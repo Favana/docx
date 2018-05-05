@@ -154,6 +154,7 @@ var table = /** @class */ (function () {
                         var sizeBorder = find.sizeBorder;
                         var align = find.align;
                         var fontFamily = find.fontFamily;
+                        var fontColor = find.fontColor;
                         if (sizeBorder != undefined) {
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:tblBorders': [
                                     { 'w:top': '', attr: { 'w:val': 'single', 'w:sz': sizeBorder, 'w:space': '0', 'w:color': 'auto' } },
@@ -175,6 +176,12 @@ var table = /** @class */ (function () {
                                 ] } // 'w:rPr'
                             );
                         } // if  check font
+                        if (fontColor != undefined) {
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, { 'w:rPr': [
+                                    { 'w:color': '', attr: { 'w:val': fontColor } }
+                                ] } // 'w:rPr'
+                            );
+                        } // if check fontColor
                     } // for j
                 } // for i
                 _body;

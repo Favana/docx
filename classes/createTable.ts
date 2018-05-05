@@ -184,6 +184,7 @@ export class table{
                         let sizeBorder = find.sizeBorder;
                         let align = find.align;
                         let fontFamily = find.fontFamily;
+                        let fontColor = find.fontColor;
 
                         if(sizeBorder != undefined){
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
@@ -204,6 +205,7 @@ export class table{
                                        ]}
                                     );
                         }// if check align
+
                         if(fontFamily != undefined){
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
                                 {'w:rPr':[
@@ -212,6 +214,17 @@ export class table{
                                     ]}// 'w:rPr'
                                 );
                         }// if  check font
+
+
+                        if(fontColor != undefined){
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
+                                {'w:rPr':[
+                                        {'w:color':'' , attr:{'w:val':fontColor}}
+                                    ]}// 'w:rPr'
+                            );
+
+                        }// if check fontColor
+
                     }// for j
                 }// for i
                 _body;
