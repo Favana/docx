@@ -139,45 +139,53 @@ var table = /** @class */ (function () {
         } // for row
         return _body;
     }; //createMerge
-    table.prototype.tableStyle = function (_body, style, data) {
-        var defaultStyle = {
-            fontFamily: 'B Nazanin',
-            fontSize: 20,
-            fontColor: 'black',
-            bold: 'false',
-            direction: 'rtl',
-            align: 'right'
-        };
+    table.prototype.tableStyle = function (_body, style) {
+        style;
         _body;
         if (style != null) {
-            var keysDefualtStyle = Object.keys(defaultStyle);
-            for (var i = 0; i < keysDefualtStyle.length; i++) {
-                if (style[keysDefualtStyle[i]] != undefined) {
-                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
-                    defaultStyle;
-                }
+            if (typeof style == 'object') {
+                var counterX = _.uniqBy(style, 'x');
+                var counterY = _.uniqBy(style, 'y');
+                var counterCol = counterY.length;
+                var counterRow = counterX.length;
+                for (var i = 1; i <= counterRow; i++) {
+                    for (var j = 0; j < counterCol; j++) {
+                        var find = _.find(style, { x: i, y: j });
+                        var sizeBorder = find.sizeBorder;
+                        var align = find.align;
+                        align;
+                        if (sizeBorder != undefined) {
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:tblBorders': [
+                                    { 'w:top': '', attr: { 'w:val': 'single', 'w:sz': sizeBorder, 'w:space': '0', 'w:color': 'auto' } },
+                                    { 'w:left': '', attr: { 'w:val': 'single', 'w:sz': sizeBorder, 'w:space': '0', 'w:color': 'auto' } },
+                                    { 'w:bottom': '', attr: { 'w:val': 'single', 'w:sz': sizeBorder, 'w:space': '0', 'w:color': 'auto' } },
+                                    { 'w:right': '', attr: { 'w:val': 'single', 'w:sz': sizeBorder, 'w:space': '0', 'w:color': 'auto' } }
+                                ] } // 'w:tblBorders'
+                            );
+                        } // if check sizeBorder
+                        if (align != undefined) {
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0, { 'w:pPr': [
+                                    { 'w:jc': '', attr: { 'w:val': align } }
+                                ] });
+                        } // if check align
+                    } // for j
+                } // for i
+                _body;
             }
+            else {
+                throw "Type of style is not object";
+            } // else
         }
         else {
-            defaultStyle;
-        }
-        _body;
-        // {'w:rPr':[
-        //     {'w:rtl':[]},
-        //     {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
-        //     {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
-        //     {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
-        // ]},
-        // _body['w:tbl'][0]['w:tblPr'].push({'w:tblBorders':[ //<w:top w:val="single" w:sz="12" w:space="0" w:color="95B3D7" w:themeColor="accent1" w:themeTint="99"/>
-        //         {'w:top':'', attr:{'w:val':"single",  'w:sz':"12",'w:color':'95B3D7', 'w:themeColor':'accent1', 'w:themeTint':'99'}}
-        //     ]});
+            return _body;
+        } //  else
     };
     table.prototype.callingMethod = function (body, data, style) {
         var objTr = this.createTr(body, data);
         var objTc = this.createTc(objTr, data);
         var objP = this.createPtable(objTc, data);
         var objMerge = this.createMerge(objP, data);
-        var objStyle = this.tableStyle(objMerge, style, data);
+        var objStyle = this.tableStyle(objMerge, style);
         return objMerge;
         // next(json2xml(objMerge,{ attributes_key:'attr' } ));
     };

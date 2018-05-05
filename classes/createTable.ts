@@ -1,4 +1,5 @@
 import {} from 'mocha';
+import {type} from "os";
 let json2xml = require('json2xml');
 let _ = require('lodash');
 
@@ -47,7 +48,6 @@ export class table{
     }//createTc
 
     createPtable(_body:any, data:any){
-
 
         let counterCol = _.uniqBy(data, 'y');
         let counterRow =_.uniqBy(data, 'x');
@@ -167,45 +167,54 @@ export class table{
     }//createMerge
 
 
-    tableStyle(_body:any, style?:any, data?:any){
-        let defaultStyle = {
-            fontFamily : 'B Nazanin',
-            fontSize : 20,
-            fontColor : 'black',
-            bold: 'false',
-            direction :'rtl',
-            align : 'right'
-        };
-        _body;
-
-        if(style != null){
-            let keysDefualtStyle = Object.keys(defaultStyle);
-            for(let i=0; i<keysDefualtStyle.length; i++){
-                if(style[keysDefualtStyle[i]] != undefined){
-                    defaultStyle[keysDefualtStyle[i]] = style[keysDefualtStyle[i]];
-                    defaultStyle;
-                }
-            }
-        }else{
-            defaultStyle;
-        }
-
+    tableStyle(_body:any, style?:any){
+       style;
        _body;
 
+        if(style != null ){
+            if(typeof  style == 'object'){
+                let counterX = _.uniqBy(style, 'x');
+                let counterY =  _.uniqBy(style, 'y');
+                let counterCol = counterY.length;
+                let counterRow = counterX.length;
 
+                for(let i= 1; i<=counterRow; i++){
+                    for(let j= 0; j<counterCol; j++){
+                        let find = _.find(style, {x:i, y:j});
+                        let sizeBorder = find.sizeBorder;
+                        let align = find.align;
+                        align;
+                        if(sizeBorder != undefined){
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                {'w:tblBorders':[
+                                        {'w:top':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}},
+                                        {'w:left':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}},
+                                        {'w:bottom':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}},
+                                        {'w:right':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}}
+                                 ]}// 'w:tblBorders'
 
+                            );
+                        }// if check sizeBorder
 
-        // {'w:rPr':[
-        //     {'w:rtl':[]},
-        //     {'w:rFonts':'', attr:{'w:cs':defaultStyle.fontFamily,'w:hint':'cs'}},
-        //     {'w:szCs':'', attr:{'w:val':2*(defaultStyle.fontSize)}},
-        //     {'w:color':'', attr:{'w:val':defaultStyle.fontColor}},
-        // ]},
+                        if(align != undefined){
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0 ,
+                                {'w:pPr':[
+                                        {'w:jc':'',attr:{'w:val':align}}
+                                       ]}
+                                    );
+                        }// if check align
+                    }// for j
+                }// for i
+                _body;
 
+            }else{
+                throw "Type of style is not object";
+            }// else
 
-        // _body['w:tbl'][0]['w:tblPr'].push({'w:tblBorders':[ //<w:top w:val="single" w:sz="12" w:space="0" w:color="95B3D7" w:themeColor="accent1" w:themeTint="99"/>
-        //         {'w:top':'', attr:{'w:val':"single",  'w:sz':"12",'w:color':'95B3D7', 'w:themeColor':'accent1', 'w:themeTint':'99'}}
-        //     ]});
+        }else{
+            return _body;
+        }//  else
+
 
     }
 
@@ -215,7 +224,7 @@ export class table{
         let objTc = this.createTc(objTr, data);
         let objP = this.createPtable(objTc, data);
         let objMerge = this.createMerge(objP, data);
-        let objStyle = this.tableStyle(objMerge, style, data);
+        let objStyle = this.tableStyle(objMerge, style);
         return objMerge;
        // next(json2xml(objMerge,{ attributes_key:'attr' } ));
     }

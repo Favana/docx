@@ -182,7 +182,7 @@ var Docx = /** @class */ (function () {
                     this.stringData = " ";
                     this.stringData += newData;
                 }
-                else {
+                else { // Add contentP to old P
                     var checkData = this.stringData.slice(0, -6);
                     this.stringPdata = " ";
                     for (var i = llIndex; i <= lastIndex; i++) {

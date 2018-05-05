@@ -49,7 +49,7 @@ describe('docx', function(){
             let docx = new Docx('test_Merge_&_Tbl_&_CreateP.docx', 'outputUnitTest/');
             docx.createTable(dataMerge); // Merge Table
             docx.createP();
-            docx.addContentP('مجید' , {fontColor: 'white',  backgroundFont:'black'});
+            docx.addContentP('مجید' , {fontColor: 'black',  backgroundFont:'white', bold:'true', direction:'rtl'});
             docx.addContentP('علی' , {fontColor: 'white',  backgroundFont:'black'});
             docx.createTable(data); // Merge Table
             docx.createP();

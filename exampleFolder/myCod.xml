@@ -1,35 +1,195 @@
-<w:body>
-    <w:p w:rsidR="001D69F8" w:rsidRDefault="006C52AF">
-        <w:proofErr w:type="spellStart"/>
-        <w:r w:rsidRPr="006C52AF">
-            <w:rPr>
-                <w:rFonts w:asciiTheme="majorBidi" w:hAnsiTheme="majorBidi" w:cstheme="majorBidi"/>
-                <w:b/>
-                <w:color w:val="FF0000"/>
-                <w:sz w:val="40"/>
-                <w:szCs w:val="40"/>
-                <w:highlight w:val="white"/>
-            </w:rPr>
-            <w:t>milad</w:t>
-        </w:r>
-        <w:r>
-            <w:rPr>
-                <w:rFonts w:cs="B Nazanin" w:hint="cs"/>
-                <w:b/>
-                <w:color w:val="000000"/>
-                <w:szCs w:val="40"/>
-                <w:highlight w:val="white"/>
-            </w:rPr>
-            <w:t>milad</w:t>
-        </w:r>
-        <w:bookmarkStart w:id="0" w:name="_GoBack"/>
-        <w:bookmarkEnd w:id="0"/>
-        <w:proofErr w:type="spellEnd"/>
-    </w:p>
-    <w:sectPr w:rsidR="001D69F8">
-        <w:pgSz w:w="12240" w:h="15840"/>
-        <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
-        <w:cols w:space="720"/>
-        <w:docGrid w:linePitch="360"/>
-    </w:sectPr>
-</w:body>
+<w:tbl>
+    <w:tblPr>
+        <w:tblStyle w:val="TableGrid"/>
+        <w:bidiVisual/>
+        <w:tblW w:w="0" w:type="auto"/>
+        <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0"
+                   w:noVBand="1"/>
+    </w:tblPr>
+    <w:tblGrid>
+        <w:gridCol w:w="3110"/>
+        <w:gridCol w:w="3110"/>
+        <w:gridCol w:w="3110"/>
+    </w:tblGrid>
+    <w:tr w:rsidR="00AD1C4D" w:rsidTr="00AA6F15">
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3116" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AA6F15">
+                <w:pPr>
+                    <w:jc w:val="center"/>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+                <w:bookmarkStart w:id="0" w:name="_GoBack" w:colFirst="0" w:colLast="0"/>
+                <w:r>
+                    <w:rPr>
+                        <w:rFonts w:hint="cs"/>
+                        <w:rtl/>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                    <w:t>میلاد</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3117" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3117" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+    </w:tr>
+    <w:bookmarkEnd w:id="0"/>
+    <w:tr w:rsidR="00AD1C4D" w:rsidTr="00AA6F15">
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3116" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+                <w:r>
+                    <w:rPr>
+                        <w:rFonts w:hint="cs"/>
+                        <w:rtl/>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                    <w:t>ابراهیم پور</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3117" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3117" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+    </w:tr>
+    <w:tr w:rsidR="00AD1C4D" w:rsidTr="00AD1C4D">
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3116" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+                <w:r>
+                    <w:rPr>
+                        <w:rFonts w:hint="cs"/>
+                        <w:rtl/>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                    <w:t>علی</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3117" w:type="dxa"/>
+                <w:tcBorders>
+                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
+                </w:tcBorders>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="3117" w:type="dxa"/>
+            </w:tcPr>
+            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+                <w:pPr>
+                    <w:rPr>
+                        <w:lang w:bidi="fa-IR"/>
+                    </w:rPr>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+    </w:tr>
+</w:tbl>
