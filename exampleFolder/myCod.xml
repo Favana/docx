@@ -7,188 +7,162 @@
                    w:noVBand="1"/>
     </w:tblPr>
     <w:tblGrid>
-        <w:gridCol w:w="3110"/>
-        <w:gridCol w:w="3110"/>
-        <w:gridCol w:w="3110"/>
+        <w:gridCol w:w="3066"/>
+        <w:gridCol w:w="3142"/>
+        <w:gridCol w:w="3142"/>
     </w:tblGrid>
-    <w:tr w:rsidR="00AD1C4D" w:rsidTr="00AA6F15">
+    <w:tr w:rsidR="000A574D">
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3116" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AA6F15">
-                <w:pPr>
-                    <w:jc w:val="center"/>
-                    <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
-                    </w:rPr>
-                </w:pPr>
-                <w:bookmarkStart w:id="0" w:name="_GoBack" w:colFirst="0" w:colLast="0"/>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="000A574D"/>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+            </w:tcPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
                 <w:r>
                     <w:rPr>
-                        <w:rFonts w:hint="cs"/>
+                        <w:rFonts w:cs="Times New Roman"/>
                         <w:rtl/>
-                        <w:lang w:bidi="fa-IR"/>
                     </w:rPr>
-                    <w:t>میلاد</w:t>
+                    <w:t>سال</w:t>
+                </w:r>
+                <w:r>
+                    <w:t xml:space="preserve"> 1390</w:t>
                 </w:r>
             </w:p>
         </w:tc>
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3117" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
-                <w:pPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
                     <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <w:rtl/>
                     </w:rPr>
-                </w:pPr>
-            </w:p>
-        </w:tc>
-        <w:tc>
-            <w:tcPr>
-                <w:tcW w:w="3117" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
-            </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
-                <w:pPr>
-                    <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
-                    </w:rPr>
-                </w:pPr>
+                    <w:t>سال</w:t>
+                </w:r>
+                <w:r>
+                    <w:t>1391</w:t>
+                </w:r>
             </w:p>
         </w:tc>
     </w:tr>
-    <w:bookmarkEnd w:id="0"/>
-    <w:tr w:rsidR="00AD1C4D" w:rsidTr="00AA6F15">
+    <w:tr w:rsidR="000A574D">
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3116" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
+            <w:p w:rsidR="000A574D" w:rsidRPr="003E6000" w:rsidRDefault="00987C7B">
                 <w:pPr>
                     <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
+                        <w:rFonts w:cs="B Nazanin"/>
                     </w:rPr>
                 </w:pPr>
-                <w:r>
+                <w:r w:rsidRPr="003E6000">
                     <w:rPr>
-                        <w:rFonts w:hint="cs"/>
+                        <w:rFonts w:cs="B Nazanin"/>
                         <w:rtl/>
-                        <w:lang w:bidi="fa-IR"/>
                     </w:rPr>
-                    <w:t>ابراهیم پور</w:t>
+                    <w:t>کل</w:t>
                 </w:r>
             </w:p>
         </w:tc>
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3117" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
-                <w:pPr>
-                    <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
-                    </w:rPr>
-                </w:pPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
+                    <w:t>21545288</w:t>
+                </w:r>
             </w:p>
         </w:tc>
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3117" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
-                <w:pPr>
-                    <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
-                    </w:rPr>
-                </w:pPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
+                    <w:t>85487525</w:t>
+                </w:r>
             </w:p>
         </w:tc>
     </w:tr>
-    <w:tr w:rsidR="00AD1C4D" w:rsidTr="00AD1C4D">
+    <w:tr w:rsidR="000A574D">
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3116" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:top w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:bottom w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                    <w:right w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
-                <w:pPr>
-                    <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
-                    </w:rPr>
-                </w:pPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
                 <w:r>
                     <w:rPr>
-                        <w:rFonts w:hint="cs"/>
+                        <w:rFonts w:cs="Times New Roman"/>
                         <w:rtl/>
-                        <w:lang w:bidi="fa-IR"/>
                     </w:rPr>
-                    <w:t>علی</w:t>
+                    <w:t>البرز</w:t>
                 </w:r>
             </w:p>
         </w:tc>
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3117" w:type="dxa"/>
-                <w:tcBorders>
-                    <w:left w:val="single" w:sz="12" w:space="0" w:color="auto"/>
-                </w:tcBorders>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
-                <w:pPr>
-                    <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
-                    </w:rPr>
-                </w:pPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
+                    <w:t>2521</w:t>
+                </w:r>
             </w:p>
         </w:tc>
         <w:tc>
             <w:tcPr>
-                <w:tcW w:w="3117" w:type="dxa"/>
+                <w:tcW w:w="4657" w:type="dxa"/>
             </w:tcPr>
-            <w:p w:rsidR="00AD1C4D" w:rsidRDefault="00AD1C4D" w:rsidP="00AD1C4D">
-                <w:pPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
+                    <w:t>5485</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+    </w:tr>
+    <w:tr w:rsidR="000A574D">
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+            </w:tcPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
                     <w:rPr>
-                        <w:lang w:bidi="fa-IR"/>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <w:rtl/>
                     </w:rPr>
-                </w:pPr>
+                    <w:t>بندرعباس</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+            </w:tcPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
+                    <w:t>145214</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+            </w:tcPr>
+            <w:p w:rsidR="000A574D" w:rsidRDefault="00987C7B">
+                <w:r>
+                    <w:t>2255</w:t>
+                </w:r>
             </w:p>
         </w:tc>
     </w:tr>

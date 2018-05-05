@@ -183,7 +183,8 @@ export class table{
                         let find = _.find(style, {x:i, y:j});
                         let sizeBorder = find.sizeBorder;
                         let align = find.align;
-                        align;
+                        let fontFamily = find.fontFamily;
+
                         if(sizeBorder != undefined){
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
                                 {'w:tblBorders':[
@@ -203,6 +204,14 @@ export class table{
                                        ]}
                                     );
                         }// if check align
+                        if(fontFamily != undefined){
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
+                                {'w:rPr':[
+                                        {'w:rFonts':'' , attr:{'w:cs':fontFamily}},
+                                        {'w:rtl':''}
+                                    ]}// 'w:rPr'
+                                );
+                        }// if  check font
                     }// for j
                 }// for i
                 _body;
