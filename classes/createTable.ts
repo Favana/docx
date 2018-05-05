@@ -181,18 +181,20 @@ export class table{
                 for(let i= 1; i<=counterRow; i++){
                     for(let j= 0; j<counterCol; j++){
                         let find = _.find(style, {x:i, y:j});
-                        let sizeBorder = find.sizeBorder;
+                        let borderSize = find.sizeBorder;
                         let align = find.align;
                         let fontFamily = find.fontFamily;
                         let fontColor = find.fontColor;
+                        let fontSize = find.fontSize;
 
-                        if(sizeBorder != undefined){
+
+                        if(borderSize != undefined){
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
                                 {'w:tblBorders':[
-                                        {'w:top':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}},
-                                        {'w:left':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}},
-                                        {'w:bottom':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}},
-                                        {'w:right':'', attr:{'w:val':'single', 'w:sz':sizeBorder, 'w:space':'0', 'w:color':'auto'}}
+                                        {'w:top':'', attr:{'w:val':'single', 'w:sz':borderSize, 'w:space':'0', 'w:color':'auto'}},
+                                        {'w:left':'', attr:{'w:val':'single', 'w:sz':borderSize, 'w:space':'0', 'w:color':'auto'}},
+                                        {'w:bottom':'', attr:{'w:val':'single', 'w:sz':borderSize, 'w:space':'0', 'w:color':'auto'}},
+                                        {'w:right':'', attr:{'w:val':'single', 'w:sz':borderSize, 'w:space':'0', 'w:color':'auto'}}
                                  ]}// 'w:tblBorders'
 
                             );
@@ -222,8 +224,19 @@ export class table{
                                         {'w:color':'' , attr:{'w:val':fontColor}}
                                     ]}// 'w:rPr'
                             );
-
                         }// if check fontColor
+
+                        if(fontSize != undefined){
+                            fontSize = 2*fontSize;
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
+                                {'w:rPr':[
+                                        {'w:sz':'' , attr:{'w:val':fontSize}}
+                                    ]}// 'w:rPr'
+                            );
+                        }//  if check fontSize
+
+                       
+
 
                     }// for j
                 }// for i
