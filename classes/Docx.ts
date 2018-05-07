@@ -297,44 +297,6 @@ import {table}  from './createTable';
 
 }// class docx
 
-//
-// let objDocx = new docx('test.docx','outpotProject/');
-//   objDocx.createP();
-//   objDocx.addContentP('میلاد',{fontFamily : 'B Nazanin'});
-// // objDocx.createP();
-//   //objDocx.addContentP(  'علی ابراهیم پور'  ,{fontFamily: 'B Nazanin'});
-//
-// let data = [
-//     {x: 1, y: 0, value: '',mergeRow:'', mergeCol:''},       //mergeRow:(x) ,,,, mergeCol:(y)
-//     {x: 1, y: 1, value: 'سال 1390', mergeRow:'', mergeCol:''},
-//     {x: 1, y: 2, value: 'سال1391',mergeRow:'', mergeCol:''},
-//     {x: 1, y: 3, value: 'سال 1395',mergeRow:'', mergeCol:''},
-//
-//
-//     {x: 2, y: 0, value: 'کل',mergeRow:'', mergeCol:''},
-//     {x: 2, y: 1, value: '21545288', mergeRow:'', mergeCol:''},
-//     {x: 2, y: 2, value: '85487525',mergeRow:'', mergeCol:''},
-//     {x: 2, y: 3, value: '2215659',mergeRow:'', mergeCol:''},
-//
-//
-//     {x: 3, y: 0, value: 'البرز',mergeRow:'', mergeCol:''},
-//     {x: 3, y: 1, value: '2521',mergeRow:'', mergeCol:''},
-//     {x: 3, y: 2, value: '5485',mergeRow:'', mergeCol:''},
-//     {x: 3, y: 3, value: '514',mergeRow:'', mergeCol:''},
-//
-//
-//     {x: 4, y: 0, value: 'بندرعباس',mergeRow:'', mergeCol:''},
-//     {x: 4, y: 1, value: '145214',mergeRow:'', mergeCol:''},
-//     {x: 4, y: 2, value: '2255',mergeRow:'', mergeCol:''},
-//     {x: 4, y: 3, value: '225552',mergeRow:'', mergeCol:''},
-//
-//
-//
-// ];// data
-//
-// objDocx.createTable(data,{fontFamily:'B Elham'});
-// let out = objDocx.generate();
-// console.log(out);
 
 /****
 @ObjectStyleDefault

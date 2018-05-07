@@ -52,16 +52,16 @@ describe('Style Table', function () {
                 { x: 4, y: 2, value: '2255', mergeRow: '', mergeCol: '' }
             ]; // data
             var style = [
-                { x: 1, y: 0, sizeBorder: '12' },
-                { x: 1, y: 1, sizeBorder: '12' },
-                { x: 1, y: 2, sizeBorder: '12' },
-                { x: 2, y: 0, sizeBorder: '12' },
+                { x: 1, y: 0, borderSize: '12' },
+                { x: 1, y: 1, borderSize: '12' },
+                { x: 1, y: 2, borderSize: '12' },
+                { x: 2, y: 0, borderSize: '12' },
                 { x: 2, y: 1 },
                 { x: 2, y: 2 },
-                { x: 3, y: 0, sizeBorder: '12' },
+                { x: 3, y: 0, borderSize: '12' },
                 { x: 3, y: 1 },
                 { x: 3, y: 2 },
-                { x: 4, y: 0, sizeBorder: '12' },
+                { x: 4, y: 0, borderSize: '12' },
                 { x: 4, y: 1 },
                 { x: 4, y: 2 }
             ]; // style

@@ -181,12 +181,13 @@ export class table{
                 for(let i= 1; i<=counterRow; i++){
                     for(let j= 0; j<counterCol; j++){
                         let find = _.find(style, {x:i, y:j});
-                        let borderSize = find.sizeBorder;
+                        let borderSize = find.borderSize;
                         let align = find.align;
                         let fontFamily = find.fontFamily;
                         let fontColor = find.fontColor;
                         let fontSize = find.fontSize;
                         let backgroundCell = find.background;
+                        let bold = find.bold;
 
 
                         if(borderSize != undefined){ ///// if check sizeBorder
@@ -199,51 +200,193 @@ export class table{
                                  ]}// 'w:tblBorders'
 
                             );
+                            _body;
                         }// if check sizeBorder
 
                         if(align != undefined){ // if check align
-                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0 ,
-                                {'w:pPr':[
-                                        {'w:jc':'',attr:{'w:val':align}}
-                                       ]}
-                                    );
+                            let check = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
+
+                            if(check == 1){
+                                _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0 ,
+                                    {'w:pPr':[
+                                            {'w:jc':'',attr:{'w:val':align}}
+                                        ]}
+                                );
+                                _body;
+                            }else if (check > 1){
+                                _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:pPr'].push(
+                                            {'w:jc':'',attr:{'w:val':align}}
+                                );
+                                _body;
+                            }
                         }// if check align
 
+
+
+
                         if(fontFamily != undefined){ // if  check font
-                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
-                                {'w:rPr':[
+                            let checkP = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
+
+                            if(checkP == 1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+
+                                if(checkR == 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
+                                        {'w:rPr':[
+                                                {'w:rFonts':'' , attr:{'w:cs':fontFamily}},
+                                                {'w:rtl':''}
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR > 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push(
                                         {'w:rFonts':'' , attr:{'w:cs':fontFamily}},
                                         {'w:rtl':''}
-                                    ]}// 'w:rPr'
-                                );
+                                    );
+                                    _body;
+                                }
+                            }else if(checkP>1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+
+                                if(checkR == 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0 ,
+                                        {'w:rPr':[
+                                                {'w:rFonts':'' , attr:{'w:cs':fontFamily}},
+                                                {'w:rtl':''}
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR > 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push(
+                                        {'w:rFonts':'' , attr:{'w:cs':fontFamily}},
+                                        {'w:rtl':''}
+                                    );
+                                    _body;
+                                }
+                            }
                         }// if  check font
 
 
+
                         if(fontColor != undefined){ // if  fontColor
-                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
-                                {'w:rPr':[
+                            let checkP = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
+                            if(checkP == 1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                if(checkR == 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0,0,
+                                        {'w:rPr':[
+                                                {'w:color':'' , attr:{'w:val':fontColor}}
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR >1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push(
                                         {'w:color':'' , attr:{'w:val':fontColor}}
-                                    ]}// 'w:rPr'
-                            );
+                                    );
+                                    _body;
+                                }
+
+                            }else if(checkP >1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                if(checkR == 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0,0,
+                                        {'w:rPr':[
+                                                {'w:color':'' , attr:{'w:val':fontColor}}
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR >1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push(
+                                        {'w:color':'' , attr:{'w:val':fontColor}}
+                                    );
+                                    _body;
+                                }
+                            }
                         }// if check fontColor
 
+
                         if(fontSize != undefined){ // if check fontSize
+                            let checkP = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
                             fontSize = 2*fontSize;
-                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
-                                {'w:rPr':[
+                            if(checkP == 1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                if(checkR == 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
+                                        {'w:rPr':[
+                                                {'w:sz':'' , attr:{'w:val':fontSize}}
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR > 1 ){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push(
                                         {'w:sz':'' , attr:{'w:val':fontSize}}
-                                    ]}// 'w:rPr'
-                            );
+                                    );
+                                    _body;
+                                }
+                            }else if(checkP >1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                if(checkR == 1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0 ,
+                                        {'w:rPr':[
+                                                {'w:sz':'' , attr:{'w:val':fontSize}}
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR > 1 ){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push(
+                                        {'w:sz':'' , attr:{'w:val':fontSize}}
+                                    );
+                                    _body;
+                                }
+
+
+                            }
                         }//  if check fontSize
 
                        if(backgroundCell != undefined){ // if check background cell table
-                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].splice(0,0,
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
                                 {'w:shd':'' , attr:{'w:val':'clear','w:color':'auto', 'w:fill': backgroundCell}}
                             );
-                            ///  <w:shd w:val="clear" w:color="auto" w:fill="ACB9CA" w:themeFill="text2" w:themeFillTint="66"/>
+                           _body;
                        }// if check background cell table
 
 
+                        if( bold != undefined ){ // if for check bold
+                            let checkP = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
+                            if(checkP == 1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                if(checkR == 1 ){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0,0,
+                                        {'w:rPr':[
+                                                {'w:bCs':''}  // <w:bCs/>
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR >1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].push(
+                                        {'w:bCs':''}  // <w:bCs/>
+                                    );
+                                    _body;
+                                }
+
+                            }else if(checkP > 1){
+                                let checkR = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                if(checkR == 1 ){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0,0,
+                                        {'w:rPr':[
+                                                {'w:bCs':''}  // <w:bCs/>
+                                            ]}// 'w:rPr'
+                                    );
+                                    _body;
+                                }else if(checkR >1){
+                                    _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].push(
+                                        {'w:bCs':''}  // <w:bCs/>
+                                    );
+                                    _body;
+                                }
+
+                            }
+                        }// if for check bold
 
                     }// for j
                 }// for i
