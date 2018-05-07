@@ -12,27 +12,24 @@
         <w:gridCol w:w="2338"/>
         <w:gridCol w:w="2338"/>
     </w:tblGrid>
-    <w:tr w:rsidR="00110644" w:rsidTr="00295E69">
+    <w:tr w:rsidR="00110644" w:rsidTr="00D53BCB">
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2337" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="ACB9CA" w:themeFill="text2" w:themeFillTint="66"/>
             </w:tcPr>
-            <w:p w:rsidR="00110644" w:rsidRPr="00F63016" w:rsidRDefault="00295E69" w:rsidP="00110644">
+            <w:p w:rsidR="00110644" w:rsidRPr="00582CD5" w:rsidRDefault="00295E69" w:rsidP="00110644">
                 <w:pPr>
                     <w:rPr>
                         <w:rFonts w:cs="B Nazanin"/>
-                        <w:sz w:val="36"/>
-                        <w:szCs w:val="36"/>
                         <w:rtl/>
                         <w:lang w:bidi="fa-IR"/>
                     </w:rPr>
                 </w:pPr>
-                <w:r w:rsidRPr="00F63016">
+                <w:r w:rsidRPr="006B4B9F">
                     <w:rPr>
                         <w:rFonts w:cs="B Nazanin" w:hint="cs"/>
                         <w:color w:val="FF0000"/>
-                        <w:sz w:val="36"/>
-                        <w:szCs w:val="36"/>
                         <w:rtl/>
                         <w:lang w:bidi="fa-IR"/>
                     </w:rPr>
@@ -43,26 +40,30 @@
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2337" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2338" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2338" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
     </w:tr>
-    <w:tr w:rsidR="00110644" w:rsidTr="00295E69">
+    <w:tr w:rsidR="00110644" w:rsidTr="00D53BCB">
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2337" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRPr="00582CD5" w:rsidRDefault="00295E69" w:rsidP="00110644">
                 <w:pPr>
@@ -82,44 +83,51 @@
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2337" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2338" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2338" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
     </w:tr>
-    <w:tr w:rsidR="00110644" w:rsidTr="00295E69">
+    <w:tr w:rsidR="00110644" w:rsidTr="00D53BCB">
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2337" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2337" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2338" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>
         <w:tc>
             <w:tcPr>
                 <w:tcW w:w="2338" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
             </w:tcPr>
             <w:p w:rsidR="00110644" w:rsidRDefault="00110644" w:rsidP="00110644"/>
         </w:tc>

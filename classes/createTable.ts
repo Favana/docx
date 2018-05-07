@@ -186,9 +186,10 @@ export class table{
                         let fontFamily = find.fontFamily;
                         let fontColor = find.fontColor;
                         let fontSize = find.fontSize;
+                        let backgroundCell = find.background;
 
 
-                        if(borderSize != undefined){
+                        if(borderSize != undefined){ ///// if check sizeBorder
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
                                 {'w:tblBorders':[
                                         {'w:top':'', attr:{'w:val':'single', 'w:sz':borderSize, 'w:space':'0', 'w:color':'auto'}},
@@ -200,7 +201,7 @@ export class table{
                             );
                         }// if check sizeBorder
 
-                        if(align != undefined){
+                        if(align != undefined){ // if check align
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0 ,
                                 {'w:pPr':[
                                         {'w:jc':'',attr:{'w:val':align}}
@@ -208,7 +209,7 @@ export class table{
                                     );
                         }// if check align
 
-                        if(fontFamily != undefined){
+                        if(fontFamily != undefined){ // if  check font
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
                                 {'w:rPr':[
                                         {'w:rFonts':'' , attr:{'w:cs':fontFamily}},
@@ -218,7 +219,7 @@ export class table{
                         }// if  check font
 
 
-                        if(fontColor != undefined){
+                        if(fontColor != undefined){ // if  fontColor
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
                                 {'w:rPr':[
                                         {'w:color':'' , attr:{'w:val':fontColor}}
@@ -226,7 +227,7 @@ export class table{
                             );
                         }// if check fontColor
 
-                        if(fontSize != undefined){
+                        if(fontSize != undefined){ // if check fontSize
                             fontSize = 2*fontSize;
                             _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0 ,
                                 {'w:rPr':[
@@ -235,7 +236,13 @@ export class table{
                             );
                         }//  if check fontSize
 
-                       
+                       if(backgroundCell != undefined){ // if check background cell table
+                            _body['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].splice(0,0,
+                                {'w:shd':'' , attr:{'w:val':'clear','w:color':'auto', 'w:fill': backgroundCell}}
+                            );
+                            ///  <w:shd w:val="clear" w:color="auto" w:fill="ACB9CA" w:themeFill="text2" w:themeFillTint="66"/>
+                       }// if check background cell table
+
 
 
                     }// for j
