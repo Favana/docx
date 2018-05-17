@@ -23,11 +23,6 @@ var table = /** @class */ (function () {
             for (var i = 1; i < check; i++) {
                 _body['w:tbl'].pop();
             }
-            //this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
-            // let p = {'w:p':[]};
-            // _body = (<any>Object).assign(p, _body);
-            _body;
-            //  return _body;
         }
         _body;
         var counterRow = _.uniqBy(data, 'x');
@@ -97,15 +92,18 @@ var table = /** @class */ (function () {
                 if (colY != '' && rowX != '') {
                     var myX = checkMerge.x;
                     var myY = checkMerge.y;
+                    myY;
                     var counterY = colY; // mergeCol
                     var counterX = rowX; //mergeRow
                     /// start merge Row and Col
-                    _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({
-                        'w:vMerge': '',
-                        attr: { 'w:val': 'restart' }
-                    }, { 'w:gridSpan': '', attr: { 'w:val': colY } }); ///<w:vMerge w:val="restart"/>
+                    _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({ 'w:vMerge': '', attr: { 'w:val': 'restart' } }, { 'w:gridSpan': '', attr: { 'w:val': colY } }); //
                     var b = _body;
                     b;
+                    var newWidth = colY * 4657;
+                    newWidth;
+                    var test_1 = _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].splice(0, 1, {
+                        'w:tcW': '', attr: { 'w:w': newWidth, 'w:type': 'dxa' }
+                    });
                     ///// loop for merge Col:
                     for (var i_1 = 1; i_1 < counterY; i_1++) {
                         myY = myY + 1;
@@ -130,6 +128,7 @@ var table = /** @class */ (function () {
                     ///// loop for merge Col:
                     for (var i_3 = 1; i_3 < counterY; i_3++) {
                         myY = myY + 1;
+                        myX;
                         delete _body['w:tbl'][myX]['w:tr'][myY]; // merge col
                     } // for
                     /// end loop for
@@ -140,12 +139,17 @@ var table = /** @class */ (function () {
                     var myX = checkMerge.x;
                     var myY = checkMerge.y;
                     var counterY = colY;
+                    counterY;
                     /// start merge Row and Col
                     _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({
                         'w:gridSpan': '',
                         attr: { 'w:val': colY }
                     }); ///<w:gridSpan w:val="2"/>
-                    var b = _body;
+                    var newWidth = colY * 4657;
+                    newWidth;
+                    var test_2 = _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].splice(0, 1, {
+                        'w:tcW': '', attr: { 'w:w': newWidth, 'w:type': 'dxa' }
+                    });
                     ///// loop for merge Col:
                     for (var i_4 = 1; i_4 < counterY; i_4++) {
                         myY = myY + 1;
@@ -168,7 +172,7 @@ var table = /** @class */ (function () {
                     ///// loop for merge Row:
                     for (var i_5 = 1; i_5 < counterX; i_5++) {
                         myX = myX + 1;
-                        _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({ 'w:vMerge': [] }); // merge row
+                        _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({ 'w:vMerge': [] });
                     } // for
                     var c = _body;
                     c;
@@ -177,7 +181,7 @@ var table = /** @class */ (function () {
         } // for row
         this.globalTable = _body;
     }; //createMerge
-    table.prototype.tableStyle = function (style) {
+    table.prototype.tableStyle = function () {
         this.globalTable; // tbl body object
         this.globalData; // The data sent from the server side
         var count = this.globalData.length;
@@ -188,30 +192,22 @@ var table = /** @class */ (function () {
             var x = infoData.x;
             var y = infoData.y;
             var checkMergeCol = infoData.mergeCol;
-            var style_1 = infoData.style;
-            x;
-            y;
-            style_1;
-            checkMergeCol;
+            var style = infoData.style;
             var check = Object.keys(styleObject).length;
-            check;
             if (check == 0) {
-                styleObject = { x: x, y: y, style: style_1 };
+                styleObject = { x: x, y: y, style: style };
                 styleData.push(styleObject);
             }
             else if (check > 0) {
-                //  this.globalP = (<any>Object).assign(objP, this.globalP);
-                if (style_1 == undefined) {
+                if (style == undefined) {
                     styleObject = { x: x, y: y };
                     styleData.push(styleObject);
                 }
                 else {
-                    styleObject = { x: x, y: y, style: style_1 };
+                    styleObject = { x: x, y: y, style: style };
                     styleData.push(styleObject);
                 }
             }
-            //let styleData = {x:x, y:y, style:style};
-            styleData;
         } //  for
         if (styleData != null) {
             if (typeof styleData == 'object') {
@@ -223,59 +219,226 @@ var table = /** @class */ (function () {
                     for (var j = 0; j < counterCol; j++) {
                         var find = _.find(styleData, { x: i, y: j });
                         var newStyle = find.style;
-                        newStyle;
                         if (newStyle != undefined) {
-                            var borderSize = newStyle.borderSize;
+                            var topBorderSize = newStyle.topBorderSize;
+                            var bottomBorderSize = newStyle.bottomBorderSize;
+                            var leftBorderSize = newStyle.leftBorderSize;
+                            var rightBorderSize = newStyle.rightBorderSize;
                             var align = newStyle.align;
                             var fontFamily = newStyle.fontFamily;
                             var fontColor = newStyle.fontColor;
                             var fontSize = newStyle.fontSize;
                             var backgroundCell = newStyle.background;
                             var bold = newStyle.bold;
-                            if (borderSize != undefined) { ///// if check sizeBorder
+                            var topBorderColor = newStyle.topBorderColor;
+                            var rightBorderColor = newStyle.rightBorderColor;
+                            var leftBorderColor = newStyle.leftBorderColor;
+                            var bottomBorderColor = newStyle.bottomBorderColor;
+                            var topBorder = newStyle.topBorder;
+                            var bottomBorder = newStyle.bottomBorder;
+                            var leftBorder = newStyle.leftBorder;
+                            var rightBorder = newStyle.rightBorder;
+                            ///////////////////////////////////////////////////CHECK BORDER  ///////////////////////////////////////////////
+                            if (topBorder != undefined) {
                                 this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
-                                    'w:tblBorders': [
-                                        {
-                                            'w:top': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        },
-                                        {
-                                            'w:left': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        },
-                                        {
-                                            'w:bottom': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        },
-                                        {
-                                            'w:right': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        }
+                                    'w:tcBorders': [
+                                        { 'w:top': '', attr: { 'w:val': 'nil' } }
                                     ]
-                                } // 'w:tblBorders'
-                                );
+                                }); // push
+                            } //  check borderTop
+                            if (bottomBorder != undefined) {
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                    'w:tcBorders': [
+                                        { 'w:bottom': '', attr: { 'w:val': 'nil' } }
+                                    ]
+                                }); // push
                                 this.globalTable;
-                            } // if check sizeBorder
+                            } // check borderBottom
+                            if (rightBorder != undefined) {
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                    'w:tcBorders': [
+                                        { 'w:left': '', attr: { 'w:val': 'nil' } }
+                                    ]
+                                }); // push
+                            } //  check border Right
+                            if (leftBorder != undefined) {
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                    'w:tcBorders': [
+                                        { 'w:right': '', attr: { 'w:val': 'nil' } }
+                                    ]
+                                }); // push
+                            } //  check border Left
+                            this.globalTable;
+                            /////////////////////////////////////////////////// END ///////////////////////////////////////////////
+                            /////////////////////////////////////////////////// BORDER SIZE ///////////////////////////////////////////////
+                            if (topBorder != undefined) {
+                                this.globalTable;
+                            }
+                            else {
+                                if (topBorderSize != undefined) { ///// if check topBorderSize
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                        'w:tblBorders': [
+                                            {
+                                                'w:top': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': topBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }
+                                        ]
+                                    }); // push
+                                } // if check topBorderSize
+                            } // check topBorder active
+                            if (bottomBorder != undefined) {
+                                this.globalTable;
+                            }
+                            else {
+                                if (bottomBorderSize != undefined) { // if check bottomBorderSize
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                        'w:tblBorders': [
+                                            {
+                                                'w:bottom': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': bottomBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }
+                                        ]
+                                    }); // push
+                                } //  if check bottomBorderSize
+                            } // if check  bottomBorder Active
+                            if (rightBorder) {
+                                this.globalTable;
+                            }
+                            else {
+                                if (rightBorderSize != undefined) { // if check rightBorderSize
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                        'w:tblBorders': [
+                                            {
+                                                'w:left': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': rightBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }
+                                        ]
+                                    }); // push
+                                } //  if check rightBorderSize
+                            }
+                            if (leftBorder != undefined) {
+                                this.globalTable;
+                            }
+                            else {
+                                if (leftBorderSize != undefined) { // if check rightBorderSize
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                        'w:tblBorders': [
+                                            {
+                                                'w:right': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': leftBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }
+                                        ]
+                                    }); // push
+                                } //  if check rightBorderSize
+                            }
+                            this.globalTable;
+                            ///////////////////////////////////////////////////End ///////////////////////////////////////////////
+                            // //////////////////////////////////////////// BORDER  COLOR//////////////////////////////////////////////////
+                            if (topBorderColor != undefined) { //// if check for topBorderColor
+                                if (topBorder = !undefined) {
+                                    this.globalTable;
+                                }
+                                else {
+                                    if (topBorderSize != undefined) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:top': '', attr: { 'w:val': 'single', 'w:sz': topBorderSize, 'w:space': '0', 'w:color': topBorderColor } }
+                                            ]
+                                        }); // push
+                                    }
+                                    else {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:top': '', attr: { 'w:val': 'single', 'w:space': '0', 'w:color': topBorderColor } }
+                                            ]
+                                        }); // push
+                                    } //  else
+                                }
+                            } //  if check for topBorderColor
+                            //
+                            if (bottomBorderColor != undefined) { //  if check for borderBottomColor
+                                if (bottomBorder != undefined) {
+                                    this.globalTable;
+                                }
+                                else {
+                                    if (bottomBorderSize != undefined) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:bottom': '', attr: { 'w:val': 'single', 'w:sz': bottomBorderSize, 'w:space': '0', 'w:color': bottomBorderColor } }
+                                            ]
+                                        }); // push
+                                    }
+                                    else {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:bottom': '', attr: { 'w:val': 'single', 'w:space': '0', 'w:color': bottomBorderColor } }
+                                            ]
+                                        }); // push
+                                    } //  else
+                                }
+                            } //  if check for borderBottomColor
+                            //
+                            if (rightBorderColor != undefined) { //if check for borderRightColor
+                                if (rightBorder != undefined) {
+                                    this.globalTable;
+                                }
+                                else {
+                                    if (rightBorderSize != undefined) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:left': '', attr: { 'w:val': 'single', 'w:sz': rightBorderSize, 'w:space': '0', 'w:color': rightBorderColor } }
+                                            ]
+                                        }); // push
+                                    }
+                                    else {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:left': '', attr: { 'w:val': 'single', 'w:space': '0', 'w:color': rightBorderColor } }
+                                            ]
+                                        }); // push
+                                    } //  else
+                                }
+                            } //if check for borderRightColor
+                            //
+                            if (leftBorderColor != undefined) { //if check for borderLeftColor
+                                if (leftBorder != undefined) {
+                                    this.globalTable;
+                                }
+                                else {
+                                    if (leftBorderSize != undefined) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:right': '', attr: { 'w:val': 'single', 'w:sz': leftBorderSize, 'w:space': '0', 'w:color': leftBorderColor } }
+                                            ]
+                                        }); // push
+                                    }
+                                    else {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
+                                            'w:tblBorders': [
+                                                { 'w:right': '', attr: { 'w:val': 'single', 'w:space': '0', 'w:color': leftBorderColor } }
+                                            ]
+                                        }); // push
+                                    } //  else
+                                } //if check for borderLeftColor
+                                //
+                            } //  check for active leftBorder
+                            // ////////////////////////////////////////////END///////////////////////////////////////////////////
                             if (align != undefined) { // if check align
                                 var check = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
                                 if (check == 1) {
@@ -284,11 +447,11 @@ var table = /** @class */ (function () {
                                             { 'w:jc': '', attr: { 'w:val': align } }
                                         ]
                                     });
-                                    this.globalTable;
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
                                 }
                                 else if (check > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': align } });
-                                    this.globalTable;
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
                                 }
                             } // if check align
                             if (fontFamily != undefined) { // if  check font
@@ -303,11 +466,9 @@ var table = /** @class */ (function () {
                                             ]
                                         } // 'w:rPr'
                                         );
-                                        this.globalTable;
                                     }
                                     else if (checkR > 1) {
                                         this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
-                                        this.globalTable;
                                     }
                                 }
                                 else if (checkP > 1) {
@@ -320,11 +481,9 @@ var table = /** @class */ (function () {
                                             ]
                                         } // 'w:rPr'
                                         );
-                                        this.globalTable;
                                     }
                                     else if (checkR > 1) {
                                         this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
-                                        this.globalTable;
                                     }
                                 }
                             } // if  check font
@@ -339,11 +498,9 @@ var table = /** @class */ (function () {
                                             ]
                                         } // 'w:rPr'
                                         );
-                                        this.globalTable;
                                     }
                                     else if (checkR > 1) {
                                         this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:color': '', attr: { 'w:val': fontColor } });
-                                        this.globalTable;
                                     }
                                 }
                                 else if (checkP > 1) {
@@ -355,11 +512,9 @@ var table = /** @class */ (function () {
                                             ]
                                         } // 'w:rPr'
                                         );
-                                        this.globalTable;
                                     }
                                     else if (checkR > 1) {
                                         this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:color': '', attr: { 'w:val': fontColor } });
-                                        this.globalTable;
                                     }
                                 }
                             } // if check fontColor
@@ -375,11 +530,9 @@ var table = /** @class */ (function () {
                                             ]
                                         } // 'w:rPr'
                                         );
-                                        this.globalTable;
                                     }
                                     else if (checkR > 1) {
                                         this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:sz': '', attr: { 'w:val': fontSize } });
-                                        this.globalTable;
                                     }
                                 }
                                 else if (checkP > 1) {
@@ -391,17 +544,14 @@ var table = /** @class */ (function () {
                                             ]
                                         } // 'w:rPr'
                                         );
-                                        this.globalTable;
                                     }
                                     else if (checkR > 1) {
                                         this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:sz': '', attr: { 'w:val': fontSize } });
-                                        this.globalTable;
                                     }
                                 }
                             } //  if check fontSize
                             if (backgroundCell != undefined) { // if check background cell table
                                 this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:shd': '', attr: { 'w:val': 'clear', 'w:color': 'auto', 'w:fill': backgroundCell } });
-                                this.globalTable;
                             } // if check background cell table
                             if (bold != undefined) { // if for check bold
                                 var checkP = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
@@ -414,12 +564,10 @@ var table = /** @class */ (function () {
                                             ]
                                         } // 'w:rPr'
                                         );
-                                        this.globalTable;
                                     }
                                     else if (checkR > 1) {
                                         this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].push({ 'w:bCs': '' } // <w:bCs/>
                                         );
-                                        this.globalTable;
                                     }
                                 }
                                 else if (checkP > 1) {

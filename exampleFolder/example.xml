@@ -1,24 +1,363 @@
-<w:body>
-    <w:p w:rsidR="008F6296" w:rsidRDefault="005420BE" w:rsidP="003042D4">
-        <w:proofErr w:type="spellStart"/>
-        <w:r>
-            <w:rPr>
-                <w:rFonts w:cs="B Nazanin" w:hint="cs"/>
-                <w:b/>
-                <w:color w:val="000000"/>
-                <w:szCs w:val="40"/>
-                <w:highlight w:val="white"/>
-            </w:rPr>
-            <w:t>milad</w:t>
-        </w:r>
-        <w:bookmarkStart w:id="0" w:name="_GoBack"/>
-        <w:bookmarkEnd w:id="0"/>
-        <w:proofErr w:type="spellEnd"/>
-    </w:p>
-    <w:sectPr w:rsidR="008F6296">
-        <w:pgSz w:w="12240" w:h="15840"/>
-        <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
-        <w:cols w:space="720"/>
-        <w:docGrid w:linePitch="360"/>
-    </w:sectPr>
-</w:body>
+<w:tbl>
+    <w:tblPr>
+        <w:bidiVisual/>
+        <w:tblW w:w="0" w:type="auto"/>
+        <w:tblBorders>
+            <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto"/>
+            <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto"/>
+            <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto"/>
+            <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto"/>
+            <w:insideH w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto"/>
+            <w:insideV w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto"/>
+        </w:tblBorders>
+        <w:tblLook w:val="04A0"/>
+    </w:tblPr>
+    <w:tblGrid>
+        <w:gridCol w:w="876"/>
+        <w:gridCol w:w="826"/>
+        <w:gridCol w:w="850"/>
+        <w:gridCol w:w="783"/>
+        <w:gridCol w:w="918"/>
+        <w:gridCol w:w="1130"/>
+        <w:gridCol w:w="883"/>
+        <w:gridCol w:w="845"/>
+        <w:gridCol w:w="810"/>
+        <w:gridCol w:w="845"/>
+        <w:gridCol w:w="810"/>
+    </w:tblGrid>
+    <w:tr wsp:rsidR="00A112B4" wsp:rsidRPr="00A112B4" wsp:rsidTr="00A112B4">
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:vmerge w:val="restart"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="DCDCDC"/>
+                <w:vAlign w:val="center"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                    <w:jc w:val="center"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="B Nazanin"/>
+                        <wx:font wx:val="B Nazanin"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>سال و استان</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:vmerge w:val="restart"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                <w:vAlign w:val="center"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                    <w:jc w:val="center"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="B Nazanin"/>
+                        <wx:font wx:val="B Nazanin"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>جمع</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:vmerge w:val="restart"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                <w:vAlign w:val="center"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                    <w:jc w:val="center"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="B Nazanin"/>
+                        <wx:font wx:val="B Nazanin"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>عادی</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:gridSpan w:val="4"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                <w:vAlign w:val="center"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                    <w:jc w:val="center"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="B Nazanin"/>
+                        <wx:font wx:val="B Nazanin"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>سفارشی</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:gridSpan w:val="2"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                <w:vAlign w:val="center"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                    <w:jc w:val="center"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="B Nazanin"/>
+                        <wx:font wx:val="B Nazanin"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>پیشتاز</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:gridSpan w:val="2"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+                <w:vAlign w:val="center"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                    <w:jc w:val="center"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="B Nazanin"/>
+                        <wx:font wx:val="B Nazanin"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>پست ویژه</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+    </w:tr>
+    <w:tr wsp:rsidR="00A112B4" wsp:rsidRPr="00A112B4" wsp:rsidTr="00A112B4">
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:vmerge/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="00F85CF1" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:vmerge/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="00F85CF1" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:vmerge/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="00F85CF1" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>نامه</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>بسته</w:t>
+                </w:r>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:t></w:t>
+                </w:r>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>وکیسه</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>مطبوعات</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>امانت</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>پاکت</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>بسته</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>پاکت</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+        <w:tc>
+            <w:tcPr>
+                <w:tcW w:w="4657" w:type="dxa"/>
+                <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
+            </w:tcPr>
+            <w:p wsp:rsidR="00F85CF1" wsp:rsidRPr="00A112B4" wsp:rsidRDefault="0077342E" wsp:rsidP="00A112B4">
+                <w:pPr>
+                    <w:spacing w:after="0" w:line="240" w:line-rule="auto"/>
+                </w:pPr>
+                <w:r wsp:rsidRPr="00A112B4">
+                    <w:rPr>
+                        <w:rFonts w:cs="Times New Roman"/>
+                        <wx:font wx:val="Times New Roman"/>
+                        <w:rtl/>
+                    </w:rPr>
+                    <w:t>بسته</w:t>
+                </w:r>
+            </w:p>
+        </w:tc>
+    </w:tr>
+</w:tbl>پ

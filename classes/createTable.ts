@@ -27,11 +27,6 @@ export class table {
             for (let i = 1; i < check; i++) {
                 _body['w:tbl'].pop();
             }
-            //this.globalTbl = (<any>Object).assign(resultTable, this.globalTbl);
-            // let p = {'w:p':[]};
-            // _body = (<any>Object).assign(p, _body);
-            _body;
-            //  return _body;
         }
         _body;
         let counterRow = _.uniqBy(data, 'x');
@@ -114,15 +109,19 @@ export class table {
                 if (colY != '' && rowX != '') {
                     let myX = checkMerge.x;
                     let myY = checkMerge.y;
+                    myY;
                     let counterY = colY;// mergeCol
                     let counterX = rowX; //mergeRow
                     /// start merge Row and Col
-                    _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({
-                        'w:vMerge': '',
-                        attr: {'w:val': 'restart'}
-                    }, {'w:gridSpan': '', attr: {'w:val': colY}}); ///<w:vMerge w:val="restart"/>
+                    _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push(
+                        {'w:vMerge': '',attr: {'w:val': 'restart'}}, {'w:gridSpan': '', attr: {'w:val': colY}}); //
                     let b = _body;
                     b;
+                    let newWidth = colY*4657;
+                    newWidth;
+                    let test = _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].splice(0,1,{
+                        'w:tcW':'', attr:{'w:w':newWidth, 'w:type':'dxa'}
+                    });
                     ///// loop for merge Col:
                     for (let i = 1; i < counterY; i++) {
                         myY = myY + 1;
@@ -147,6 +146,7 @@ export class table {
                     ///// loop for merge Col:
                     for (let i = 1; i < counterY; i++) {
                         myY = myY + 1;
+                        myX;
                         delete _body['w:tbl'][myX]['w:tr'][myY]; // merge col
                     }// for
                     /// end loop for
@@ -160,13 +160,18 @@ export class table {
                     let myX = checkMerge.x;
                     let myY = checkMerge.y;
                     let counterY = colY;
-
+                    counterY;
                     /// start merge Row and Col
                     _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({
                         'w:gridSpan': '',
                         attr: {'w:val': colY}
                     }); ///<w:gridSpan w:val="2"/>
-                    let b = _body;
+                    let newWidth = colY*4657;
+                    newWidth;
+                    let test = _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].splice(0,1,{
+                        'w:tcW':'', attr:{'w:w':newWidth, 'w:type':'dxa'}
+                    });
+
                     ///// loop for merge Col:
                     for (let i = 1; i < counterY; i++) {
                         myY = myY + 1;
@@ -190,10 +195,11 @@ export class table {
                     }); ///<w:vMerge w:val="restart"/>
                     let b = _body;
                     b;
+
                     ///// loop for merge Row:
                     for (let i = 1; i < counterX; i++) {
                         myX = myX + 1;
-                        _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({'w:vMerge': []}); // merge row
+                        _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].push({'w:vMerge': []});
                     }// for
                     let c = _body;
                     c
@@ -208,7 +214,7 @@ export class table {
     }//createMerge
 
 
-    tableStyle(style?: any) {
+    tableStyle() {
         this.globalTable;// tbl body object
         this.globalData; // The data sent from the server side
 
@@ -221,18 +227,12 @@ export class table {
             let y = infoData.y;
             let checkMergeCol = infoData.mergeCol;
             let style = infoData.style;
-            x;
-            y;
-            style;
-            checkMergeCol;
 
             let check = Object.keys(styleObject).length;
-            check;
             if (check == 0) {
                 styleObject = {x: x, y: y, style: style};
                 styleData.push(styleObject);
             } else if (check > 0) {
-                //  this.globalP = (<any>Object).assign(objP, this.globalP);
                 if(style == undefined){
                     styleObject = {x: x, y: y};
                     styleData.push(styleObject);
@@ -242,8 +242,6 @@ export class table {
                 }
 
             }
-            //let styleData = {x:x, y:y, style:style};
-            styleData;
         }//  for
 
 
@@ -258,61 +256,279 @@ export class table {
                     for (let j = 0; j < counterCol; j++) {
                         let find = _.find(styleData, {x: i, y: j});
                         let newStyle = find.style;
-                        newStyle;
                     if(newStyle != undefined ){
-                        let borderSize = newStyle.borderSize;
+                        let topBorderSize = newStyle.topBorderSize;
+                        let bottomBorderSize = newStyle.bottomBorderSize;
+                        let leftBorderSize = newStyle.leftBorderSize;
+                        let rightBorderSize = newStyle.rightBorderSize;
                         let align = newStyle.align;
                         let fontFamily = newStyle.fontFamily;
                         let fontColor = newStyle.fontColor;
                         let fontSize = newStyle.fontSize;
                         let backgroundCell = newStyle.background;
                         let bold = newStyle.bold;
-                        if (borderSize != undefined) { ///// if check sizeBorder
+                        let topBorderColor = newStyle.topBorderColor;
+                        let rightBorderColor = newStyle.rightBorderColor;
+                        let leftBorderColor = newStyle.leftBorderColor;
+                        let bottomBorderColor = newStyle.bottomBorderColor;
+                        let topBorder = newStyle.topBorder;
+                        let bottomBorder = newStyle.bottomBorder;
+                        let leftBorder = newStyle.leftBorder;
+                        let rightBorder = newStyle.rightBorder;
+
+///////////////////////////////////////////////////CHECK BORDER  ///////////////////////////////////////////////
+                        if(topBorder != undefined ){
                             this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
                                 {
-                                    'w:tblBorders': [
-                                        {
-                                            'w:top': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        },
-                                        {
-                                            'w:left': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        },
-                                        {
-                                            'w:bottom': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        },
-                                        {
-                                            'w:right': '',
-                                            attr: {
-                                                'w:val': 'single',
-                                                'w:sz': borderSize,
-                                                'w:space': '0',
-                                                'w:color': 'auto'
-                                            }
-                                        }
+                                    'w:tcBorders': [
+                                        {'w:top':'', attr: {'w:val': 'nil'}}
                                     ]
-                                }// 'w:tblBorders'
+                                }
+                            );// push
+                        }//  check borderTop
 
-                            );
+
+                        if(bottomBorder != undefined ){
+                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                {
+                                    'w:tcBorders': [
+                                        {'w:bottom':'', attr: {'w:val': 'nil'}}
+                                    ]
+                                }
+                            );// push
                             this.globalTable;
-                        }// if check sizeBorder
+                        } // check borderBottom
+
+
+                        if(rightBorder != undefined ){
+                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                {
+                                    'w:tcBorders': [
+                                        {'w:left':'', attr: {'w:val': 'nil'}}
+                                    ]
+                                }
+                            );// push
+                        }//  check border Right
+
+
+                        if(leftBorder != undefined ){
+                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                {
+                                    'w:tcBorders': [
+                                        {'w:right':'', attr: {'w:val': 'nil'}}
+                                    ]
+                                }
+                            );// push
+                        }//  check border Left
+
+                        this.globalTable;
+/////////////////////////////////////////////////// END ///////////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////////////// BORDER SIZE ///////////////////////////////////////////////
+                        if(topBorder != undefined){
+                            this.globalTable;
+                        }else{
+                            if (topBorderSize != undefined) { ///// if check topBorderSize
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                    {
+                                        'w:tblBorders': [
+                                            {
+                                                'w:top': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': topBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }]
+                                    }
+                                );// push
+                            }// if check topBorderSize
+                        } // check topBorder active
+
+                        if(bottomBorder != undefined){
+                            this.globalTable;
+                        }else{
+                            if(bottomBorderSize  != undefined ){ // if check bottomBorderSize
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                    {
+                                        'w:tblBorders': [
+                                            {
+                                                'w:bottom': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': bottomBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }]
+                                    }
+                                );// push
+                            }//  if check bottomBorderSize
+                        }// if check  bottomBorder Active
+
+
+                        if(rightBorder){
+                               this.globalTable;
+                        }else{
+                            if(rightBorderSize  != undefined ){ // if check rightBorderSize
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                    {
+                                        'w:tblBorders': [
+                                            {
+                                                'w:left': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': rightBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }]
+                                    }
+                                );// push
+                            }//  if check rightBorderSize
+                        }
+
+
+                        if(leftBorder != undefined){
+                            this.globalTable;
+                        }else{
+                            if(leftBorderSize  != undefined ){ // if check rightBorderSize
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                    {
+                                        'w:tblBorders': [
+                                            {
+                                                'w:right': '',
+                                                attr: {
+                                                    'w:val': 'single',
+                                                    'w:sz': leftBorderSize,
+                                                    'w:space': '0',
+                                                }
+                                            }]
+                                    }
+                                );// push
+                            }//  if check rightBorderSize
+
+                        }
+       this.globalTable;
+
+///////////////////////////////////////////////////End ///////////////////////////////////////////////
+
+
+
+
+
+
+// //////////////////////////////////////////// BORDER  COLOR//////////////////////////////////////////////////
+                        if(topBorderColor != undefined){ //// if check for topBorderColor
+                            if(topBorder =! undefined) {
+                                this.globalTable;
+                            }else{
+                                if(topBorderSize != undefined){
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:top':'', attr: {'w:val': 'single','w:sz': topBorderSize,'w:space': '0','w:color': topBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }else{
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:top':'', attr: {'w:val': 'single','w:space': '0','w:color': topBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }//  else
+                            }
+
+                        }//  if check for topBorderColor
+//
+
+
+                        if(bottomBorderColor != undefined){//  if check for borderBottomColor
+                            if(bottomBorder != undefined){
+                                this.globalTable;
+                            }else{
+
+                                if(bottomBorderSize != undefined){
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:bottom':'', attr: {'w:val': 'single','w:sz': bottomBorderSize,'w:space': '0','w:color':bottomBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }else{
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:bottom':'', attr: {'w:val': 'single','w:space': '0','w:color': bottomBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }//  else
+                            }
+                        }//  if check for borderBottomColor
+//
+
+                        if(rightBorderColor != undefined){ //if check for borderRightColor
+                            if(rightBorder != undefined){
+                                this.globalTable;
+                            }else{
+                                if(rightBorderSize != undefined){
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:left':'', attr: {'w:val': 'single','w:sz': rightBorderSize,'w:space': '0','w:color': rightBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }else{
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:left':'', attr: {'w:val': 'single','w:space': '0','w:color': rightBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }//  else
+                            }
+                        }//if check for borderRightColor
+//
+
+
+                        if(leftBorderColor != undefined){ //if check for borderLeftColor
+                            if(leftBorder != undefined){
+                                this.globalTable;
+                            }else{
+                                if(leftBorderSize != undefined){
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:right':'', attr: {'w:val': 'single','w:sz': leftBorderSize,'w:space': '0','w:color': leftBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }else{
+                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                        {
+                                            'w:tblBorders': [
+                                                {'w:right':'', attr: {'w:val': 'single','w:space': '0','w:color': leftBorderColor}}
+                                            ]
+                                        }
+                                    );// push
+                                }//  else
+                            }//if check for borderLeftColor
+//
+                        } //  check for active leftBorder
+
+// ////////////////////////////////////////////END///////////////////////////////////////////////////
+
+
+
 
                         if (align != undefined) { // if check align
                             let check = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
@@ -325,15 +541,19 @@ export class table {
                                         ]
                                     }
                                 );
-                                this.globalTable;
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                    {'w:vAlign':'', attr: {'w:val': align}}
+                                 );
+
                             } else if (check > 1) {
                                 this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:pPr'].push(
                                     {'w:jc': '', attr: {'w:val': align}}
                                 );
-                                this.globalTable;
+                                this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
+                                 {'w:vAlign':'', attr: {'w:val': align}}
+                               );
                             }
                         }// if check align
-
 
                         if (fontFamily != undefined) { // if  check font
                             let checkP = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
@@ -350,13 +570,11 @@ export class table {
                                             ]
                                         }// 'w:rPr'
                                     );
-                                    this.globalTable;
                                 } else if (checkR > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push(
                                         {'w:rFonts': '', attr: {'w:cs': fontFamily}},
                                         {'w:rtl': ''}
                                     );
-                                    this.globalTable;
                                 }
                             } else if (checkP > 1) {
                                 let checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
@@ -370,13 +588,11 @@ export class table {
                                             ]
                                         }// 'w:rPr'
                                     );
-                                    this.globalTable;
                                 } else if (checkR > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push(
                                         {'w:rFonts': '', attr: {'w:cs': fontFamily}},
                                         {'w:rtl': ''}
                                     );
-                                    this.globalTable;
                                 }
                             }
                         }// if  check font
@@ -394,12 +610,10 @@ export class table {
                                             ]
                                         }// 'w:rPr'
                                     );
-                                    this.globalTable;
                                 } else if (checkR > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push(
                                         {'w:color': '', attr: {'w:val': fontColor}}
                                     );
-                                    this.globalTable;
                                 }
 
                             } else if (checkP > 1) {
@@ -412,12 +626,10 @@ export class table {
                                             ]
                                         }// 'w:rPr'
                                     );
-                                    this.globalTable;
                                 } else if (checkR > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push(
                                         {'w:color': '', attr: {'w:val': fontColor}}
                                     );
-                                    this.globalTable;
                                 }
                             }
                         }// if check fontColor
@@ -436,12 +648,10 @@ export class table {
                                             ]
                                         }// 'w:rPr'
                                     );
-                                    this.globalTable;
                                 } else if (checkR > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push(
                                         {'w:sz': '', attr: {'w:val': fontSize}}
                                     );
-                                    this.globalTable;
                                 }
                             } else if (checkP > 1) {
                                 let checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
@@ -453,12 +663,10 @@ export class table {
                                             ]
                                         }// 'w:rPr'
                                     );
-                                    this.globalTable;
                                 } else if (checkR > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push(
                                         {'w:sz': '', attr: {'w:val': fontSize}}
                                     );
-                                    this.globalTable;
                                 }
 
 
@@ -469,7 +677,6 @@ export class table {
                             this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push(
                                 {'w:shd': '', attr: {'w:val': 'clear', 'w:color': 'auto', 'w:fill': backgroundCell}}
                             );
-                            this.globalTable;
                         }// if check background cell table
 
 
@@ -485,12 +692,10 @@ export class table {
                                             ]
                                         }// 'w:rPr'
                                     );
-                                    this.globalTable;
                                 } else if (checkR > 1) {
                                     this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].push(
                                         {'w:bCs': ''}  // <w:bCs/>
                                     );
-                                    this.globalTable;
                                 }
 
                             } else if (checkP > 1) {
