@@ -1389,7 +1389,7 @@ export class table {
 
     }
 
-    
+
 
 
     callingMethod(body: any, data: any, style?: any) {
