@@ -234,11 +234,14 @@ var Docx = /** @class */ (function () {
         //return table;
     }; // Method createTable
     Docx.prototype.generate = function () {
+        this.globalTbl;
+        this.stringData;
         var sourceData = this.sourceData;
         var wordData = _.find(sourceData, { name: 'word\\document.xml' });
         var data = wordData.data;
         var splitsourceData = data.split('{');
         var newWordData = splitsourceData[0] + this.stringData + splitsourceData[1];
+        newWordData;
         var index = _.findIndex(sourceData, { name: 'word\\document.xml' });
         sourceData.splice(index, 1, { name: 'word\\document.xml', data: newWordData });
         var archive = Archive.create('zip');
@@ -249,14 +252,17 @@ var Docx = /** @class */ (function () {
         else {
             var out = fs_1.createWriteStream(this.infoFile);
             archive.pipe(out);
+            this.sourceData;
             //createFile is done
             // add data in file
             var lengthSourceData = sourceData.length;
             for (var i = 0; i <= lengthSourceData; i++) {
                 if (i < lengthSourceData) {
                     archive.append(sourceData[i].data, { name: sourceData[i].name });
+                    this.sourceData;
                 }
                 else {
+                    this.sourceData;
                     archive.finalize();
                     //return "Create File of Docx";
                     return true;

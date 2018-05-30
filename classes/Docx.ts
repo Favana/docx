@@ -259,12 +259,14 @@ import {table}  from './createTable';
 
 
     generate(){
-
+        this.globalTbl;
+        this.stringData;
         let sourceData = this.sourceData;
         let wordData = _.find(sourceData,{name:'word\\document.xml'});
         let data = wordData.data;
         let splitsourceData = data.split('{');
         let newWordData =splitsourceData[0]+this.stringData+splitsourceData[1];
+        newWordData;
         let index = _.findIndex(sourceData, {name:'word\\document.xml'});
         sourceData.splice(index,1,{name:'word\\document.xml', data:newWordData});
         const  archive = Archive.create('zip');
@@ -275,7 +277,7 @@ import {table}  from './createTable';
         }else{
             let out = createWriteStream(this.infoFile);
             archive.pipe(out);
-
+            this.sourceData
             //createFile is done
 
             // add data in file
@@ -283,7 +285,9 @@ import {table}  from './createTable';
             for(let i=0; i<=lengthSourceData; i++){
                 if(i< lengthSourceData){
                     archive.append(sourceData[i].data,{name:sourceData[i].name});
+                    this.sourceData;
                 }else{
+                    this.sourceData;
                     archive.finalize();
                     //return "Create File of Docx";
                     return true;

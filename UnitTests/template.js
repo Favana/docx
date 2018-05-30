@@ -12,10 +12,11 @@ describe('default Template', function () {
             { x: 1, y: 3, value: '', mergeRow: '', mergeCol: '' },
             { x: 1, y: 4, value: '', mergeRow: '', mergeCol: '' },
             { x: 2, y: 0, value: '', mergeRow: '', mergeCol: '' },
-            { x: 2, y: 1, value: 'حداقل', mergeRow: '', mergeCol: '2', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
+            { x: 2, y: 1, value: 'حداقل', mergeRow: '', mergeCol: '2', note: { text: '(1)', position: '' }, style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
             { x: 2, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 2, y: 3, value: 'حداکثر', mergeRow: '', mergeCol: '2', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
             { x: 2, y: 4, value: '', mergeRow: '', mergeCol: '' },
+            //
             { x: 3, y: 0, value: '', mergeRow: '', mergeCol: '' },
             { x: 3, y: 1, value: 'دقیقه', mergeRow: '', mergeCol: '', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
             { x: 3, y: 2, value: 'درجه', mergeRow: '', mergeCol: '', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
@@ -23,7 +24,7 @@ describe('default Template', function () {
             { x: 3, y: 4, value: 'درجه', mergeRow: '', mergeCol: '', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
             { x: 4, y: 0, value: 'کل کشور', mergeRow: '', mergeCol: '', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
             { x: 4, y: 1, value: '4', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
-            { x: 4, y: 2, value: '2', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
+            { x: 4, y: 2, value: '2', mergeRow: '', mergeCol: '', note: { text: '(2)', position: '' }, style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 4, y: 3, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 4, y: 4, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 5, y: 0, value: 'تهران', mergeRow: '', mergeCol: '', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
@@ -37,8 +38,8 @@ describe('default Template', function () {
             { x: 6, y: 3, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 6, y: 4, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 7, y: 0, value: 'مازندران', mergeRow: '', mergeCol: '', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
-            { x: 7, y: 1, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
-            { x: 7, y: 2, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
+            { x: 7, y: 1, value: '145214', mergeRow: '', mergeCol: '', note: { text: '(3)', position: '' }, style: { align: 'center', fontFamily: 'B Nazanin' } },
+            { x: 7, y: 2, value: '145214', mergeRow: '', mergeCol: '', note: { text: '(4)', position: '' }, style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 7, y: 3, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 7, y: 4, value: '145214', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin' } },
             { x: 8, y: 0, value: 'البرز', mergeRow: '', mergeCol: '', style: { background: '#DCDCDC', align: 'center', fontFamily: 'B Nazanin' } },
@@ -624,7 +625,7 @@ describe('default Template', function () {
             console.log("Create File of Docx");
             done();
         }
-    }); /// it  /// فایل مربوط به مراكز ارائه دهنده مراقبت هاي اوليه بهداشتي
+    }); // it  /// فایل مربوط به مراكز ارائه دهنده مراقبت هاي اوليه بهداشتي
     it('Template Three', function (done) {
         var data = [
             { x: 1, y: 0, value: '', mergeRow: '2', mergeCol: '3', style: { background: '#f7f7f7', align: 'center', fontFamily: 'B Nazanin' } },
@@ -1120,7 +1121,7 @@ describe('default Template', function () {
             console.log("Create File of Docx");
             done();
         }
-    }); /// it  فایل مربوط به تفکیک جمعیت شهرستان
+    }); // it  فایل مربوط به تفکیک جمعیت شهرستان
     it('Template Five', function (done) {
         /****
         @objectBorder:
@@ -1130,18 +1131,17 @@ describe('default Template', function () {
                     right: " size type color"
                     left: " size type color"
                 }
- 
-         ****/
+         *****/
         var data = [
-            { x: 1, y: 0, value: 'سال و استان', mergeRow: '', mergeCol: '5', style: { align: 'center', fontFamily: 'B Nazanin', border: { top: "17", bottom: "17" } } },
+            { x: 1, y: 0, value: 'سال و استان', mergeRow: '', mergeCol: '5', style: { align: 'center', fontFamily: 'B Nazanin', bold: 'true', border: { top: '17', bottom: '17', left: '17' } } },
             { x: 1, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 1, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 1, y: 3, value: '', mergeRow: '', mergeCol: '' },
             { x: 1, y: 4, value: '', mergeRow: '', mergeCol: '' },
             { x: 1, y: 5, value: 'جمع', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin', border: { top: '17', bottom: '17', right: '17', left: '17' } } },
-            { x: 1, y: 6, value: 'پزشک', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin', border: { top: '17', bottom: '17', right: '17', left: '17' } } },
-            { x: 1, y: 7, value: 'پیراپزشک', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin', border: { top: '17', bottom: '17', right: '17', left: '17' } } },
-            { x: 1, y: 8, value: ' ساير كاركنان ', mergeRow: '', mergeCol: '3', style: { align: 'center', borderSize: 17, fontFamily: 'B Nazanin', border: { top: '17', bottom: '17', right: '17' } } },
+            { x: 1, y: 6, value: 'پزشک', mergeRow: '', mergeCol: '', note: { text: "(1)", position: "" }, style: { align: 'center', fontFamily: 'B Nazanin', bold: 'true', border: { top: '17', bottom: '17', right: '17', left: '17' } } },
+            { x: 1, y: 7, value: 'پیراپزشک', mergeRow: '', mergeCol: '', style: { align: 'center', fontFamily: 'B Nazanin', fontColor: 'red', border: { top: '17', bottom: '17', right: '17', left: '17' } } },
+            { x: 1, y: 8, value: ' ساير كاركنان ', mergeRow: '', mergeCol: '3', note: { text: "(2)", position: "" }, style: { align: 'center', fontFamily: 'B Nazanin', border: { top: '17', bottom: '17', right: '17' } } },
             { x: 1, y: 9, value: '  ', mergeRow: '', mergeCol: '' },
             { x: 1, y: 10, value: '  ', mergeRow: '', mergeCol: '' },
             //
@@ -1156,8 +1156,8 @@ describe('default Template', function () {
             { x: 2, y: 8, value: '100929', mergeRow: '', mergeCol: '3', style: { align: 'right', fontFamily: 'B Nazanin', border: {} } },
             { x: 2, y: 9, value: '  ', mergeRow: '', mergeCol: '' },
             { x: 2, y: 10, value: '  ', mergeRow: '', mergeCol: '' },
-            //
-            //
+            // //
+            // // // //
             { x: 3, y: 0, value: '1380 -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 3, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 3, y: 2, value: '', mergeRow: '', mergeCol: '' },
@@ -1170,8 +1170,8 @@ describe('default Template', function () {
             { x: 3, y: 9, value: '  ', mergeRow: '', mergeCol: '' },
             { x: 3, y: 10, value: '  ', mergeRow: '', mergeCol: '' },
             // // // //
-            // // // //
-            // // // //
+            // // // // // //
+            // // // // // //
             { x: 4, y: 0, value: '1385 -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 4, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 4, y: 2, value: '', mergeRow: '', mergeCol: '' },
@@ -1184,7 +1184,7 @@ describe('default Template', function () {
             { x: 4, y: 9, value: '  ', mergeRow: '', mergeCol: '' },
             { x: 4, y: 10, value: '  ', mergeRow: '', mergeCol: '' },
             // // //
-            // // //
+            // // // //
             { x: 5, y: 0, value: '1390 -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 5, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 5, y: 2, value: '', mergeRow: '', mergeCol: '' },
@@ -1196,8 +1196,8 @@ describe('default Template', function () {
             { x: 5, y: 8, value: '113184', mergeRow: '', mergeCol: '3', style: { align: 'right', fontFamily: 'B Nazanin', border: {} } },
             { x: 5, y: 9, value: '  ', mergeRow: '', mergeCol: '' },
             { x: 5, y: 10, value: '  ', mergeRow: '', mergeCol: '' },
-            // // //
-            // // //
+            // // // //
+            // // // //
             { x: 6, y: 0, value: '1391 -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 6, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 6, y: 2, value: '', mergeRow: '', mergeCol: '' },
@@ -1211,7 +1211,7 @@ describe('default Template', function () {
             { x: 6, y: 10, value: '  ', mergeRow: '', mergeCol: '' },
             // // //
             // // //
-            { x: 7, y: 0, value: '1392 -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
+            { x: 7, y: 0, value: '1392 -----------------', mergeRow: '', mergeCol: '5', note: { text: "(3)", position: "" }, style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" }, bold: 'true' } },
             { x: 7, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 7, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 7, y: 3, value: '', mergeRow: '', mergeCol: '' },
@@ -1427,7 +1427,7 @@ describe('default Template', function () {
             // //
             // // //
             // //
-            { x: 22, y: 0, value: 'خوزستان  -----------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
+            { x: 22, y: 0, value: 'خوزستان  -----------------------------', mergeRow: '', mergeCol: '5', note: { text: "(4)", position: "" }, style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 22, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 22, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 22, y: 3, value: '', mergeRow: '', mergeCol: '' },
@@ -1558,7 +1558,7 @@ describe('default Template', function () {
             // //
             // // //
             // //
-            { x: 31, y: 0, value: 'کرمانشاه -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
+            { x: 31, y: 0, value: 'کرمانشاه ----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 31, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 31, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 31, y: 3, value: '', mergeRow: '', mergeCol: '' },
@@ -1572,7 +1572,7 @@ describe('default Template', function () {
             // //
             // // //
             // //
-            { x: 32, y: 0, value: 'كهگيلويه و بويراحمد ------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', topBorder: 'false', border: { left: "17" } } },
+            { x: 32, y: 0, value: 'كهگيلويه و بويراحمد ---------------------', mergeRow: '', mergeCol: '5', note: { text: "(5)", position: "" }, style: { align: 'right', fontFamily: 'B Nazanin', topBorder: 'false', border: { left: "17" } } },
             { x: 32, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 32, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 32, y: 3, value: '', mergeRow: '', mergeCol: '' },
@@ -1586,7 +1586,7 @@ describe('default Template', function () {
             // //
             // // //
             // //
-            { x: 33, y: 0, value: 'گلستان -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
+            { x: 33, y: 0, value: 'گلستان ---------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 33, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 33, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 33, y: 3, value: '', mergeRow: '', mergeCol: '' },
@@ -1640,7 +1640,7 @@ describe('default Template', function () {
             { x: 36, y: 10, value: '', mergeRow: '', mergeCol: '' },
             // //
             // //
-            { x: 37, y: 0, value: 'مرکزی  -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
+            { x: 37, y: 0, value: 'مرکزی  --------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17" } } },
             { x: 37, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 37, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 37, y: 3, value: '', mergeRow: '', mergeCol: '' },
@@ -1681,15 +1681,15 @@ describe('default Template', function () {
             // // //
             // // //
             // // //
-            { x: 40, y: 0, value: ' یزد -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17", bottom: "17" } } },
+            { x: 40, y: 0, value: ' یزد -----------------------------------', mergeRow: '', mergeCol: '5', style: { align: 'right', fontFamily: 'B Nazanin', border: { left: "17", bottom: "18" } } },
             { x: 40, y: 1, value: '', mergeRow: '', mergeCol: '' },
             { x: 40, y: 2, value: '', mergeRow: '', mergeCol: '' },
             { x: 40, y: 3, value: '', mergeRow: '', mergeCol: '' },
             { x: 40, y: 4, value: '', mergeRow: '', mergeCol: '' },
-            { x: 40, y: 5, value: '8422 ', mergeRow: '', mergeCol: '', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "17" } } },
-            { x: 40, y: 6, value: '890', mergeRow: '', mergeCol: '', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "17" } } },
-            { x: 40, y: 7, value: '4803', mergeRow: '', mergeCol: '', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "17" } } },
-            { x: 40, y: 8, value: '2729', mergeRow: '', mergeCol: '3', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "17" } } },
+            { x: 40, y: 5, value: '8422 ', mergeRow: '', mergeCol: '', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "18" } } },
+            { x: 40, y: 6, value: '890', mergeRow: '', mergeCol: '', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "18" } } },
+            { x: 40, y: 7, value: '4803', mergeRow: '', mergeCol: '', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "18" } } },
+            { x: 40, y: 8, value: '2729', mergeRow: '', mergeCol: '3', style: { align: 'right', fontFamily: 'B Nazanin', border: { bottom: "18" } } },
             { x: 40, y: 9, value: '', mergeRow: '', mergeCol: '' },
             { x: 40, y: 10, value: '', mergeRow: '', mergeCol: '' },
         ]; // data
@@ -1700,7 +1700,7 @@ describe('default Template', function () {
         docx.createP();
         docx.createP();
         docx.addContentP('١) شامل پزشكان خارجي، دندانپزشك، داروساز و دامپزشك نيز مي باشد.', { fontSize: "10" });
-        docx.createP();
+        // docx.createP();
         docx.addContentP('2) كليه كسانيكه در گروه پزشكان و پيراپزشكان قرار نگرفته اند اعم از كاركنان پشتيباني، خدماتي و ... را شامل مي شود. ', { fontSize: '10' });
         docx.createP();
         docx.addContentP('٣) شامل آمار استان ايلام نمي باشد. ', { fontSize: "10" });

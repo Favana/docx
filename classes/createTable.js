@@ -12,6 +12,7 @@ var table = /** @class */ (function () {
          */
         this.globalTable = " ";
         this.globalData = " ";
+        this.checkNote = " ";
     }
     table.prototype.createTr = function (_body, data) {
         this.globalData = data;
@@ -60,6 +61,7 @@ var table = /** @class */ (function () {
             for (var j = 0; j < col; j++) {
                 var checkValue = _.find(data, { x: i, y: j });
                 var value = checkValue.value;
+                var note = checkValue.note;
                 if (value == '') {
                     _body['w:tbl'][i]['w:tr'][j]['w:tc'].push({ 'w:p': [] });
                 }
@@ -73,12 +75,66 @@ var table = /** @class */ (function () {
                             }
                         ]
                     });
+                    _body;
                 }
+                // if(note){
+                //      let test = _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'];
+                //      test;
+                //      if(note.text != ""){
+                //          _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].push(
+                //              {'w:r':[
+                //                      {'w:rPr':[{'w:rStyle':'' , attr:{'w:val':"FootnoteReference"}}]},// w:rPr
+                //                      {'w:FootnoteReference':'', attr:{'w:id':'1'}}
+                //              ]} // w:r
+                //          )// push
+                //          _body;
+                //      }else{
+                //         _body;
+                //      }// else
+                // }else{
+                //    _body;
+                // }
             } // for col
         } // for row
         return _body;
     }; //createP
+    table.prototype.createNote = function (_body) {
+        _body;
+        // let _body = this.globalTable;
+        var data = this.globalData;
+        var findX = _.uniqBy(data, 'x');
+        var findY = _.uniqBy(data, 'y');
+        var count = data.length;
+        var counterX = findX.length;
+        var counterY = findY.length;
+        counterY;
+        counterX;
+        for (var i = 1; i <= counterX; i++) {
+            for (var j = 0; j < counterY; j++) {
+                var dataInfo = _.find(data, { x: i, y: j });
+                dataInfo;
+                var note = dataInfo.note;
+                note;
+                if (note) {
+                    var text = note.text;
+                    var position = note.position;
+                    if (text != "") {
+                        _body['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].push({ 'w:r': [
+                                { 'w:rPr': [
+                                        { 'w:vertAlign': '', attr: { 'w:val': 'superscript' } },
+                                        { 'w:rtl': '' }
+                                    ] },
+                                { 'w:t': note.text }
+                            ] });
+                        _body;
+                    }
+                } // note
+            }
+        }
+        return _body;
+    };
     table.prototype.createMerge = function (_body, data) {
+        _body;
         var counterCol = _.uniqBy(data, 'y');
         var counterRow = _.uniqBy(data, 'x');
         var row = counterRow.length;
@@ -101,6 +157,7 @@ var table = /** @class */ (function () {
                     b;
                     var newWidth = colY * 4657;
                     newWidth;
+                    _body;
                     var test_1 = _body['w:tbl'][myX]['w:tr'][myY]['w:tc'][0]['w:tcPr'].splice(0, 1, {
                         'w:tcW': '', attr: { 'w:w': newWidth, 'w:type': 'dxa' }
                     });
@@ -135,6 +192,8 @@ var table = /** @class */ (function () {
                     var a = _body;
                     a;
                 } // if
+                //
+                /*else*/
                 else if (colY != '' && rowX == '') {
                     var myX = checkMerge.x;
                     var myY = checkMerge.y;
@@ -180,6 +239,7 @@ var table = /** @class */ (function () {
             } // for col
         } // for row
         this.globalTable = _body;
+        return this.globalTable;
     }; //createMerge
     table.prototype.tableStyle = function () {
         this.globalTable; // tbl body object
@@ -219,6 +279,8 @@ var table = /** @class */ (function () {
                     for (var j = 0; j < counterCol; j++) {
                         var find = _.find(styleData, { x: i, y: j });
                         var newStyle = find.style;
+                        var findNote = _.find(this.globalData, { x: i, y: j });
+                        var checkNote = findNote.note;
                         if (newStyle != undefined) {
                             var align = newStyle.align;
                             var fontFamily = newStyle.fontFamily;
@@ -243,6 +305,7 @@ var table = /** @class */ (function () {
                                 if (topBorder) {
                                     var topBArr = topBorder.split(' ');
                                     var check = topBArr.length;
+                                    check;
                                     if (check == 1) {
                                         if (Number(topBArr[0])) {
                                             this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
@@ -367,6 +430,7 @@ var table = /** @class */ (function () {
                                 if (bottomBorder) {
                                     var bottomBArr = bottomBorder.split(' ');
                                     var check = bottomBArr.length;
+                                    bottomBArr;
                                     if (check == 1) {
                                         if (Number(bottomBArr[0])) {
                                             this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({
@@ -771,59 +835,136 @@ var table = /** @class */ (function () {
                                 }
                                 this.globalTable;
                                 /*****************************  END Check Null Border ************************/
-                                // // ////////////////////////////////////////////END//////////////////////////////////////////////////
+                                // // ////////////////////////////////////////////END Border//////////////////////////////////////////////////
                             }
                             else {
                                 this.globalTable;
                             }
+                            ///////////////////////////////////////////////Align///////////////////////////////////////
                             if (align != undefined) { // if check align
+                                this.globalTable;
                                 var check = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
-                                if (check == 1) {
-                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0, {
-                                        'w:pPr': [
-                                            { 'w:jc': '', attr: { 'w:val': align } }
-                                        ]
-                                    });
-                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
+                                check;
+                                checkNote;
+                                if (checkNote) {
+                                    if (check == 2) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0, {
+                                            'w:pPr': [
+                                                { 'w:jc': '', attr: { 'w:val': align } }
+                                            ]
+                                        });
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
+                                        this.globalTable;
+                                    }
+                                    else if (check > 2) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': align } });
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
+                                        this.globalTable;
+                                    }
                                 }
-                                else if (check > 1) {
-                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': align } });
-                                    this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
-                                }
+                                else {
+                                    if (check == 1) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].splice(0, 0, {
+                                            'w:pPr': [
+                                                { 'w:jc': '', attr: { 'w:val': align } }
+                                            ]
+                                        });
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
+                                        this.globalTable;
+                                    }
+                                    else if (check > 1) {
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:pPr'].push({ 'w:jc': '', attr: { 'w:val': align } });
+                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:vAlign': '', attr: { 'w:val': align } });
+                                        this.globalTable;
+                                    }
+                                } // else checkNote
                             } // if check align
+                            //////////////////////////////////////////END Align//////////////////////////////////////////////
+                            //////////////////////////////////////////FontFamily//////////////////////////////////////////////
                             if (fontFamily != undefined) { // if  check font
+                                this.globalTable;
                                 var checkP = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
-                                if (checkP == 1) {
-                                    var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
-                                    if (checkR == 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
-                                            'w:rPr': [
-                                                { 'w:rFonts': '', attr: { 'w:cs': fontFamily } },
-                                                { 'w:rtl': '' }
-                                            ]
-                                        } // 'w:rPr'
-                                        );
+                                checkP;
+                                checkNote;
+                                if (checkNote) {
+                                    if (checkP == 2) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                        checkR;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:rFonts': '', attr: { 'w:cs': fontFamily } },
+                                                    { 'w:rtl': '' }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
+                                            this.globalTable;
+                                        }
                                     }
-                                    else if (checkR > 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
+                                    else if (checkP > 2) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                        checkR;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:rFonts': '', attr: { 'w:cs': fontFamily } },
+                                                    { 'w:rtl': '' }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
+                                            this.globalTable;
+                                        }
                                     }
                                 }
-                                else if (checkP > 1) {
-                                    var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
-                                    if (checkR == 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
-                                            'w:rPr': [
-                                                { 'w:rFonts': '', attr: { 'w:cs': fontFamily } },
-                                                { 'w:rtl': '' }
-                                            ]
-                                        } // 'w:rPr'
-                                        );
+                                else { // check note
+                                    if (checkP == 1) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                        checkR;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:rFonts': '', attr: { 'w:cs': fontFamily } },
+                                                    { 'w:rtl': '' }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
+                                            this.globalTable;
+                                        }
                                     }
-                                    else if (checkR > 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
+                                    else if (checkP > 1) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                        checkR;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:rFonts': '', attr: { 'w:cs': fontFamily } },
+                                                    { 'w:rtl': '' }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:rFonts': '', attr: { 'w:cs': fontFamily } }, { 'w:rtl': '' });
+                                            this.globalTable;
+                                        }
                                     }
                                 }
                             } // if  check font
+                            //////////////////////////////////////////END FontFamily//////////////////////////////////////////////
+                            ///////////////////////////////////////////////// FontColor /////////////////////////////////////
                             if (fontColor != undefined) { // if  fontColor
                                 var checkP = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
                                 if (checkP == 1) {
@@ -855,77 +996,164 @@ var table = /** @class */ (function () {
                                     }
                                 }
                             } // if check fontColor
+                            /////////////////////////////////////////////////End FontColor /////////////////////////////////////
+                            ///////////////////////////////////////////////// FontSize //////////////////////////////////////
                             if (fontSize != undefined) { // if check fontSize
                                 var checkP = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
                                 fontSize = 2 * fontSize;
-                                if (checkP == 1) {
-                                    var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
-                                    if (checkR == 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
-                                            'w:rPr': [
-                                                { 'w:sz': '', attr: { 'w:val': fontSize } }
-                                            ]
-                                        } // 'w:rPr'
-                                        );
+                                checkP;
+                                if (checkNote) {
+                                    if (checkP == 2) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:szCs': '', attr: { 'w:val': fontSize } }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:szCs': '', attr: { 'w:val': fontSize } });
+                                            this.globalTable;
+                                        }
                                     }
-                                    else if (checkR > 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:sz': '', attr: { 'w:val': fontSize } });
+                                    else if (checkP > 2) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:szCs': '', attr: { 'w:val': fontSize } }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:szCs': '', attr: { 'w:val': fontSize } });
+                                            this.globalTable;
+                                        }
                                     }
                                 }
-                                else if (checkP > 1) {
-                                    var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
-                                    if (checkR == 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
-                                            'w:rPr': [
-                                                { 'w:sz': '', attr: { 'w:val': fontSize } }
-                                            ]
-                                        } // 'w:rPr'
-                                        );
+                                else { // checkNote
+                                    if (checkP == 1) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:szCs': '', attr: { 'w:val': fontSize } }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:szCs': '', attr: { 'w:val': fontSize } });
+                                            this.globalTable;
+                                        }
                                     }
-                                    else if (checkR > 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:sz': '', attr: { 'w:val': fontSize } });
+                                    else if (checkP > 1) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:szCs': '', attr: { 'w:val': fontSize } }
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:szCs': '', attr: { 'w:val': fontSize } });
+                                            this.globalTable;
+                                        }
                                     }
-                                }
+                                } // else checkNote
                             } //  if check fontSize
+                            //////////////////////////////////////////////////END FontSize ////////////////////////////////////////
+                            ///////////////////////////////////////////////// Check Background //////////////////////////////////////
                             if (backgroundCell != undefined) { // if check background cell table
                                 this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][0]['w:tcPr'].push({ 'w:shd': '', attr: { 'w:val': 'clear', 'w:color': 'auto', 'w:fill': backgroundCell } });
                             } // if check background cell table
-                            if (bold != undefined) { // if for check bold
+                            ///////////////////////////////////////////////// END Check Background //////////////////////////////////////
+                            /////////////////////////////////////////////////  Bold //////////////////////////////////////
+                            if (bold) { // if for check bold
                                 var checkP = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'].length;
-                                if (checkP == 1) {
-                                    var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
-                                    if (checkR == 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
-                                            'w:rPr': [
-                                                { 'w:bCs': '' } // <w:bCs/>
-                                            ]
-                                        } // 'w:rPr'
-                                        );
+                                if (checkNote) {
+                                    if (checkP == 2) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:bCs': '' } // <w:bCs/>
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:bCs': '' } // <w:bCs/>
+                                            );
+                                            this.globalTable;
+                                        }
                                     }
-                                    else if (checkR > 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].push({ 'w:bCs': '' } // <w:bCs/>
-                                        );
+                                    else if (checkP > 2) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:bCs': '' } // <w:bCs/>
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:bCs': '' } // <w:bCs/>
+                                            );
+                                            this.globalTable;
+                                        }
                                     }
                                 }
-                                else if (checkP > 1) {
-                                    var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
-                                    if (checkR == 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
-                                            'w:rPr': [
-                                                { 'w:bCs': '' } // <w:bCs/>
-                                            ]
-                                        } // 'w:rPr'
-                                        );
+                                else {
+                                    if (checkP == 1) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:bCs': '' } // <w:bCs/>
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][0]['w:r'][0]['w:rPr'].push({ 'w:bCs': '' } // <w:bCs/>
+                                            );
+                                        }
                                         this.globalTable;
                                     }
-                                    else if (checkR > 1) {
-                                        this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].push({ 'w:bCs': '' } // <w:bCs/>
-                                        );
-                                        this.globalTable;
+                                    else if (checkP > 1) {
+                                        var checkR = this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].length;
+                                        if (checkR == 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'].splice(0, 0, {
+                                                'w:rPr': [
+                                                    { 'w:bCs': '' } // <w:bCs/>
+                                                ]
+                                            } // 'w:rPr'
+                                            );
+                                            this.globalTable;
+                                        }
+                                        else if (checkR > 1) {
+                                            this.globalTable['w:tbl'][i]['w:tr'][j]['w:tc'][1]['w:p'][1]['w:r'][0]['w:rPr'].push({ 'w:bCs': '' } // <w:bCs/>
+                                            );
+                                            this.globalTable;
+                                        }
                                     }
-                                }
+                                } //  else checkNote
                             } // if for check bold
-                        }
+                            ///////////////////////////////////////////////////////END Bold ///////////////////////////////////////////////
+                        } // check newStyle
                     } // for j
                 } // for i
                 return this.globalTable;
@@ -942,9 +1170,12 @@ var table = /** @class */ (function () {
         var objTr = this.createTr(body, data);
         var objTc = this.createTc(objTr, data);
         var objP = this.createPtable(objTc, data);
-        var objMerge = this.createMerge(objP, data);
+        var objNote = this.createNote(objP);
+        var objMerge = this.createMerge(objNote, data);
         var objStyle = this.tableStyle();
+        //return objMerge;
         return objStyle;
+        // return objNote;
         // next(json2xml(objMerge,{ attributes_key:'attr' } ));
     };
     return table;
